@@ -1,8 +1,10 @@
+
 function Header() {
     return (
-        <>
-            <p >HEADER</p>
-        </>
+        <header className="header">
+            
+            
+        </header>
     )
 }
 export default Header;

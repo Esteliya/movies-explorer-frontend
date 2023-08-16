@@ -6,6 +6,7 @@ import Movies from '../Movies/Movies';// страница поиска филь�
 import SavedMovies from '../SavedMovies/SavedMovies';// сохраненные фильмы
 
 // создать базовый для всех компонент ↓ ↓ ↓
+import Auth from '../Auth/Auth';// базовый компонент для следующих 2 ↓ ↓ ↓
 import Register from '../Register/Register';// страница регистрации
 import Login from '../Login/Login';// страница авторизации
 
@@ -28,6 +29,8 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/saved-movies" element={<SavedMovies />} />
+
+        <Route path="/test" element={<Auth />} />
 
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />

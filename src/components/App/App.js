@@ -12,8 +12,8 @@ import Login from '../Login/Login';// страница авторизации
 
 import Profile from '../Profile/Profile';// страница редактирования профиля
 // общие для всех компоненты
-import Header from '../Header/Header';// шапка
-import Navigation from '../Navigation/Navigation';// навигация
+import Header from '../Header/Header';// меню
+// import Navigation from '../Navigation/Navigation';// навигация ????? 
 import Footer from '../Footer/Footer';// подвал
 
 import NotFound from '../NotFound/NotFound';// страницы не существует
@@ -22,9 +22,7 @@ import NotFound from '../NotFound/NotFound';// страницы не сущес�
 function App() {
   return (
     <div className="App">
-      <p>ТЕКСТ ТЕКСТ ТЕКСТ ЕЩЕ ТЕКСТ</p>
       <Header />
-      <Navigation />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/movies" element={<Movies />} />

@@ -1,7 +1,13 @@
+import "./Main.css";
+import NavTab from "./NavTab/NavTab";
+import AboutProject from "./AboutProject/AboutProject";
+
 function Main() {
     return (
         <>
-            <p >Main</p>
+        <NavTab />
+        <AboutProject />
+
         </>
     )
 }

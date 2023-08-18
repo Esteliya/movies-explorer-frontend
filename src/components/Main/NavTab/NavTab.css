@@ -1,0 +1,21 @@
+.navigation {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #272727;
+}
+
+.navigation__list {
+    display: flex;
+    gap: 40px;
+    margin: 0;
+    padding: 24px 0;
+    justify-content: center;
+    color: #FFF;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+}
+
+.navigation__input {
+    display: block;
+    text-decoration: none;
+}

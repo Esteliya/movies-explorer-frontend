@@ -7,8 +7,9 @@ function Register() {
         <Auth 
         title='Добро пожаловать!'
         btnText='Зарегистрироваться'
-        textLink='Уже зарегистрированы?'
-        link='Войти'>
+        titleLink='Уже зарегистрированы?'
+        textLink='Войти'
+        link='/signin'>
             <ItemForm 
             titleInput="Имя"
             />

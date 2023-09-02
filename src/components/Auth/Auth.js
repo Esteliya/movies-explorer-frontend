@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Auth.css"
 
 import logo from "../../image/logo_auth.svg"
@@ -5,7 +6,7 @@ import logo from "../../image/logo_auth.svg"
 
 
 function Auth(props) {
-    const { title, children, btnText, textLink, link } = props;
+    const { title, children, btnText, titleLink, textLink, link } = props;
 
     return (
         <section className="auth">
@@ -15,7 +16,7 @@ function Auth(props) {
                 {children}
                 <button type="submit" className="auth__button">{btnText}</button>
             </form>
-            <p className="auth__route">{textLink}<a href="#" className="auth__link"> {link}</a></p>
+            <p className="auth__route">{titleLink} <Link to={link} name={textLink} className="auth__link">{textLink}</Link></p>
         </section>
 
     )

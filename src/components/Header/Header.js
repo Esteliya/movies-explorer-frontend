@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Header.css";
 import headerLogo from "../../image/header__logo.svg";//лого
 import Cover from "./Cover/Cover"
@@ -8,20 +9,20 @@ import ButtonWithText from "./ButtonWithText/ButtonWithText";// кнопка с 
 // import ButtonMenu from "./ButtonMenu/ButtonMenu";// кнопка меню (три полосочки) 
 
 /* иконки */
-import AccountIcon from "../../image/button_icon_account.svg";
+// import AccountIcon from "../../image/button_icon_account.svg";
 
 function Header() {
     return (
         <>
-            <header className="header">
-                <img src={headerLogo} alt="Логотип Movie" className="logo" />
+            <header className="header header_main">
+                <Link to="/"><img src={headerLogo} alt="Логотип Movie" className="header__logo" /></Link>
                 <nav className="header__menu">
                     <div className="header__navigation-movie">
-                        <a className="header__link" href="#">Фильмы</a>
-                        <a className="header__link" href="#">Сохраненные фильмы</a>
+                        <Link to="/movies" name="Фильмы" className="header__link">Фильмы</Link>
+                        <Link to="/saved-movies" name="Сохраненные фильмы" className="header__link">Сохраненные фильмы</Link>
                     </div>
                     <div>
-                        <a className="header__link" href="#">Регистрация</a>
+                        <Link to="/signup" name="Регистрация" className="header__link">Регистрация</Link>
                     </div>
                 </nav>
                 {/* <ButtonMenu /> */}

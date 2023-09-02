@@ -7,9 +7,10 @@ function Login() {
     return (
         <Auth 
         title='Рады видеть!'
-        btnText='Войти'
-        textLink='Ещё не зарегистрированы?'
-        link='Регистрация'>
+        btnText='Войти'      
+        titleLink='Ещё не зарегистрированы?'
+        textLink='Регистрация'
+        link='/signup'>
             <ItemForm 
             titleInput="Имя"
             />

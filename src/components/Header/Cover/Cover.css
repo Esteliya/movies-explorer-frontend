@@ -9,7 +9,7 @@
     margin: 0 auto;
     background-image: url("../../../image/cover__image.svg");
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: 50% 40%;
     background-size: 320px 320px;
     background-color: #073042;
     box-sizing: border-box;

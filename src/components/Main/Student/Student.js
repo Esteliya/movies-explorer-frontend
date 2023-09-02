@@ -3,7 +3,7 @@ import studentPhoto from "../../../image/student__photo.jpg";//фото
 
 function Student() {
     return (
-        <section className="student format-section">
+        <section id="student" className="student format-section">
             <h2 className="student__title">Студент</h2>
             <div className="student__context">
                 <div className="student_info">

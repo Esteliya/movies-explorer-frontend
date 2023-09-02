@@ -21,4 +21,8 @@
 .navigation__input {
     display: block;
     text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 123.077%;
+    text-decoration-line: underline;
 }

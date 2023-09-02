@@ -2,7 +2,8 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom'; // импортируем Routes
 // РОУТЫ
 import Main from '../Main/Main';// о проекте
-import Movies from '../Movies/Movies';// страница поиска фильмов
+// import Movies from '../Movies/Movies';// шаблонная страница для фильмов
+import MoviesBase from '../MoviesBase/MoviesBase'// страница с фильмами из api
 import SavedMovies from '../SavedMovies/SavedMovies';// сохраненные фильмы
 
 // создать базовый для всех компонент ↓ ↓ ↓
@@ -25,7 +26,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/movies" element={<Movies />} />
+        <Route path="/movies" element={<MoviesBase />} />
         <Route path="/saved-movies" element={<SavedMovies />} />
 
         <Route path="/signup" element={<Register />} />

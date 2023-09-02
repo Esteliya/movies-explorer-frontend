@@ -1,8 +1,13 @@
+import './SavedMovies.css'
+
+import Movies from "../Movies/Movies"
+
+import cards from "../../utils/saveCards";
+
+
 function SavedMovies() {
     return (
-        <>
-            <p >SavedMovies</p>
-        </>
+        <Movies cards={cards} />
     )
 }
 export default SavedMovies;

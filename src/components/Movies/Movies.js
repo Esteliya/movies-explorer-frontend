@@ -2,14 +2,15 @@ import './Movies.css'
 
 import SearchForm from './SearchForm/SearchForm';// поиск
 import MoviesCardList from './MoviesCardList/MoviesCardList';// фильмы
-import ButtomElse from './ButtomElse/ButtomElse'
 
-function Movies() {
+function Movies(props) {
+    const { children, cards } = props;
+
     return (
         <section className='movies'>
-        <SearchForm />
-        <MoviesCardList />      
-        <ButtomElse /> 
+            <SearchForm />
+            <MoviesCardList cards={cards}/>
+            {children}
         </section>
     )
 }

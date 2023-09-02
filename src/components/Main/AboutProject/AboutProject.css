@@ -1,18 +1,21 @@
+@import url(../../../mixStile/formatSection.css);
+
 .about-project {
-   /*  border: 1px solid #2E9AFF; */
-    padding: 70px 110px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 1280px;
-    margin: 0 auto;
+    /* display: block; */
+    /* max-width: 1280px; */
+    /* margin: 0 auto; */
+    /* padding: 90px 70px; */
+    padding-bottom: 110px;
+    padding-top: 110px;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     color: #FFF;
+    /* box-sizing: border-box;  */
 }
 
 .about-project__title {
-    margin: 0;
+    max-width: 1280px;
+    margin: 0 auto;
     padding-bottom: 23px;
     border-bottom: 1px solid #FFF;
     font-size: 22px;
@@ -22,6 +25,8 @@
 }
 
 .about-project__context {
+    max-width: 1280px;
+    margin: 0 auto;
     padding-top: 70px;
     padding-bottom: 110px;
     display: flex;
@@ -49,6 +54,8 @@
 }
 
 .about-project__progress {
+    max-width: 1280px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: 17.8125vw auto;
 }

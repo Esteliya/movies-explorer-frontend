@@ -1,23 +1,23 @@
 .cover {
-    padding-left: 70px;
-    padding-right: 70px;
+    padding: 0 70px;
     display: flex;
     align-items: center;
     justify-content: center;
     max-width: 1280px;
-    min-height: 40.94vw;
+    height: 40.94vw;
+    max-height: 524px;
     margin: 0 auto;
     background-image: url("../../../image/cover__image.svg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 320px 320px;
     background-color: #073042;
-    box-sizing: content-box;
+    box-sizing: border-box;
 }
 
 .cover__title {
     max-width: 730px;
-    
+
     color: #FFF;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;

@@ -1,0 +1,31 @@
+.not-found {
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 246px 0 60px;
+}
+
+.not-found__title {
+    margin: 0 0 5px;
+    font-size: 140px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.not-found__discription {
+    margin: 0 0 184px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.not-found__link {
+    text-decoration: none;
+    color: #4285F4;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+}

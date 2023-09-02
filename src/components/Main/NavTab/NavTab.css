@@ -1,13 +1,16 @@
 .navigation {
-    max-width: 100%;
+    max-width: 1280px;
+    padding: 0 70px;
     margin: 0 auto;
     background-color: #272727;
+    box-sizing: border-box;
 }
 
 .navigation__list {
     display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
     gap: 40px;
-    margin: 0;
     padding: 24px 0;
     justify-content: center;
     color: #FFF;

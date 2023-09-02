@@ -1,5 +1,6 @@
 import "./NavTab.css";
 
+
 function Navigation() {
     return (
         <nav className="navigation">

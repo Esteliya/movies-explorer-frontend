@@ -1,0 +1,8 @@
+.movies {
+    /* box-sizing: border-box; */
+    /* max-width: 1140px; */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

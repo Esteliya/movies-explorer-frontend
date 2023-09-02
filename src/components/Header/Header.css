@@ -1,10 +1,10 @@
 .header {
-    padding-left: 70px;
-    padding-right: 70px;
     display: flex;
     justify-content: space-between;
     max-width: 1280px;
     margin: 0 auto;
+    padding: 0 70px;
+    box-sizing: border-box;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
 }
@@ -54,9 +54,7 @@
     line-height: 133%;
 }
 
-.header__cover {
-
-}
+.header__cover {}
 
 .header__title {
     color: #FFF;

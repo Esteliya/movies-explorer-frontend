@@ -48,7 +48,7 @@
 }
 
 .movie-card__like {
-    background-image: url("../../../../image/bottom_like.svg");
+    background-image: url("../../../image/bottom_like.svg");
     width: 30px;
     height: 30px;
     border: none;

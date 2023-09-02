@@ -2,6 +2,14 @@ import "./Header.css";
 import headerLogo from "../../image/header__logo.svg";//лого
 import Cover from "./Cover/Cover"
 
+/* кнопка */
+import ButtonWithText from "./ButtonWithText/ButtonWithText";// кнопка с текстом 
+// import ButtonWithIcon from "./ButtonWithIcon/ButtonWithIcon";// кнопка текст с иконкой 
+// import ButtonMenu from "./ButtonMenu/ButtonMenu";// кнопка меню (три полосочки) 
+
+/* иконки */
+import AccountIcon from "../../image/button_icon_account.svg";
+
 function Header() {
     return (
         <>
@@ -16,7 +24,10 @@ function Header() {
                         <a className="header__link" href="#">Регистрация</a>
                     </div>
                 </nav>
-                <button className="header__button" name="Войти">Войти</button>
+                {/* <ButtonMenu /> */}
+                <ButtonWithText text="Войти" />
+                {/* <ButtonWithIcon text="Аккаунт" icon={AccountIcon}/> */}
+                {/* <button className="header__button" name="Войти">Войти</button> */}
             </header>
             <Cover />
         </>

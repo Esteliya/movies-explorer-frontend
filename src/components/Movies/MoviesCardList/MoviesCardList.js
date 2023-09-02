@@ -2,7 +2,7 @@ import './MoviesCardList.css';
 // тестовый массив фильмов. Потом меняем на api
 import cards from "../../../utils/cards";
 
-import MovieCard from './MovieCard/MovieCard';
+import MovieCard from '../MovieCard/MovieCard';
 
 function MoviesCardList() {
     return (

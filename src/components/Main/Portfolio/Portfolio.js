@@ -7,15 +7,15 @@ function Portfolio() {
             <ul className="portfolio__list">
                 <li className="portfolio__item">
                     <p className="portfolio__name-link">Статичный сайт</p>
-                    <button href="#" className="portfolio__button"></button>
+                    <a href="https://github.com/Esteliya/how-to-learn" rel="noreferrer" target="_blank"><div className="portfolio__link"></div></a>
                 </li>
                 <li className="portfolio__item">
                     <p className="portfolio__name-link">Адаптивный сайт</p>
-                    <button href="#" className="portfolio__button"></button>
+                    <a href="https://github.com/Esteliya/russian-travel" rel="noreferrer" target="_blank"><div className="portfolio__link"></div></a>
                 </li>
                 <li className="portfolio__item">
                     <p className="portfolio__name-link">Одностраничное приложение</p>
-                    <button href="#" className="portfolio__button"></button>
+                    <a href="https://github.com/Esteliya/react-mesto-auth" rel="noreferrer" target="_blank"><div className="portfolio__link"></div></a>
                 </li>
             </ul>
         </section>

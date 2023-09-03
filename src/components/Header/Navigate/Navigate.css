@@ -1,0 +1,29 @@
+.navigate {
+    display: flex;
+    padding: 0 0 0 44px;
+    align-items: center;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+}
+
+.navigate_movie {
+    gap: 16px;
+    justify-content: start;
+}
+
+.navigate_profile {
+    gap: 30px;
+    justify-content: end;
+}
+
+.navigate__link {
+    color: #FFF;
+    display: flex;
+    white-space: nowrap;
+    /* justify-content: center;
+    align-items: center;   */  
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 133%;
+    text-decoration: none;
+}

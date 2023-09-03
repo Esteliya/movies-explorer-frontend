@@ -6,7 +6,7 @@ import logo from "../../image/logo_auth.svg"
 
 
 function Auth(props) {
-    const { title, children, btnText, titleLink, textLink, link } = props;
+    const { title, children, btnText, titleLink, textLink, link, margin, onClick } = props;
 
     return (
         <section className="auth">
@@ -14,7 +14,7 @@ function Auth(props) {
             <form className="auth__form">
                 <h2 className="auth__title">{title}</h2>
                 {children}
-                <button type="submit" className="auth__button">{btnText}</button>
+                <button type="submit" className="auth__button" style={{marginTop: `${margin}px`}} onClick={onClick}>{btnText}</button>
             </form>
             <p className="auth__route">{titleLink} <Link to={link} name={textLink} className="auth__link">{textLink}</Link></p>
         </section>

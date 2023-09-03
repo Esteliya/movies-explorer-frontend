@@ -5,42 +5,54 @@
     margin: 0 auto;
     padding: 0 70px;
     box-sizing: border-box;
-    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
-    font-style: normal;
 }
 
-.header_main {
+.header_home {
     background-color: #073042;
 }
 
-.header__logo {
+/* .header__logo {
     border: none;
     box-shadow: none;
     width: 38px;
     margin: 18px 0;
-}
+} */
 
-.header__logo_main {
+.header__logo_home {
     background-color: #073042;
 }
 
 .header__menu {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: end;
     align-items: center;
     width: 80.15%;
     padding-left: 14px;
 }
 
+.header__menu_home {
+    justify-content: space-between;
+}
+
 .header__navigation-movie {
     display: flex;
     gap: 16px;
+}
 
+.header__menu-button {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 30px;
 }
 
 .header__link {
     color: #FFF;
-    text-align: right;
+    /* text-align: right; */
+    display: flex;
+    justify-content: center;
+    align-items: center;    
     font-size: 12px;
     font-weight: 500;
     line-height: 133%;

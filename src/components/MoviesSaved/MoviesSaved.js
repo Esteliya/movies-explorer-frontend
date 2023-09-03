@@ -1,13 +1,13 @@
-import './SavedMovies.css'
+import './MoviesSaved.css'
 
 import Movies from "../Movies/Movies"
 
 import cards from "../../utils/saveCards";
 
 
-function SavedMovies() {
+function MoviesSaved() {
     return (
         <Movies cards={cards} />
     )
 }
-export default SavedMovies;
+export default MoviesSaved;

@@ -17,7 +17,7 @@
 
 .item-form__input {
     background-color: #2F2F2F;
-    /* менять при вводе данных!!! */
+    /* менять при валидации - ждем функционал!!! */
     /* color: #EE3465; */
     color: #fff;
     max-height: 46px;

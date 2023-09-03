@@ -1,36 +1,51 @@
-import { Link } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
 import "./Header.css";
-import headerLogo from "../../image/header__logo.svg";//лого
+// import headerLogo from "../../image/header__logo.svg";//лого
 import Cover from "./Cover/Cover"
+import Navigate from "./Navigate/Navigate";
 
-/* кнопка */
-import ButtonWithText from "./ButtonWithText/ButtonWithText";// кнопка с текстом 
-// import ButtonWithIcon from "./ButtonWithIcon/ButtonWithIcon";// кнопка текст с иконкой 
-// import ButtonMenu from "./ButtonMenu/ButtonMenu";// кнопка меню (три полосочки) 
+function Header(props) {
+    const { loggedIn, homepage = false } = props;
 
-/* иконки */
-// import AccountIcon from "../../image/button_icon_account.svg";
+    // const navigate = useNavigate();
+    
+    // проверим размер экрана - если мобилное устройство, то в header меняем кнопку
+    const [withWindow, setwithWindow] = useState(window.innerWidth);
+    useEffect(() => {
+        const handleResize = () => {
+            setwithWindow(window.innerWidth);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
-function Header() {
+
+    const styleHeader = homepage ? "header header_home" : "header";
+    const styleMenu = !loggedIn ? "header__menu header__menu_home" : "header__menu";
+
+    // пререход на страницу авторизации - на функционале перенести 
+/*     function passPageLogin() {
+        navigate('/signin', {
+            replace: true
+        })
+    } */
+
+    // пререход на страницу данных пользователя - на функционале перенести 
+/*     function passPageProfile() {
+        navigate('/profile', {
+            replace: true
+        })
+    }
+ */
     return (
         <>
-            <header className="header header_main">
-                <Link to="/"><img src={headerLogo} alt="Логотип Movie" className="header__logo" /></Link>
-                <nav className="header__menu">
-                    <div className="header__navigation-movie">
-                        <Link to="/movies" name="Фильмы" className="header__link">Фильмы</Link>
-                        <Link to="/saved-movies" name="Сохраненные фильмы" className="header__link">Сохраненные фильмы</Link>
-                    </div>
-                    <div>
-                        <Link to="/signup" name="Регистрация" className="header__link">Регистрация</Link>
-                    </div>
-                </nav>
-                {/* <ButtonMenu /> */}
-                <ButtonWithText text="Войти" />
-                {/* <ButtonWithIcon text="Аккаунт" icon={AccountIcon}/> */}
-                {/* <button className="header__button" name="Войти">Войти</button> */}
+            <header className={styleHeader}>
+                <Navigate mobile={withWindow} />
             </header>
-            <Cover />
+            {homepage && <Cover />}
         </>
 
     )

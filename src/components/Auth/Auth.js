@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Auth.css"
-
-import logo from "../../image/logo_auth.svg"
+import Logo from "../Logo/Logo";
 // import { Children } from "react";
 
 
@@ -10,7 +9,7 @@ function Auth(props) {
 
     return (
         <section className="auth">
-            <img src={logo} alt="Логотип" className="auth__logo"/>
+            <Logo />
             <form className="auth__form">
                 <h2 className="auth__title">{title}</h2>
                 {children}

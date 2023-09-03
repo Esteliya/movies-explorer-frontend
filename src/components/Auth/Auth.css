@@ -9,17 +9,18 @@
     color: #fff;
 }
 
-.auth__logo {
+/* .auth__logo {
     max-width: 38px;
     max-height: 38px;
     margin: 0 0 40px;
 
-}
+} */
 
 .auth__form {
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin-top: 24px;
 }
 
 .auth__title {

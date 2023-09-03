@@ -6,6 +6,9 @@ import Main from '../Main/Main';// о проекте
 import MoviesBase from '../MoviesBase/MoviesBase'// страница с фильмами из api
 import MoviesSaved from '../MoviesSaved/MoviesSaved';// сохраненные фильмы
 
+// контекст
+import CurrentUserContext from "../../context/CurrentUserContext";
+
 // создать базовый для всех компонент ↓ ↓ ↓
 // import Auth from '../Auth/Auth';// базовый компонент для следующих 2 ↓ ↓ ↓
 import Register from '../Register/Register';// страница регистрации
@@ -24,6 +27,8 @@ import NotFound from '../NotFound/NotFound';// страницы не сущес�
 
 function App() {
   const navigate = useNavigate();
+  //контекст текущего пользователя
+  const [currentUser, setCurrentUser] = React.useState({});
   //контекст логина
   const [loggedIn, setLoggedIn] = React.useState(false);
 
@@ -40,12 +45,14 @@ function App() {
     navigate('/movies', {
       replace: true
     })
+    setCurrentUser({loggedIn:"true"});
     setLoggedIn(true);
   }
 
 
   return (
-    <div className="App">
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="App">
       <Routes>
         <Route path="/" element={
           <>
@@ -79,6 +86,7 @@ function App() {
         <Route path='*' element={<NotFound />} replace />
       </Routes>
     </div>
+    </CurrentUserContext.Provider>
   );
 }
 

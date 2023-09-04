@@ -1,6 +1,7 @@
 .button-with-icon {
     display: flex;
     min-width: 100px;
+    max-height: 32px;
     align-items: center;
     gap: 7px;
     border: none;

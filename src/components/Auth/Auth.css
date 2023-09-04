@@ -1,7 +1,7 @@
 .auth {
     display: flex;
     flex-direction: column;
-    max-width: 396px;
+    min-width: 396px;
     margin: 0 auto;
     padding: 52px 0 70px;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
@@ -48,4 +48,10 @@
 .auth__link {
     text-decoration: none;
     color: #4285F4;
+}
+
+@media screen and (max-width: 484px) {
+    .auth {
+        
+    }
 }

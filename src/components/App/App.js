@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom'; // импортируем Routes
 // РОУТЫ
 import Main from '../Main/Main';// о проекте
@@ -14,8 +15,6 @@ import CurrentUserContext from "../../context/CurrentUserContext";
 import Register from '../Register/Register';// страница регистрации
 import Login from '../Login/Login';// страница авторизации
 
-import React from 'react';
-
 import Profile from '../Profile/Profile';// страница редактирования профиля
 // общие для всех компоненты
 import Header from '../Header/Header';// меню
@@ -23,6 +22,8 @@ import Header from '../Header/Header';// меню
 import Footer from '../Footer/Footer';// подвал
 
 import NotFound from '../NotFound/NotFound';// страницы не существует
+
+import PopupMenu from "../PopupMenu/PopupMenu";
 
 
 function App() {
@@ -45,7 +46,7 @@ function App() {
     navigate('/movies', {
       replace: true
     })
-    setCurrentUser({loggedIn:"true"});
+    setCurrentUser({ loggedIn: "true" });
     setLoggedIn(true);
   }
 
@@ -54,7 +55,7 @@ function App() {
     navigate('/signin', {
       replace: true
     })
-    setCurrentUser({loggedIn:"false"});
+    setCurrentUser({ loggedIn: "false" });
     setLoggedIn(false);
   }
 
@@ -62,39 +63,40 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
-      <Routes>
-      <Route path="/" element={
-          <>
-            <Header homepage='true'/>
-            <Main />
-            <Footer />
-          </>
-        } />
-        <Route path="/movies" element={
-          <>
-            <Header />
-            <MoviesBase />
-            <Footer />
-          </>} />
-        <Route path="/saved-movies" element={
-          <>
-            <Header />
-            <MoviesSaved />
-            <Footer />
-          </>} />
+        <Routes>
+          <Route path="/" element={
+            <>
+              <PopupMenu />
+              <Header homepage='true' />
+              <Main />
+              <Footer />
+            </>
+          } />
+          <Route path="/movies" element={
+            <>
+              <Header />
+              <MoviesBase />
+              <Footer />
+            </>} />
+          <Route path="/saved-movies" element={
+            <>
+              <Header />
+              <MoviesSaved />
+              <Footer />
+            </>} />
 
-        <Route path="/signup" element={<Register onClick={register}/>} />
-        <Route path="/signin" element={<Login onClick={getLogin}
-        />} />
-        <Route path="/profile" element={
-          <>
-            <Header />
-            <Profile onClickExit={getExit}/>
-          </>} />
+          <Route path="/signup" element={<Register onClick={register} />} />
+          <Route path="/signin" element={<Login onClick={getLogin}
+          />} />
+          <Route path="/profile" element={
+            <>
+              <Header />
+              <Profile onClickExit={getExit} />
+            </>} />
 
-        <Route path='*' element={<NotFound />} replace />
-      </Routes>
-    </div>
+          <Route path='*' element={<NotFound />} replace />
+        </Routes>
+      </div>
     </CurrentUserContext.Provider>
   );
 }

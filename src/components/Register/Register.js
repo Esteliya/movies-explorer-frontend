@@ -6,25 +6,26 @@ function Register(props) {
     const { onClick } = props;
 
     return (
-        <Auth 
-        title='Добро пожаловать!'
-        btnText='Зарегистрироваться'
-        titleLink='Уже зарегистрированы?'
-        textLink='Войти'
-        link='/signin'
-        margin='91'
-        onClick={onClick}>
-            <ItemForm 
-            titleInput="Имя"
-            />
-            <ItemForm 
-            titleInput="E-mail"
-            />
-            <ItemForm 
-            titleInput="Пароль"
-            />
-        </Auth>
-
+        <section className="margin-form-center">
+            <Auth
+                title='Добро пожаловать!'
+                btnText='Зарегистрироваться'
+                titleLink='Уже зарегистрированы?'
+                textLink='Войти'
+                link='/signin'
+                margin='91'
+                onClick={onClick}>
+                <ItemForm
+                    titleInput="Имя"
+                />
+                <ItemForm
+                    titleInput="E-mail"
+                />
+                <ItemForm
+                    titleInput="Пароль"
+                />
+            </Auth>
+        </section>
     )
 }
 export default Register;

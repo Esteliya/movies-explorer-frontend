@@ -6,22 +6,11 @@
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     color: #FFF;
-    /* box-sizing: border-box;  */
 }
 
-.about-project__title {
-/*     max-width: 1280px;
-    margin: 0 auto;
-    padding-bottom: 23px;
-    border-bottom: 1px solid #FFF;
-    font-size: 22px;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.88px; */
-}
+.about-project__title {}
 
 .about-project__context {
-    /* max-width: 1280px; */
     width: 100%;
     margin: 0 auto;
     padding-top: 70px;
@@ -51,7 +40,6 @@
 }
 
 .about-project__progress {
-    /* max-width: 1280px; */
     width: 100%;
     margin: 0 auto;
     display: grid;
@@ -59,7 +47,6 @@
 }
 
 .about-project__time {
-    font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -107,29 +94,40 @@
     }
 }
 
+@media screen and (max-width: 610px) {
+    .about-project__progress {
+        grid-template-columns: minmax(18vw, 110px) auto;
+    }
+    .about-project__trend-text {
+        font-size: 12px;
+    }
+    .about-project__trend-comment {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 462px) {
+
+    .about-project__context {
+        padding-top: 80px;
+        padding-bottom: 80px;
+        flex-direction: column;
+        gap: 64px;
+    }
+}
+
 @media screen and (max-width: 320px) {
     .about-project {
         display: block;
-/*         padding-bottom: 70px;
-        padding-top: 70px; */
-    }
-
-    .about-project__title {
-/*         padding-bottom: 28px;
-        font-size: 18px;
-        letter-spacing: -0.72px; */
     }
 
     .about-project__context {
         padding-top: 60px;
         padding-bottom: 60px;
-        /* display: block; */
-        flex-direction: column;
         gap: 56px;
     }
 
     .about-project__column {
-        /* max-width: 284px; */
         gap: 56px;
     }
 

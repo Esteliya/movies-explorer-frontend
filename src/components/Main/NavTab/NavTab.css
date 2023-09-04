@@ -37,17 +37,19 @@
     }
 }
 
-@media screen and (max-width: 320px) {
-    .navigation {
-        padding: 0 18px;
+@media screen and (max-width: 462px) {
+    .navigation__input {
+        font-size: 11px;
+        line-height: 145.455%;
     }
 
     .navigation__list {
         gap: 24px;
     }
+}
 
-    .navigation__input {
-        font-size: 11px;
-        line-height: 145.455%;
+@media screen and (max-width: 320px) {
+    .navigation {
+        padding: 0 18px;
     }
 }

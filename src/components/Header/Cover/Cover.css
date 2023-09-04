@@ -40,6 +40,16 @@
         padding: 326px 0 342px;
     }
 }
+@media screen and (max-width: 462px) {
+    .cover__title {
+        font-size: 9.09vw;
+    }
+    .cover {
+        max-width: 460px;
+        max-height: 520px;
+        background-size: 82.2vw 82.2vw;
+    }
+}
 
 @media screen and (max-width: 320px) {
     .cover {

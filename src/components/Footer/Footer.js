@@ -4,7 +4,7 @@ import "../../mixStile/formatSection.css";
 
 function Footer() {
     return (
-        <section className="footer format-section">
+        <section className="footer">
             <h2 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h2>
             <div className="footer__context">
                 <p className="footer__data">&#169; {new Date().getFullYear()}</p>

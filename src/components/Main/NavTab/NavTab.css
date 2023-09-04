@@ -26,3 +26,28 @@
     line-height: 123.077%;
     text-decoration-line: underline;
 }
+
+.navigation__link {
+    color: #FFF;
+}
+
+@media screen and (max-width: 768px) {
+    .navigation {
+        padding: 0 50px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .navigation {
+        padding: 0 18px;
+    }
+
+    .navigation__list {
+        gap: 24px;
+    }
+
+    .navigation__input {
+        font-size: 11px;
+        line-height: 145.455%;
+    }
+}

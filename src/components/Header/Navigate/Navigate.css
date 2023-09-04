@@ -26,3 +26,13 @@
     line-height: 133%;
     text-decoration: none;
 }
+
+@media screen and (max-width: 320px) {
+    .navigate__link {
+        font-size: 10px;
+        line-height: 160%;
+    }
+    .navigate_profile {
+        gap: 14px;
+    }
+}

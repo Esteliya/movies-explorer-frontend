@@ -1,10 +1,6 @@
 @import url(../../../mixStile/formatSection.css);
 
 .about-project {
-    /* display: block; */
-    /* max-width: 1280px; */
-    /* margin: 0 auto; */
-    /* padding: 90px 70px; */
     padding-bottom: 110px;
     padding-top: 110px;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
@@ -14,18 +10,19 @@
 }
 
 .about-project__title {
-    max-width: 1280px;
+/*     max-width: 1280px;
     margin: 0 auto;
     padding-bottom: 23px;
     border-bottom: 1px solid #FFF;
     font-size: 22px;
     font-weight: 400;
     line-height: normal;
-    letter-spacing: -0.88px;
+    letter-spacing: -0.88px; */
 }
 
 .about-project__context {
-    max-width: 1280px;
+    /* max-width: 1280px; */
+    width: 100%;
     margin: 0 auto;
     padding-top: 70px;
     padding-bottom: 110px;
@@ -54,7 +51,8 @@
 }
 
 .about-project__progress {
-    max-width: 1280px;
+    /* max-width: 1280px; */
+    width: 100%;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 17.8125vw auto;
@@ -95,4 +93,79 @@
     line-height: 121.429%;
     color: #8B8B8B;
     margin: 14px 0 0;
+}
+
+@media screen and (max-width: 768px) {
+    .about-project {
+        padding-bottom: 90px;
+        padding-top: 90px;
+    }
+
+    .about-project__context {
+        gap: 30px;
+        padding-bottom: 93px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .about-project {
+        display: block;
+/*         padding-bottom: 70px;
+        padding-top: 70px; */
+    }
+
+    .about-project__title {
+/*         padding-bottom: 28px;
+        font-size: 18px;
+        letter-spacing: -0.72px; */
+    }
+
+    .about-project__context {
+        padding-top: 60px;
+        padding-bottom: 60px;
+        /* display: block; */
+        flex-direction: column;
+        gap: 56px;
+    }
+
+    .about-project__column {
+        /* max-width: 284px; */
+        gap: 56px;
+    }
+
+    .about-project__discription {
+        margin: 0 auto 16px;
+        font-size: 18px;
+        letter-spacing: -0.72px;
+    }
+
+    .about-project__text {
+        font-size: 11px;
+        line-height: 145.455%;
+    }
+
+    .about-project__progress {
+        grid-template-columns: 100px 1fr;
+    }
+
+    .about-project__time {
+        font-size: 11px;
+    }
+
+    .about-project__trend {
+        height: 35px;
+    }
+
+    .about-project__trend_back {
+        background-color: #3DDC84;
+        color: #000;
+    }
+
+    .about-project__trend_front {
+        background-color: #303030;
+    }
+
+    .about-project__trend-comment {
+        margin: 10px 0 0;
+    }
 }

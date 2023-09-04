@@ -1,9 +1,11 @@
 import "./AboutProject.css";
+import "../../../mixStile/titleSection.css";
+import "../../../mixStile/paddingSection.css";
 
 function AboutProject() {
     return (
-        <section id="navigation" className="about-project format-section">
-        <h2 className="about-project__title">О проекте</h2>
+        <section id="navigation" className="about-project format-section padding-section">
+        <h2 className="about-project__title title-section">О проекте</h2>
         <div className="about-project__context">
             <div className="about-project__column">
                 <h3 className="about-project__discription">Дипломный проект включал 5 этапов</h3>

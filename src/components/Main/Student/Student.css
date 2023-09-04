@@ -1,28 +1,21 @@
 @import url(../../../mixStile/formatSection.css);
 
 .student {
-    /*  display: block;
-    max-width: 1280px; */
-    /* margin: 0 auto; */
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
-    /* border: red solid 1px; */
     color: #FFF;
-    padding-bottom: 100px;
-    padding-top: 110px;
-    /* padding: 90px 70px 91px; */
-    /* box-sizing: border-box; */
+    /*     padding-bottom: 100px;
+    padding-top: 110px; */
 }
 
 .student__title {
-    /*  max-width: 1280px; */
-    margin: 0 auto 66px;
+    /*     margin: 0 auto 66px;
     padding-bottom: 23px;
     border-bottom: 1px solid #FFF;
     font-size: 22px;
     font-weight: 400;
     line-height: normal;
-    letter-spacing: -0.88px;
+    letter-spacing: -0.88px; */
 }
 
 .student__context {
@@ -42,7 +35,6 @@
 
 .student__subtitle {
     margin: 0 0 18px;
-    font-size: 40px;
     font-size: 50px;
     font-weight: 400;
     line-height: 116%;
@@ -51,7 +43,6 @@
 
 .student__discription {
     margin: 0 0 26px;
-    font-size: 12px;
     font-size: 18px;
     font-weight: 500;
     line-height: 111.111%;
@@ -79,4 +70,66 @@
     min-height: 327px;
     border-radius: 10px;
     object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+    /*     .student {
+        padding-bottom: 90px;
+        padding-top: 90px;
+    } */
+
+    .student_info {
+        max-width: 364px;
+    }
+
+    .student__subtitle {
+        font-size: 40px;
+        line-height: 100%;
+        letter-spacing: -1.6px;
+    }
+
+    .student__discription {
+        font-size: 12px;
+        line-height: 150%;
+    }
+
+    .student__text {
+        margin: 0 0 87px;
+        font-size: 12px;
+        line-height: 150%;
+    }
+
+    .student__photo {
+        min-width: 255px;
+        min-height: 307px;
+    }
+
+    @media screen and (max-width: 320px) {
+        .student__context {
+            flex-direction: column-reverse;
+        }
+
+        .student__subtitle {
+            margin: 0 0 20px;
+            font-size: 30px;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: -1.2px;
+        }
+
+        .student__discription {
+            font-size: 11px;
+            line-height: 145.455%;
+        }
+
+        .student__text {
+            font-size: 11px;
+            line-height: 145.455%;
+            margin: 0 0 40px;
+        }
+
+        .student__photo {
+            margin: 60px 0 40px;
+        }
+    }
 }

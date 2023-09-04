@@ -1,10 +1,12 @@
 import "./Student.css";
+import "../../../mixStile/titleSection.css";
+import "../../../mixStile/paddingSection.css";
 import studentPhoto from "../../../image/student__photo.jpg";//фото
 
 function Student() {
     return (
-        <section id="student" className="student format-section">
-            <h2 className="student__title">Студент</h2>
+        <section id="student" className="student format-section padding-section">
+            <h2 className="student__title title-section">Студент</h2>
             <div className="student__context">
                 <div className="student_info">
                     <h3 className="student__subtitle">Виталий</h3>

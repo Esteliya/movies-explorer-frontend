@@ -59,3 +59,7 @@
     background-color: #222222;
     padding: 0;
 }
+
+.movie-card__like:focus {
+    background-image: url("../../../image/bottom_like-active.svg");
+}

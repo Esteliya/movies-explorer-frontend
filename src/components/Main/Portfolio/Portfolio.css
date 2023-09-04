@@ -1,25 +1,16 @@
 @import url(../../../mixStile/formatSection.css);
 
 .portfolio {
-   /*  max-width: 1280px;
-    margin: 0 auto;
-    display: block; */
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
-    /* border: red solid 1px; */
     color: #FFF;
-    /* padding: 0 70px 125px;
-    box-sizing: border-box; */
     padding-bottom: 125px;
 }
 
 .portfolio__title {
     margin: 0 0 50px;
     color: #8B8B8B;
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Inter;
     font-size: 18px;
-    font-style: normal;
     font-weight: 400;
     line-height: 111.111%;
 }
@@ -38,6 +29,7 @@
     border-bottom: 1px solid #424242;
     padding: 0 0 19px;
 }
+
 .portfolio__item:last-child {
     border: none;
 }
@@ -53,15 +45,56 @@
 
 .portfolio__link {
     border: none;
-    min-width: 29px;
-    min-height: 29px;
-    /* border: red solid 1px; */
+    width: 29px;
+    height: 29px;
     box-shadow: none;
     background-color: #202020;
     background-image: url("../../../image/portfolio__arrow.svg");
-    /* object-fit: cover; */
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    
+
+}
+
+@media screen and (max-width: 768px) {
+    .portfolio {
+        padding-bottom: 71px;
+    }
+
+    .portfolio__name-link {
+        font-size: 28px;
+        line-height: 178.571%;
+        letter-spacing: -1.12px;
+    }
+
+    .portfolio__item {
+        border-bottom: 1px solid #E6E6E6;
+    }
+
+    .portfolio__link {
+        width: 17px;
+        background-position: top;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .portfolio {
+        padding-bottom: 70px;
+    }
+
+    .portfolio__title {
+        font-size: 14px;
+        line-height: 142.857%;
+        margin: 0 0 40px;
+    }
+
+    .portfolio__name-link {
+        font-size: 18px;
+        line-height: 155.556%;
+        letter-spacing: -0.72px;
+    }
+
+    .portfolio__link {
+        width: 12px;
+    }
 }

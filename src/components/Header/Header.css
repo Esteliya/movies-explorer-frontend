@@ -11,20 +11,12 @@
     background-color: #073042;
 }
 
-/* .header__logo {
-    border: none;
-    box-shadow: none;
-    width: 38px;
-    margin: 18px 0;
-} */
-
 .header__logo_home {
     background-color: #073042;
 }
 
 .header__menu {
     display: flex;
-    /* justify-content: space-between; */
     justify-content: end;
     align-items: center;
     width: 80.15%;
@@ -49,31 +41,14 @@
 
 .header__link {
     color: #FFF;
-    /* text-align: right; */
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
     font-size: 12px;
     font-weight: 500;
     line-height: 133%;
     text-decoration: none;
 }
-
-/* .header__button {
-    width: 76px;
-    height: 32px;
-    margin: 21px 0;
-    display: block;
-    background-color: #3DDC84;
-    box-shadow: none;
-    outline: none;
-    border: none;
-    border-radius: 3px;
-    color: #000;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 133%;
-} */
 
 .header__cover {}
 
@@ -84,4 +59,16 @@
     font-weight: 400;
     line-height: 116%;
     letter-spacing: -2px;
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        padding: 0 30px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .header {
+        padding: 0 14px;
+    }
 }

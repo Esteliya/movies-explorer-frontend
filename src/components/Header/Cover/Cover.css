@@ -4,7 +4,6 @@
     align-items: center;
     justify-content: center;
     max-width: 1280px;
-    /* height: 40.94vw; */
     max-height: 524px;
     margin: 0 auto;
     background-image: url("../../../image/cover__image.svg");
@@ -27,4 +26,34 @@
     line-height: 116%;
     letter-spacing: -2px;
     padding: 184px 0 224px;
+}
+
+@media screen and (max-width: 768px) {
+    .cover {
+        padding: 0 19px;
+        max-width: 768px;
+        max-height: 784px;
+        background-position: 50% 48%;
+    }
+
+    .cover__title {
+        padding: 326px 0 342px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .cover {
+        padding: 0 10px;
+        max-width: 320px;
+        max-height: 570px;
+        background-size: 248px 248px;
+        background-position: 50% 45%;
+    }
+
+    .cover__title {
+        padding: 207px 0 246px;
+        font-size: 31px;
+        line-height: 125.806%;
+        letter-spacing: -1.24px;
+    }
 }

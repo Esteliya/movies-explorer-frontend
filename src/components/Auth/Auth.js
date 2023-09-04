@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Auth.css"
 import Logo from "../Logo/Logo";
-// import { Children } from "react";
 
 
 function Auth(props) {

@@ -74,11 +74,6 @@
 }
 
 @media screen and (max-width: 768px) {
-    /*     .techs {
-        padding-bottom: 90px;
-        padding-top: 90px;
-    } */
-
     .techs__list {
         font-size: 12px;
         letter-spacing: -0.48px;
@@ -99,6 +94,20 @@
     .techs__item {
         min-width: 84px;
         min-height: 57px;
+    }
+
+    @media screen and (max-width: 710px) {
+        .techs__list {
+            max-width: 660px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+    
+    @media screen and (max-width: 574px) {
+        .techs__subtitle {
+            font-size: 9vw;
+        }
     }
 
     @media screen and (max-width: 320px) {

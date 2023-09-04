@@ -50,7 +50,7 @@ function Navigate(props) {
                         <ButtonWithText text="Войти" onClick={passPageLogin} />
                     </>}
                 {!isMobile && currentUser.loggedIn && <ButtonWithIcon text="Аккаунт" homepage={homepage} icon={AccountIcon} onClick={passPageProfile} />}
-                {isMobile && currentUser.loggedIn && <ButtonMenu />}
+                {isMobile && currentUser.loggedIn && <ButtonMenu homepage={homepage}/>}
             </nav>
         </>
     )

@@ -3,7 +3,7 @@ import "./ButtonWithIcon.css";
 function ButtonWithIcon(props) {
     const { text, icon, onClick, homepage } = props;
 
-    // стиль лоя кнопки Аккаунт (замена фона для домашней страницы)
+    // стиль cлоя кнопки Аккаунт (замена фона для домашней страницы)
     const styleButton = homepage ? "button-with-icon button-with-icon_home" : "button-with-icon";
 
 

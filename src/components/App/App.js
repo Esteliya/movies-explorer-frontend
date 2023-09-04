@@ -63,7 +63,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
       <Routes>
-        <Route path="/" element={
+      <Route path="/" element={
           <>
             <Header homepage='true'/>
             <Main />

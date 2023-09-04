@@ -3,7 +3,7 @@
     grid-template-columns: repeat(3, minmax(364px, 1fr));
     grid-template-rows: repeat(4, 281px);
     max-width: 1140px;
-    margin: 70px auto 50px;
+    margin: 70px auto 60px;
     column-gap: 24px;
     row-gap: 37px;
     grid-auto-flow: row;

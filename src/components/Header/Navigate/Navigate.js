@@ -9,11 +9,11 @@ import ButtonWithIcon from "../ButtonWithIcon/ButtonWithIcon"
 import ButtonMenu from "../ButtonMenu/ButtonMenu";
 /* иконка для кнопки */
 import AccountIcon from "../../../image/button_icon_account.svg"
-
+/* контекст - пока логирование - ждем функционал */
 import CurrentUserContext from "../../../context/CurrentUserContext";
 
 function Navigate(props) {
-    const { mobile, loggedIn } = props
+    const { mobile, homepage } = props
     // если экран меньше или равно - показать кнопку меню
     const isMobile = mobile <= 768;
 
@@ -49,7 +49,7 @@ function Navigate(props) {
                         <Link to="/signup" name="Регистрация" className="navigate__link">Регистрация</Link>
                         <ButtonWithText text="Войти" onClick={passPageLogin} />
                     </>}
-                {!isMobile && currentUser.loggedIn && <ButtonWithIcon text="Аккаунт" icon={AccountIcon} onClick={passPageProfile} />}
+                {!isMobile && currentUser.loggedIn && <ButtonWithIcon text="Аккаунт" homepage={homepage} icon={AccountIcon} onClick={passPageProfile} />}
                 {isMobile && <ButtonMenu />}
             </nav>
         </>

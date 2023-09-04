@@ -32,7 +32,7 @@ function App() {
   //контекст логина
   const [loggedIn, setLoggedIn] = React.useState(false);
 
-  const [displayHeader, setdisplayHeader] = React.useState(false);
+  // const [displayHeader, setdisplayHeader] = React.useState(false);
 
   function register() {
     navigate('/signin', {
@@ -49,6 +49,15 @@ function App() {
     setLoggedIn(true);
   }
 
+  function getExit() {
+    // разлогинились* - переход на страницу авторизации
+    navigate('/signin', {
+      replace: true
+    })
+    setCurrentUser({loggedIn:"false"});
+    setLoggedIn(false);
+  }
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -56,20 +65,20 @@ function App() {
       <Routes>
         <Route path="/" element={
           <>
-            <Header homepage='true' loggedIn={loggedIn}/>
+            <Header homepage='true'/>
             <Main />
             <Footer />
           </>
         } />
         <Route path="/movies" element={
           <>
-            <Header loggedIn={loggedIn}/>
+            <Header />
             <MoviesBase />
             <Footer />
           </>} />
         <Route path="/saved-movies" element={
           <>
-            <Header loggedIn={loggedIn}/>
+            <Header />
             <MoviesSaved />
             <Footer />
           </>} />
@@ -79,8 +88,8 @@ function App() {
         />} />
         <Route path="/profile" element={
           <>
-            <Header loggedIn={loggedIn}/>
-            <Profile />
+            <Header />
+            <Profile onClickExit={getExit}/>
           </>} />
 
         <Route path='*' element={<NotFound />} replace />

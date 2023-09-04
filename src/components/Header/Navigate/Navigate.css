@@ -9,6 +9,7 @@
 .navigate_movie {
     gap: 16px;
     justify-content: start;
+    padding: 0;
 }
 
 .navigate_profile {
@@ -20,8 +21,6 @@
     color: #FFF;
     display: flex;
     white-space: nowrap;
-    /* justify-content: center;
-    align-items: center;   */  
     font-size: 12px;
     font-weight: 500;
     line-height: 133%;

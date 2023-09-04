@@ -6,7 +6,7 @@ import Cover from "./Cover/Cover"
 import Navigate from "./Navigate/Navigate";
 
 function Header(props) {
-    const { loggedIn, homepage = false } = props;
+    const { homepage = false } = props;
 
     // const navigate = useNavigate();
     
@@ -24,26 +24,11 @@ function Header(props) {
 
 
     const styleHeader = homepage ? "header header_home" : "header";
-    const styleMenu = !loggedIn ? "header__menu header__menu_home" : "header__menu";
 
-    // пререход на страницу авторизации - на функционале перенести 
-/*     function passPageLogin() {
-        navigate('/signin', {
-            replace: true
-        })
-    } */
-
-    // пререход на страницу данных пользователя - на функционале перенести 
-/*     function passPageProfile() {
-        navigate('/profile', {
-            replace: true
-        })
-    }
- */
     return (
         <>
             <header className={styleHeader}>
-                <Navigate mobile={withWindow} />
+                <Navigate mobile={withWindow} homepage={homepage}/>
             </header>
             {homepage && <Cover />}
         </>

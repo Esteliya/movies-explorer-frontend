@@ -1,6 +1,8 @@
 import "./Profile.css";
 
-function Profile() {
+function Profile(props) {
+    const { onClickExit } = props;
+
     return (
         <section className="profile">
             <h1 className="profile__title">Привет, Виталий!</h1>
@@ -14,8 +16,8 @@ function Profile() {
                     <p className="profile__item-content">pochta@yandex.ru</p>
                 </li>
             </ul>
-            <button className="profile__buttom">Редактировать</button>
-            <button className="profile__buttom profile__buttom_red">Выйти из аккаунта</button>
+            <button className="profile__buttom" type="button">Редактировать</button>
+            <button className="profile__buttom profile__buttom_red" type="button" onClick={onClickExit}>Выйти из аккаунта</button>
         </section>
 
     )

@@ -21,7 +21,7 @@ return (
                 <p className='movie-card__title'>{cardTitle}.</p>
                 <p className='movie-card__time'>{hoursMins(cardTime)}</p>
             </div>
-            <button className='movie-card__like'></button>
+            <button className='movie-card__like' type="button"></button>
         </div>
 
 

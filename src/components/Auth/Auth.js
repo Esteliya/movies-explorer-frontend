@@ -12,8 +12,9 @@ function Auth(props) {
             <form className="auth__form">
                 <h2 className="auth__title">{title}</h2>
                 {children}
-                <button type="submit" className="auth__button" style={{marginTop: `${margin}px`}} onClick={onClick}>{btnText}</button>
+                {/* <button type="submit" className="auth__button" style={{marginTop: `${margin}px`}} onClick={onClick}>{btnText}</button> */}
             </form>
+            <button type="submit" className="auth__button" style={{marginTop: `${margin}px`}} onClick={onClick}>{btnText}</button>
             <p className="auth__route">{titleLink} <Link to={link} name={textLink} className="auth__link">{textLink}</Link></p>
         </section>
 

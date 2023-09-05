@@ -27,6 +27,7 @@
     font-size: 13px;
     font-weight: 500;
     line-height: normal;
+   /*  box-sizing: border-box; */
 }
 
 .item-form__mistake {
@@ -38,4 +39,13 @@
     position: absolute;
     bottom: -20px;
     left: 0;
+}
+
+@media screen and (max-width: 460px) {
+    .item-form {
+        width: 100%;
+    }
+    .item-form:last-child {
+        margin-bottom: 80px;
+    }
 }

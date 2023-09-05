@@ -29,6 +29,7 @@
     height: 34px;
     background-image: url("../../../image/search-form__enter.svg");
     border: none;
+    border-radius: 17px;
     box-shadow: none;
     background-repeat: no-repeat;
     background-size: contain;

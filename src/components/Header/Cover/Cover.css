@@ -26,6 +26,7 @@
     line-height: 116%;
     letter-spacing: -2px;
     padding: 184px 0 224px;
+    box-sizing: border-box;
 }
 
 @media screen and (max-width: 768px) {

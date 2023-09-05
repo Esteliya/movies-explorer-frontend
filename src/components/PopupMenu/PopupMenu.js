@@ -4,7 +4,7 @@ import ButtonWithIcon from "../Header/ButtonWithIcon/ButtonWithIcon";
 import AccountIcon from "../../image/button_icon_account.svg";
 
 function PopupMenu(props) {
-    const {isOpen, onClose} = props;
+    const {isOpen, onClose, onClickAccount} = props;
 
     const popupClass = isOpen ? ('popup-menu__overlay') : ('popup-menu__overlay popup-menu__overlay_close');
 
@@ -18,7 +18,7 @@ function PopupMenu(props) {
                         <li className='popup-menu__item'><Link to="/saved-movies" name="Фильмы" className="popup-menu__link">Сохраненные фильмы</Link></li>
                     </ul>
                 </nav>
-                <ButtonWithIcon text="Аккаунт" icon={AccountIcon}/>
+                <ButtonWithIcon text="Аккаунт" icon={AccountIcon} onClick={onClickAccount}/>
             </div>
             <button className="popup-menu__button-close" onClick={onClose}/>
         </div>

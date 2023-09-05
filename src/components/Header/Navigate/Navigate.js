@@ -13,7 +13,7 @@ import AccountIcon from "../../../image/button_icon_account.svg"
 import CurrentUserContext from "../../../context/CurrentUserContext";
 
 function Navigate(props) {
-    const { mobile, homepage, openButton } = props
+    const { mobile, homepage, openButton, onClickAccount } = props
     // если экран меньше или равно - показать кнопку меню
     const isMobile = mobile <= 768;
 
@@ -28,11 +28,11 @@ function Navigate(props) {
     }
 
     // пререход на страницу данных пользователя - на функционале перенести 
-    function passPageProfile() {
+/*     function passPageProfile() {
         navigate('/profile', {
             replace: true
         })
-    }
+    } */
 
 /*     function handleClickMenu () {
         console.log("клик по меню");
@@ -42,7 +42,7 @@ function Navigate(props) {
         <>
             <nav className="navigate navigate_movie">
                 <Logo />
-                {currentUser.loggedIn && <>
+                {currentUser.loggedIn && !isMobile && <>
                     <Link to="/movies" name="Фильмы" className="navigate__link">Фильмы</Link>
                     <Link to="/saved-movies" name="Сохраненные фильмы" className="navigate__link">Сохраненные фильмы</Link>
                 </>}
@@ -53,7 +53,7 @@ function Navigate(props) {
                         <Link to="/signup" name="Регистрация" className="navigate__link">Регистрация</Link>
                         <ButtonWithText text="Войти" onClick={passPageLogin} />
                     </>}
-                {!isMobile && currentUser.loggedIn && <ButtonWithIcon text="Аккаунт" homepage={homepage} icon={AccountIcon} onClick={passPageProfile} />}
+                {!isMobile && currentUser.loggedIn && <ButtonWithIcon text="Аккаунт" homepage={homepage} icon={AccountIcon} onClick={onClickAccount} />}
                 {isMobile && currentUser.loggedIn && <ButtonMenu homepage={homepage} onClick={openButton}/>}
             </nav>
         </>

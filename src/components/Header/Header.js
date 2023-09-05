@@ -5,7 +5,7 @@ import Cover from "./Cover/Cover"
 import Navigate from "./Navigate/Navigate";
 
 function Header(props) {
-    const { openButton, homepage = false } = props;
+    const { openButton, onClickAccount, homepage = false } = props;
 
     // const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ function Header(props) {
     return (
         <>
             <header className={styleHeader}>
-                <Navigate mobile={withWindow} homepage={homepage} openButton={openButton}/>
+                <Navigate mobile={withWindow} homepage={homepage} openButton={openButton} onClickAccount={onClickAccount}/>
             </header>
             {homepage && <Cover />}
         </>

@@ -1,4 +1,5 @@
 import "./Register.css"
+import "../../mixStile/formatForm.css";
 import Auth from "../Auth/Auth";
 import ItemForm from "../ItemForm/ItemForm"
 
@@ -13,7 +14,6 @@ function Register(props) {
                 titleLink='Уже зарегистрированы?'
                 textLink='Войти'
                 link='/signin'
-                margin='91'
                 onClick={onClick}>
                 <ItemForm
                     titleInput="Имя"

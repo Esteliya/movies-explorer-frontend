@@ -68,6 +68,12 @@ function App() {
   function closePopup() {
     setIsBurgerMenuPopup(false)
   }
+// пререход на страницу данных пользователя
+  function handleClickAccount () {
+    navigate('/profile', {
+      replace: true
+  })
+  }
 
 
   return (
@@ -76,23 +82,23 @@ function App() {
         <Routes>
           <Route path="/" element={
             <>
-              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} />
-              <Header homepage='true' openButton={handleOpenMenu} />
+              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount}/>
+              <Header homepage='true' openButton={handleOpenMenu} onClickAccount={handleClickAccount}/>
               <Main />
               <Footer />
             </>
           } />
           <Route path="/movies" element={
             <>
-              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} />
-              <Header openButton={handleOpenMenu} />
+              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount}/>
+              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} />
               <MoviesBase />
               <Footer />
             </>} />
           <Route path="/saved-movies" element={
             <>
-              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} />
-              <Header openButton={handleOpenMenu} />
+              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount}/>
+              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} />
               <MoviesSaved />
               <Footer />
             </>} />
@@ -102,7 +108,7 @@ function App() {
           />} />
           <Route path="/profile" element={
             <>
-              <Header />
+              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount}/>
               <Profile onClickExit={getExit} />
             </>} />
 

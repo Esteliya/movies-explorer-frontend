@@ -1,12 +1,33 @@
 .profile {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 410px;
     margin: 0 auto;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
-    padding: 74px 0 70px;
+    padding: 74px 0 70px; */
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    color: #fff;
+    box-sizing: border-box;
+    max-width: 410px;
+    margin: 0 auto;
+    height: calc(100vh - 74px);
+    
+}
+.profile__format-form {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+}
+.profile__format-element {
+    display: flex;
+    flex-direction: column;
+
 }
 
 .profile__title {
@@ -14,8 +35,26 @@
     font-size: 24px;
     font-weight: 500;
     line-height: normal;
-    margin: 0 0 106px;
+    margin: 0 0 123px;
+    text-align: center;
 }
+
+.profile__input {
+    margin: 0;
+    background-color: #202020;
+    border: none;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: normal;
+    text-align: right;
+    color: #fff;
+}
+
+.profile__input_mistake {
+    color: #EE3465;
+}
+
+.profile__input:focus {}
 
 .profile__list {
     width: 100%;
@@ -28,6 +67,7 @@
     list-style: none;
     display: flex;
     justify-content: space-between;
+    /* align-items: center; */
     border-bottom: #424242 solid 1px;
     padding: 17px 0 16px;
 }
@@ -66,4 +106,39 @@
 
 .profile__buttom_red {
     color: #EE3465;
+}
+
+/* .format-page-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+} */
+
+@media screen and (max-width: 768px) {
+    .profile {
+        /* margin: auto; */
+        
+    }
+    .profile__title {
+        margin: 0 0 96px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .profile {
+        padding: 70px 0 40px;
+    }
+    .profile__list {
+        max-width: 875vw;
+    }
+}
+@media screen and (max-width: 320px) {
+    .profile__list {
+        /* margin-bottom: 40vh; */
+    }
 }

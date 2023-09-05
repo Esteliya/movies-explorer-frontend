@@ -5,6 +5,8 @@
     font-style: normal;
     margin: 20px 0 0;
     position: relative;
+    border: none;
+    padding: 0;
 }
 
 .item-form__title {
@@ -39,6 +41,9 @@
     position: absolute;
     bottom: -20px;
     left: 0;
+}
+.item-form__mistake_none {
+    display: none;
 }
 
 @media screen and (max-width: 460px) {

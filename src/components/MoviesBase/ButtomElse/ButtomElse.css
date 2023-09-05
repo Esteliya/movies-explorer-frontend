@@ -1,5 +1,6 @@
 .button-else {
-    min-width: 1140px;
+    /* min-width: 1140px; */
+    width: 100%;
     min-height: 36px;
     padding: 0;
     margin: 0 auto 80px;
@@ -12,4 +13,10 @@
     background-color: #2F2F2F;
     border: none;
     box-shadow: none;
+}
+
+@media screen and (max-width: 1220px) {
+    .button-else {
+       /*  width: 100%; */
+    }
 }

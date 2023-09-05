@@ -17,7 +17,7 @@
     min-height: 46px;
     margin-bottom: 41px;
     padding: 0;
-    color: #fff;
+    color: #8B8B8B;
     font-size: 13px;
     font-weight: 400;
     line-height: 130.769%;
@@ -55,4 +55,19 @@
     font-weight: 400;
     line-height: 128.571%;
     margin: 0;
+}
+
+@media screen and (max-width: 1220px) {
+    .search-form {
+        min-width: 88.52vw;
+    }
+}
+
+@media screen and (max-width: 712px) {
+    .search-form__checkbox {
+        max-width: 147px;
+    }
+    .search-form__checkbox-title {
+        font-size: 11px;
+    }
 }

@@ -7,5 +7,42 @@
     column-gap: 24px;
     row-gap: 37px;
     grid-auto-flow: row;
+}
 
+@media screen and (max-width: 1220px) {
+    .movies-card-list {
+        width: 93.44vw;
+        grid-template-columns: repeat(2, minmax(339px, 1fr));
+        grid-template-rows: repeat(6, 34.75vw);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .movies-card-list {
+        /* grid-template-columns: repeat(1, minmax(310px, 1fr));
+        grid-template-rows: repeat(12, 72.1vw); */
+        /*  grid-template-columns: repeat(2, minmax(339px, 1fr)); */
+        grid-template-columns: repeat(2, minmax(310px, 1fr));
+        grid-template-rows: repeat(6, 262px);
+        column-gap: 30px;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 712px) {
+    .movies-card-list {
+        grid-template-columns: repeat(1, minmax(300px, 1fr));
+        grid-template-rows: repeat(12, 74.06vw);
+        column-gap: 30px;
+        row-gap: 30px;
+        margin: 70px auto 76px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .movies-card-list {
+        grid-template-columns: repeat(1, minmax(300px, 1fr));
+        grid-template-rows: repeat(12, 237px);
+        row-gap: 14px;
+    }
 }

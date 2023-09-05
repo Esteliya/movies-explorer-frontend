@@ -6,3 +6,26 @@
     flex-direction: column;
     align-items: center;
 }
+@media screen and (max-width: 1220px) {
+    .movies {
+        padding: 0 3.3vw;
+    }
+        
+}
+
+@media screen and (max-width: 768px) {
+    .movies {
+        padding: 0 30px;
+    }       
+}
+
+@media screen and (max-width: 712px) {
+    .movies {
+        padding: 0 2.1vw;
+    }  
+}
+@media screen and (max-width: 320px) {
+    .movies {
+        padding: 0 10px;
+    }  
+}

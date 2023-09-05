@@ -4,7 +4,7 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 function SearchForm() {
     return (
         <form name="Поиск фильмов" method="post" className="search-form">
-            <input className="search-form__input"></input>
+            <input className="search-form__input" value="Фильм"></input>
             <button className="search-form__button"></button>
             <div className="search-form__checkbox">
                 <FilterCheckbox />

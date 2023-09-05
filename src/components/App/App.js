@@ -31,7 +31,9 @@ function App() {
   //контекст текущего пользователя
   const [currentUser, setCurrentUser] = React.useState({});
   //контекст логина
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  // const [loggedIn, setLoggedIn] = React.useState(false);
+  //попап бургер-меню
+  const [isBurgerMenuPopup, setIsBurgerMenuPopup] = React.useState(false);
 
   // const [displayHeader, setdisplayHeader] = React.useState(false);
 
@@ -47,7 +49,7 @@ function App() {
       replace: true
     })
     setCurrentUser({ loggedIn: "true" });
-    setLoggedIn(true);
+    // setLoggedIn(true);
   }
 
   function getExit() {
@@ -56,7 +58,15 @@ function App() {
       replace: true
     })
     setCurrentUser({ loggedIn: "false" });
-    setLoggedIn(false);
+    // setLoggedIn(false);
+  }
+  // открываем попап меню
+  function handleOpenMenu() {
+    setIsBurgerMenuPopup(true)
+  }
+  // закрываем попап 
+  function closePopup() {
+    setIsBurgerMenuPopup(false)
   }
 
 
@@ -66,21 +76,23 @@ function App() {
         <Routes>
           <Route path="/" element={
             <>
-              <PopupMenu />
-              <Header homepage='true' />
+              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} />
+              <Header homepage='true' openButton={handleOpenMenu} />
               <Main />
               <Footer />
             </>
           } />
           <Route path="/movies" element={
             <>
-              <Header />
+              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} />
+              <Header openButton={handleOpenMenu} />
               <MoviesBase />
               <Footer />
             </>} />
           <Route path="/saved-movies" element={
             <>
-              <Header />
+              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} />
+              <Header openButton={handleOpenMenu} />
               <MoviesSaved />
               <Footer />
             </>} />

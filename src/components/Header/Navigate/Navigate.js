@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import React from "react";
 import "./Navigate.css";
 /* лого */
 import Logo from "../../Logo/Logo";
@@ -13,11 +13,11 @@ import AccountIcon from "../../../image/button_icon_account.svg"
 import CurrentUserContext from "../../../context/CurrentUserContext";
 
 function Navigate(props) {
-    const { mobile, homepage } = props
+    const { mobile, homepage, openButton } = props
     // если экран меньше или равно - показать кнопку меню
     const isMobile = mobile <= 768;
 
-    const currentUser = useContext(CurrentUserContext);
+    const currentUser = React.useContext(CurrentUserContext);
 
     const navigate = useNavigate();
     // пререход на страницу авторизации - на функционале перенести 
@@ -33,6 +33,10 @@ function Navigate(props) {
             replace: true
         })
     }
+
+/*     function handleClickMenu () {
+        console.log("клик по меню");
+    } */
 
     return (
         <>
@@ -50,7 +54,7 @@ function Navigate(props) {
                         <ButtonWithText text="Войти" onClick={passPageLogin} />
                     </>}
                 {!isMobile && currentUser.loggedIn && <ButtonWithIcon text="Аккаунт" homepage={homepage} icon={AccountIcon} onClick={passPageProfile} />}
-                {isMobile && currentUser.loggedIn && <ButtonMenu homepage={homepage}/>}
+                {isMobile && currentUser.loggedIn && <ButtonMenu homepage={homepage} onClick={openButton}/>}
             </nav>
         </>
     )

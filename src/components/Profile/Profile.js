@@ -1,5 +1,6 @@
 import React from "react";
 import "./Profile.css";
+import ItemFormProfile from "./ItemFormProfile/ItemFormProfile";
 import ButtonSave from "./ButtonSave/ButtonSave";
 
 function Profile(props) {
@@ -9,11 +10,13 @@ function Profile(props) {
 
     const [inputChange, setInputChange] = React.useState('');
 
+    const [disabledInput, setDisabledInput] = React.useState(true);
 
-    function handleClickEdit() {
+
+/*     function handleClickEdit() {
         console.log("Редактируем");
         setEditProfile(true);
-    }
+    } */
 
     function handleInputChange(e) {
         setInputChange(e.target.value);
@@ -25,31 +28,34 @@ function Profile(props) {
         setEditProfile(false);
     }
 
+    function handleClickEditButton () {
+        console.log("Редактируем");
+        setEditProfile(true);
+        setDisabledInput(false)
+        console.log(disabledInput);
+    }
+
     return (
         <section className="profile">
             <div className="profile__format-form">
                 <div className="profile__format-element">
                     <h1 className="profile__title">Привет, Виталий!</h1>
-                    <ul className="profile__list">
-                        <li className="profile__item">
-                            <h2 className="profile__item-title">Имя</h2>
-                            {!editProfile && <p className="profile__item-content">Виталий</p>}
-                            {editProfile && <input className="profile__input" placeholder="Виталий" onChange={handleInputChange}></input>}
-                        </li>
-                        <li className="profile__item">
-                            <h2 className="profile__item-title">E-mail</h2>
-                            {!editProfile && <p className="profile__item-content">pochta@yandex.ru</p>}
-                            {editProfile && <input className="profile__input" placeholder="pochta@yandex.ru" onChange={handleInputChange}></input>}
-                        </li>
-                    </ul>
+                    <form className="profile__form">
+                        <ItemFormProfile labelInput="Имя" placeholder="Виталий" onChange={handleInputChange} disabled={disabledInput}/>
+                        <ItemFormProfile labelInput="E-mail" placeholder="pochta@yandex.ru" onChange={handleInputChange} disabled={disabledInput} />
+                    </form>
                 </div>
                 <div className="profile__format-element">
                     {!editProfile &&
                         <>
-                            <button className="profile__buttom" type="button" onClick={handleClickEdit}>Редактировать</button>
+                            <button className="profile__buttom" type="button" onClick={handleClickEditButton}>Редактировать</button>
                             <button className="profile__buttom profile__buttom_red" type="button" onClick={onClickExit}>Выйти из аккаунта</button>
                         </>}
-                    {editProfile && <ButtonSave onClick={handleClickSave} />}
+                    {editProfile &&
+                        <>
+                            <span className="profile__form-mistake">Тестовый текст ошибки. Много-много-много-много-много-много-много очень много текста</span>
+                            <ButtonSave onClick={handleClickSave} />
+                        </>}
                 </div>
             </div>
         </section>

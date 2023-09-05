@@ -6,7 +6,7 @@ function ItemForm(props) {
 
     return (
         <fieldset className="item-form">
-            <label className="item-form__title">{titleInput}</label>
+            <label className="item-form__label">{titleInput}</label>
             <input className="item-form__input"></input>
             <span className="item-form__mistake">Тестовый текст ошибки. Много-много-много-много-много-много-много очень много текста</span>
         </fieldset>

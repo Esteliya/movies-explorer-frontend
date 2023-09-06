@@ -9,7 +9,7 @@ function ButtonMenu(props) {
     const styleButton = homepage ? "button-menu button-menu_home hover-effect" : "button-menu hover-effect";
 
     return (
-        <button className={styleButton} name="Меню" onClick={onClick}/>
+        <button type="button" className={styleButton} name="Меню" onClick={onClick}/>
     )
 }
 export default ButtonMenu;

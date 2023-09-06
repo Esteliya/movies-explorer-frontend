@@ -8,11 +8,11 @@ function Movies(props) {
     const { children, cards } = props;
 
     return (
-        <section className='movies'>
+        <main className='movies'>
             <SearchForm />
             <MoviesCardList cards={cards}/>
             {children}
-        </section>
+        </main>
     )
 }
 export default Movies;

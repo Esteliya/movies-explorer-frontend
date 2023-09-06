@@ -32,7 +32,7 @@ function MovieCard(props) {
             <div className='movie-card__preview' style={{ backgroundImage: `url(${cardImg})` }}></div>
             <div className='movie-card__info' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <div className='movie-card__data'>
-                    <p className='movie-card__title'>{cardTitle}.</p>
+                    <h2 className='movie-card__title'>{cardTitle}.</h2>
                     <p className='movie-card__time'>{hoursMins(cardTime)}</p>
                 </div>
                 {location.pathname === '/saved-movies' && showDeleteButton && <button className='movie-card__button movie-card__button_delete hover-effect' type="button" />}

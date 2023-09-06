@@ -9,7 +9,7 @@ function ButtonWithIcon(props) {
 
 
     return (
-            <button className={styleButton} name={text} onClick={onClick}>
+            <button type="button" className={styleButton} name={text} onClick={onClick}>
                 <p className="button-with-icon__text">{text}</p>
                 <div className={styleIcon} style={{ backgroundImage: `url(${icon})` }} />
             </button>

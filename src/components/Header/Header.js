@@ -1,6 +1,5 @@
 import React from 'react';
 import "./Header.css";
-import Cover from "./Cover/Cover"
 import Navigate from "./Navigate/Navigate";
 
 function Header(props) {
@@ -27,7 +26,6 @@ function Header(props) {
             <header className={styleHeader}>
                 <Navigate mobile={withWindow} homepage={homepage} openButton={openButton} onClickAccount={onClickAccount} />
             </header>
-            {homepage && <Cover />}
         </>
 
     )

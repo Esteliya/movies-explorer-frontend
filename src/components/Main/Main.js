@@ -4,15 +4,17 @@ import AboutProject from "./AboutProject/AboutProject";
 import Techs from "./Techs/Techs";
 import Student from "./Student/Student";
 import Portfolio from "./Portfolio/Portfolio"
+import Cover from "./Cover/Cover";
 
 function Main() {
     return (
         <main>
-        <NavTab />
-        <AboutProject />
-        <Techs />
-        <Student />
-        <Portfolio />
+            <Cover />
+            <NavTab />
+            <AboutProject />
+            <Techs />
+            <Student />
+            <Portfolio />
         </main>
     )
 }

@@ -53,7 +53,7 @@ function App() {
 
   function getExit() {
     // разлогинились* - переход на страницу авторизации
-    navigate('/signin', {
+    navigate('/', {
       replace: true
     })
     setCurrentUser({ loggedIn: "false" });

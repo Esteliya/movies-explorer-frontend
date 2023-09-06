@@ -1,7 +1,7 @@
 .movies-card-list {
     display: grid;
     grid-template-columns: repeat(3, minmax(364px, 1fr));
-    grid-template-rows: repeat(4, 281px);
+    grid-template-rows: repeat(1, 281px);
     max-width: 1140px;
     margin: 70px auto 60px;
     column-gap: 24px;
@@ -13,14 +13,14 @@
     .movies-card-list {
         width: 93.44vw;
         grid-template-columns: repeat(2, minmax(339px, 1fr));
-        grid-template-rows: repeat(6, 34.75vw);
+        grid-template-rows: repeat(1, 34.75vw);
     }
 }
 
 @media screen and (max-width: 768px) {
     .movies-card-list {
         grid-template-columns: repeat(2, minmax(310px, 1fr));
-        grid-template-rows: repeat(6, 262px);
+        grid-template-rows: repeat(1, 262px);
         column-gap: 30px;
         width: 100%;
     }
@@ -29,7 +29,7 @@
 @media screen and (max-width: 712px) {
     .movies-card-list {
         grid-template-columns: repeat(1, minmax(300px, 1fr));
-        grid-template-rows: repeat(12, 74.06vw);
+        grid-template-rows: repeat(1, 74.06vw);
         column-gap: 30px;
         row-gap: 30px;
         margin: 70px auto 76px;
@@ -39,7 +39,7 @@
 @media screen and (max-width: 320px) {
     .movies-card-list {
         grid-template-columns: repeat(1, minmax(300px, 1fr));
-        grid-template-rows: repeat(2, 237px);
+        grid-template-rows: repeat(1, 237px);
         row-gap: 14px;
         margin: 40px auto 166px;
     }

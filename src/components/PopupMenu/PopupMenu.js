@@ -20,7 +20,7 @@ function PopupMenu(props) {
                 </nav>
                 <ButtonWithIcon text="Аккаунт" icon={AccountIcon} onClick={onClickAccount}/>
             </div>
-            <button className="popup-menu__button-close" onClick={onClose}/>
+            <button type="button" className="popup-menu__button-close" onClick={onClose}/>
         </div>
     )
 }

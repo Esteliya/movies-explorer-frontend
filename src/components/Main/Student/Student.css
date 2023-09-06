@@ -54,6 +54,8 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    color: #FFF;
+    text-decoration: none;
 }
 
 .student__photo {

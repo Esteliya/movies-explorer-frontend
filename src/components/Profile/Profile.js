@@ -30,7 +30,7 @@ function Profile(props) {
     }
 
     return (
-        <section className="profile">
+        <main className="profile">
             <div className="profile__format-form">
                 <div className="profile__format-element">
                     <h1 className="profile__title">Привет, Виталий!</h1>
@@ -42,8 +42,8 @@ function Profile(props) {
                 <div className="profile__format-element">
                     {!editProfile &&
                         <>
-                            <button className="profile__buttom hover-effect" type="button" onClick={handleClickEditButton}>Редактировать</button>
-                            <button className="profile__buttom profile__buttom_red hover-effect" type="button" onClick={onClickExit}>Выйти из аккаунта</button>
+                            <button type="button" className="profile__buttom hover-effect" onClick={handleClickEditButton}>Редактировать</button>
+                            <button type="button" className="profile__buttom profile__buttom_red hover-effect" onClick={onClickExit}>Выйти из аккаунта</button>
                         </>}
                     {editProfile &&
                         <>
@@ -52,7 +52,7 @@ function Profile(props) {
                         </>}
                 </div>
             </div>
-        </section>
+        </main>
 
     )
 }

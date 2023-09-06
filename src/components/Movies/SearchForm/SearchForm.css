@@ -62,7 +62,6 @@
 
 @media screen and (max-width: 1220px) {
     .search-form {
-        /* min-width: 88.52vw; */
         min-width: 708px;
         width: 100%;
     }

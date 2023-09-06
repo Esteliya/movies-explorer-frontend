@@ -35,8 +35,8 @@ function MovieCard(props) {
                     <p className='movie-card__title'>{cardTitle}.</p>
                     <p className='movie-card__time'>{hoursMins(cardTime)}</p>
                 </div>
-                {location.pathname === '/saved-movies' && showDeleteButton && <button className='movie-card__button movie-card__button_delete' type="button" />}
-                {location.pathname === '/movies' && <button className='movie-card__button movie-card__button_like' type="button" />}
+                {location.pathname === '/saved-movies' && showDeleteButton && <button className='movie-card__button movie-card__button_delete hover-effect' type="button" />}
+                {location.pathname === '/movies' && <button className='movie-card__button movie-card__button_like hover-effect' type="button" />}
             </div>
         </div>
 

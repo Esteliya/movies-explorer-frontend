@@ -35,14 +35,6 @@ function App() {
   // const [loggedIn, setLoggedIn] = React.useState(false);
   //попап бургер-меню
   const [isBurgerMenuPopup, setIsBurgerMenuPopup] = React.useState(false);
-  // станица с моими фильмами
-  //const [myMovies, setMyMovies] = React.useState(false);
-
-  // const [displayHeader, setdisplayHeader] = React.useState(false);
-
-/*   React.useEffect(() => {
-    handleRoutMuvies();//проверяем роут
-  }, [location]); */
 
   function register() {
     navigate('/signin', {
@@ -80,25 +72,30 @@ function App() {
     navigate('/profile', {
       replace: true
     })
+    setIsBurgerMenuPopup(false);// закрываем меню
   }
 
-  // мои фильмы? 
-/*   function handleRoutMuvies() {
-    const path = location.pathname;
-    switch (path) {//навигируем существующие роуты на карточки при авторизации, иначе 404 страница
-      case "/movies":
-        console.log(path)
-        setMyMovies(false);
-        console.log(myMovies)
-        break;
-      case "/saved-movies":
-        console.log(path)
-        setMyMovies(true);
-        console.log(myMovies)
-        break;
-      default:
-    }
-  } */
+  // переход на страницу с фильмами
+  function handleClickMovies() {
+    navigate('/movies', {
+      replace: true
+    })
+    setIsBurgerMenuPopup(false);// закрываем меню
+  }
+  // переход на страницу с сохраненными фильмами
+  function handleClickSavedMovies() {
+    navigate('/saved-movies', {
+      replace: true
+    })
+    setIsBurgerMenuPopup(false);// закрываем меню
+  }
+  // переход на главную страницу
+  function handleClickHome() {
+    navigate('/', {
+      replace: true
+    })
+    setIsBurgerMenuPopup(false);// закрываем меню
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -106,7 +103,7 @@ function App() {
         <Routes>
           <Route path="/" element={
             <>
-              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} />
+              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
               <Header homepage='true' openButton={handleOpenMenu} onClickAccount={handleClickAccount} />
               <Main />
               <Footer />
@@ -114,14 +111,14 @@ function App() {
           } />
           <Route path="/movies" element={
             <>
-              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} />
+              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
               <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} />
               <MoviesBase />
               <Footer />
             </>} />
           <Route path="/saved-movies" element={
             <>
-              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} />
+              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
               <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} />
               <MoviesSaved />
               <Footer />
@@ -132,6 +129,7 @@ function App() {
           />} />
           <Route path="/profile" element={
             <>
+              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
               <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} />
               <Profile onClickExit={getExit} />
             </>} />

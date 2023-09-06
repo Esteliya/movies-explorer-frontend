@@ -1,11 +1,9 @@
 import './MoviesCardList.css';
-// тестовый массив фильмов. Потом меняем на api
-// import cards from "../../../utils/cards";
 
 import MovieCard from '../MovieCard/MovieCard';
 
 function MoviesCardList(props) {
-    const { cards, myMovies } = props;
+    const { cards } = props;
 
     return (
         <section className='movies-card-list'>

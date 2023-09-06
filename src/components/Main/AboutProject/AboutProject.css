@@ -98,9 +98,11 @@
     .about-project__progress {
         grid-template-columns: minmax(18vw, 110px) auto;
     }
+
     .about-project__trend-text {
         font-size: 12px;
     }
+
     .about-project__trend-comment {
         font-size: 12px;
     }

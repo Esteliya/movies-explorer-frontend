@@ -12,12 +12,6 @@ function Profile(props) {
 
     const [disabledInput, setDisabledInput] = React.useState(true);
 
-
-/*     function handleClickEdit() {
-        console.log("Редактируем");
-        setEditProfile(true);
-    } */
-
     function handleInputChange(e) {
         setInputChange(e.target.value);
         console.log(inputChange);
@@ -48,8 +42,8 @@ function Profile(props) {
                 <div className="profile__format-element">
                     {!editProfile &&
                         <>
-                            <button className="profile__buttom" type="button" onClick={handleClickEditButton}>Редактировать</button>
-                            <button className="profile__buttom profile__buttom_red" type="button" onClick={onClickExit}>Выйти из аккаунта</button>
+                            <button className="profile__buttom hover-effect" type="button" onClick={handleClickEditButton}>Редактировать</button>
+                            <button className="profile__buttom profile__buttom_red hover-effect" type="button" onClick={onClickExit}>Выйти из аккаунта</button>
                         </>}
                     {editProfile &&
                         <>

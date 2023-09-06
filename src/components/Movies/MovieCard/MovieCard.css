@@ -77,9 +77,6 @@
     border-radius: 36px;
     display: block;
 }
-/* .movie-card__button_delete-active {
-    display: block;
-} */
 
 @media screen and (max-width: 1220px) {
     .movie-card__preview {
@@ -119,11 +116,6 @@
 }
 
 @media screen and (max-width: 320px) {
-    .movie-card__preview {
-        /* min-height: 62vw; */
-        /* background-size: contain; */
-    }
-
     .movie-card__preview {
         min-height: 168px;
     }

@@ -1,4 +1,3 @@
-// import { Link, useNavigate } from "react-router-dom";
 import React from 'react';
 import "./Header.css";
 import Cover from "./Cover/Cover"
@@ -6,8 +5,6 @@ import Navigate from "./Navigate/Navigate";
 
 function Header(props) {
     const { openButton, onClickAccount, homepage = false } = props;
-
-    // const navigate = useNavigate();
 
     // проверим размер экрана - если мобилное устройство, то в header меняем кнопку
     const [withWindow, setwithWindow] = React.useState(window.innerWidth);
@@ -28,7 +25,7 @@ function Header(props) {
     return (
         <>
             <header className={styleHeader}>
-                <Navigate mobile={withWindow} homepage={homepage} openButton={openButton} onClickAccount={onClickAccount}/>
+                <Navigate mobile={withWindow} homepage={homepage} openButton={openButton} onClickAccount={onClickAccount} />
             </header>
             {homepage && <Cover />}
         </>

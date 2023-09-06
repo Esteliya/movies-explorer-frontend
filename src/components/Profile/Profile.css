@@ -60,7 +60,6 @@
     list-style: none;
     display: flex;
     justify-content: space-between;
-    /* align-items: center; */
     border-bottom: #424242 solid 1px;
     padding: 17px 0 16px;
 }
@@ -101,23 +100,7 @@
     color: #EE3465;
 }
 
-/* .format-page-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-} */
-
 @media screen and (max-width: 768px) {
-    .profile {
-        /* margin: auto; */
-
-    }
-
     .profile__title {
         margin: 0 0 96px;
     }
@@ -139,10 +122,8 @@
     .profile {
         padding: 0 30px;
     }
+
     .profile__format-form {
         padding: 70px 0 40px;
-    }
-    .profile__form {
-        /* margin-bottom: 40vh; */
     }
 }

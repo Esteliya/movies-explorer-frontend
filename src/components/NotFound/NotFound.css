@@ -4,8 +4,16 @@
     color: #fff;
     display: flex;
     flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+.not-found__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 246px 0 60px;
+    margin-top: 246px;
 }
 
 .not-found__title {
@@ -28,4 +36,50 @@
     font-size: 14px;
     font-weight: 400;
     line-height: normal;
+}
+
+@media screen and (max-width: 768px) {
+    .not-found {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .not-found__content {
+        margin: 0;
+        padding-top: 186px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .not-found__title {
+        font-size: 31.5vw;
+    }
+    .not-found__discription {
+        font-size: 14px;
+    }
+
+}
+
+@media screen and (max-width: 320px) {
+    .not-found {
+        position: relative;
+    }
+    .not-found__content {
+        padding: 0;
+    }
+    .not-found__title {
+        font-size: 80px;
+        margin: 0 0 10px;
+    }
+
+    .not-found__discription {
+        margin: 0;
+        font-size: 12px;
+    }
+
+    .not-found__link {
+        position: absolute;
+        bottom: 30px;
+        font-size: 12px;
+    }
 }

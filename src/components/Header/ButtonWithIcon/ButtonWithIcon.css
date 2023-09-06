@@ -36,3 +36,7 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.button-with-icon__icon_home {
+    background-color: #073042;
+}

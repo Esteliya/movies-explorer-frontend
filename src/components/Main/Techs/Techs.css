@@ -1,24 +1,9 @@
-@import url(../../../mixStile/formatSection.css);
-
 .techs {
     background-color: #272727;
     color: #FFF;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
-    /*     padding-bottom: 100px;
-    padding-top: 100px; */
 }
-
-/* .techs__title {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 0 23px;
-    border-bottom: 1px solid #FFF;
-    font-size: 22px;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.88px;
-} */
 
 .techs__context {
     display: block;
@@ -52,7 +37,6 @@
 
 .techs__list {
     display: flex;
-    /*  max-width: 510px; */
     gap: 10px;
     margin: 0 auto;
     padding: 0;
@@ -103,7 +87,7 @@
             justify-content: center;
         }
     }
-    
+
     @media screen and (max-width: 574px) {
         .techs__subtitle {
             font-size: 9vw;

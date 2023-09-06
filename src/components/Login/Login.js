@@ -2,7 +2,6 @@ import "./Login.css"
 import "../../mixStile/formatForm.css";
 import Auth from "../Auth/Auth";
 import ItemForm from "../ItemForm/ItemForm"
-/* добавить css для кнопки/инпута!!! */
 
 function Login(props) {
     const { onClick } = props;

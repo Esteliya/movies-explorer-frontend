@@ -18,8 +18,8 @@ function Auth(props) {
                     </form>
                 </div>
                 <div className="auth__format-element">
-                    <button type="submit" className="auth__button" form={btnText} onClick={onClick}>{btnText}</button>
-                    <p className="auth__route">{titleLink} <Link to={link} name={textLink} className="auth__link">{textLink}</Link></p>
+                    <button type="submit" className="auth__button hover-effect" form={btnText} onClick={onClick}>{btnText}</button>
+                    <p className="auth__route">{titleLink} <Link to={link} name={textLink} className="auth__link hover-effect">{textLink}</Link></p>
                 </div>
             </div>
 

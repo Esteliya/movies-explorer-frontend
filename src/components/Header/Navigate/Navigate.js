@@ -28,24 +28,25 @@ function Navigate(props) {
     }
 
     // пререход на страницу данных пользователя - на функционале перенести 
-/*     function passPageProfile() {
-        navigate('/profile', {
-            replace: true
-        })
-    } */
+    /*     function passPageProfile() {
+            navigate('/profile', {
+                replace: true
+            })
+        } */
 
-/*     function handleClickMenu () {
-        console.log("клик по меню");
-    } */
+    /*     function handleClickMenu () {
+            console.log("клик по меню");
+        } */
 
     return (
         <>
             <nav className="navigate navigate_movie">
                 <Logo />
-                {currentUser.loggedIn && !isMobile && <>
-                    <Link to="/movies" name="Фильмы" className="navigate__link">Фильмы</Link>
-                    <Link to="/saved-movies" name="Сохраненные фильмы" className="navigate__link">Сохраненные фильмы</Link>
-                </>}
+                {currentUser.loggedIn && !isMobile &&
+                    <>
+                        <Link to="/movies" name="Фильмы" className="navigate__link navigate__link_movie">Фильмы</Link>
+                        <Link to="/saved-movies" name="Сохраненные фильмы" className="navigate__link">Сохраненные фильмы</Link>
+                    </>}
             </nav>
             <nav className="navigate navigate_profile">
                 {!currentUser.loggedIn &&
@@ -54,7 +55,7 @@ function Navigate(props) {
                         <ButtonWithText text="Войти" onClick={passPageLogin} />
                     </>}
                 {!isMobile && currentUser.loggedIn && <ButtonWithIcon text="Аккаунт" homepage={homepage} icon={AccountIcon} onClick={onClickAccount} />}
-                {isMobile && currentUser.loggedIn && <ButtonMenu homepage={homepage} onClick={openButton}/>}
+                {isMobile && currentUser.loggedIn && <ButtonMenu homepage={homepage} onClick={openButton} />}
             </nav>
         </>
     )

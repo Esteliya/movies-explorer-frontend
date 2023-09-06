@@ -1,8 +1,8 @@
-import './ButtomElse.css'
+import './ButtonElse.css'
 
-function ButtomElse() {
+function ButtonElse() {
     return (
         <button className="button-else" type="button">Еще</button>
     )
 }
-export default ButtomElse;
+export default ButtonElse;

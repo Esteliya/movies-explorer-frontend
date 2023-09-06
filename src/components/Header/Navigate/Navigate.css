@@ -1,6 +1,6 @@
 .navigate {
     display: flex;
-    padding: 0 0 0 44px;
+    /* padding: 0 0 0 44px; */
     align-items: center;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
@@ -27,6 +27,10 @@
     font-weight: 500;
     line-height: 133%;
     text-decoration: none;
+}
+
+.navigate__link_movie {
+    margin-left: 28px;
 }
 
 @media screen and (max-width: 320px) {

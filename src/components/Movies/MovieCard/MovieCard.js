@@ -1,7 +1,21 @@
+import React from 'react';
+import { useLocation } from 'react-router-dom'; 
 import './MovieCard.css'
 
 function MovieCard(props) {
     const { cardImg, cardTitle, cardTime } = props;
+
+    const [showDeleteButton, setShowDeleteButton] = React.useState(false);
+
+    const location = useLocation();//проверим, на каком роуте выдаем карточки
+
+    function handleMouseEnter() {
+        setShowDeleteButton(true);
+    }
+
+    function handleMouseLeave() {
+        setShowDeleteButton(false);
+    }
 
     // высчитываем часы и минуты
     const hoursMins = (num) => {
@@ -13,20 +27,19 @@ function MovieCard(props) {
         return `${hours}ч ${mins}м`;
     }
 
-return (
-    <div className='movie-card'>
-        <div className='movie-card__preview' style={{ backgroundImage: `url(${cardImg})` }}></div>
-        <div className='movie-card__info'>
-            <div className='movie-card__data'>
-                <p className='movie-card__title'>{cardTitle}.</p>
-                <p className='movie-card__time'>{hoursMins(cardTime)}</p>
+    return (
+        <div className='movie-card'>
+            <div className='movie-card__preview' style={{ backgroundImage: `url(${cardImg})` }}></div>
+            <div className='movie-card__info' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                <div className='movie-card__data'>
+                    <p className='movie-card__title'>{cardTitle}.</p>
+                    <p className='movie-card__time'>{hoursMins(cardTime)}</p>
+                </div>
+                {location.pathname === '/saved-movies' && showDeleteButton && <button className='movie-card__button movie-card__button_delete' type="button" />}
+                {location.pathname === '/movies' && <button className='movie-card__button movie-card__button_like' type="button" />}
             </div>
-            <button className='movie-card__like' type="button"></button>
         </div>
 
-
-    </div>
-
-)
+    )
 }
 export default MovieCard;

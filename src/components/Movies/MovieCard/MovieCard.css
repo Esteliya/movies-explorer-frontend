@@ -50,46 +50,66 @@
     line-height: normal;
 }
 
-.movie-card__like {
-    background-image: url("../../../image/bottom_like.svg");
+.movie-card__button {
     width: 30px;
     height: 30px;
     border: none;
     box-shadow: none;
     background-repeat: no-repeat;
-    background-size: contain;
-    background-position: right;
     background-color: #222222;
     padding: 0;
 }
 
-.movie-card__like:focus {
+.movie-card__button_like {
+    background-image: url("../../../image/bottom_like.svg");
+    background-size: contain;
+    background-position: right;
+}
+
+.movie-card__button_like:focus {
     background-image: url("../../../image/bottom_like-active.svg");
 }
+
+.movie-card__button_delete {
+    background-image: url("../../../image/bottom_delete_card.svg");
+    background-size: 30%;
+    background-position: center;
+    border-radius: 36px;
+    display: block;
+}
+/* .movie-card__button_delete-active {
+    display: block;
+} */
 
 @media screen and (max-width: 1220px) {
     .movie-card__preview {
         min-height: 28vw;
     }
 }
+
 @media screen and (max-width: 768px) {
     .movie-card {
         border-radius: 6px;
     }
+
     .movie-card__preview {
         min-height: 28vw;
     }
+
     .movie-card__info {
         padding: 14px;
     }
+
     .movie-card__title {
         margin: 0 0 15px;
     }
+
     .movie-card__preview {
         min-height: 190px;
     }
-        
+
 }
+
 @media screen and (max-width: 712px) {
     .movie-card__preview {
         min-height: 24.74vw;
@@ -103,9 +123,9 @@
         /* min-height: 62vw; */
         /* background-size: contain; */
     }
+
     .movie-card__preview {
         min-height: 168px;
     }
- 
-}
 
+}

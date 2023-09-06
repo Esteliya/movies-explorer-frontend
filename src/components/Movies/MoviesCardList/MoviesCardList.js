@@ -5,7 +5,7 @@ import './MoviesCardList.css';
 import MovieCard from '../MovieCard/MovieCard';
 
 function MoviesCardList(props) {
-    const { cards } = props;
+    const { cards, myMovies } = props;
 
     return (
         <section className='movies-card-list'>

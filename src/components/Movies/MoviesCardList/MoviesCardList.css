@@ -42,7 +42,8 @@
 @media screen and (max-width: 320px) {
     .movies-card-list {
         grid-template-columns: repeat(1, minmax(300px, 1fr));
-        grid-template-rows: repeat(12, 237px);
+        grid-template-rows: repeat(2, 237px);
         row-gap: 14px;
+        margin: 40px auto 166px;
     }
 }

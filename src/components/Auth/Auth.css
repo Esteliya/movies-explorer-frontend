@@ -80,6 +80,10 @@
     .auth__format-form {
         max-height: 100vh;
         padding: auto 0;
+        max-height: 700px;
+    }
+    .auth__format-element {
+        /* padding-top: 162px; */
     }
 }
 

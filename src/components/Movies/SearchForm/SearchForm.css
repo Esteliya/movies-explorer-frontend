@@ -68,6 +68,17 @@
     }
 }
 
+@media screen and (max-width: 768px) {
+    .search-form {
+        padding: 78px 0 70px;
+        max-width: 708px;
+        min-width: 292px;
+    }
+    .search-form__button {
+        top: 84px;
+    }
+}
+
 @media screen and (max-width: 712px) {
     .search-form__checkbox {
         max-width: 147px;
@@ -75,5 +86,10 @@
 
     .search-form__checkbox-title {
         font-size: 11px;
+    }
+}
+@media screen and (max-width: 320px) {
+    .search-form {
+        padding: 78px 0 49px;
     }
 }

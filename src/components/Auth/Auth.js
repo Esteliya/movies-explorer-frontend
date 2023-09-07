@@ -14,7 +14,6 @@ function Auth(props) {
                     <form className="auth__form" id={btnText}>
                         <h1 className="auth__title">{title}</h1>
                         {children}
-                        {/* <button type="submit" className="auth__button" style={{marginTop: `${margin}px`}} onClick={onClick}>{btnText}</button> */}
                     </form>
                 </div>
                 <div className="auth__format-element">

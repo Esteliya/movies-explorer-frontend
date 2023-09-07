@@ -5,12 +5,12 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';// фильмы
 // import Preloader from '../Preloader/Preloader'
 
 function Movies(props) {
-    const { children, cards } = props;
+    const { children, cards, mobile } = props;
 
     return (
         <main className='movies'>
             <SearchForm />
-            <MoviesCardList cards={cards}/>
+            <MoviesCardList cards={cards} mobile={mobile} />
             {children}
         </main>
     )

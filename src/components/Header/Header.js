@@ -3,9 +3,9 @@ import "./Header.css";
 import Navigate from "./Navigate/Navigate";
 
 function Header(props) {
-    const { openButton, onClickAccount, homepage = false } = props;
+    const { openButton, onClickAccount, mobile, homepage = false } = props;
 
-    // проверим размер экрана - если мобилное устройство, то в header меняем кнопку
+/*     // проверим размер экрана - если мобилное устройство, то в header меняем кнопку
     const [withWindow, setwithWindow] = React.useState(window.innerWidth);
     React.useEffect(() => {
         const handleResize = () => {
@@ -15,7 +15,7 @@ function Header(props) {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, []); */
 
 
     const styleHeader = homepage ? "header header_home" : "header";
@@ -24,7 +24,7 @@ function Header(props) {
     return (
         <>
             <header className={styleHeader}>
-                <Navigate mobile={withWindow} homepage={homepage} openButton={openButton} onClickAccount={onClickAccount} />
+                <Navigate mobile={mobile} homepage={homepage} openButton={openButton} onClickAccount={onClickAccount} />
             </header>
         </>
 

@@ -6,9 +6,12 @@ import ButtonElse from "./ButtonElse/ButtonElse"
 import cards from "../../utils/cards";
 
 
-function MoviesBase() {
+function MoviesBase(props) {
+
+    const {mobile} = props;
+    
     return (
-        <Movies cards={cards} >
+        <Movies cards={cards} mobile={mobile} >
             <ButtonElse />
         </Movies>
     )

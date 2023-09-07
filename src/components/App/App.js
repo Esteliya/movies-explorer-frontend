@@ -36,6 +36,18 @@ function App() {
   //попап бургер-меню
   const [isBurgerMenuPopup, setIsBurgerMenuPopup] = React.useState(false);
 
+  // контролируем размер экрана - меняем данные на страницах согласно размера 
+  const [withWindow, setwithWindow] = React.useState(window.innerWidth);
+  React.useEffect(() => {
+    const handleResize = () => {
+      setwithWindow(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   function register() {
     navigate('/signin', {
       replace: true
@@ -104,7 +116,7 @@ function App() {
           <Route path="/" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header homepage='true' openButton={handleOpenMenu} onClickAccount={handleClickAccount} />
+              <Header homepage='true' openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} />
               <Main />
               <Footer />
             </>
@@ -112,14 +124,14 @@ function App() {
           <Route path="/movies" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} />
-              <MoviesBase />
+              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow}/>
+              <MoviesBase mobile={withWindow}/>
               <Footer />
             </>} />
           <Route path="/saved-movies" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} />
+              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow}/>
               <MoviesSaved />
               <Footer />
             </>} />
@@ -130,7 +142,7 @@ function App() {
           <Route path="/profile" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} />
+              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow}/>
               <Profile onClickExit={getExit} />
             </>} />
 

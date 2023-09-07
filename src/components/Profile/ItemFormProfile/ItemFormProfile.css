@@ -11,6 +11,10 @@
     margin: 17px 0 0;
 }
 
+.item-form-profile:first-child {
+    margin: 0;
+}
+
 .item-form-profile__label {}
 
 .item-form-profile__input {

@@ -25,6 +25,10 @@
     flex-direction: column;
 }
 
+.profile__format-element:first-child {
+    margin-top: 162px;
+}
+
 .profile__title {
     color: #fff;
     font-size: 24px;
@@ -116,6 +120,14 @@
     .profile__form {
         max-width: 875vw;
     }
+
+    .profile__format-element:first-child {
+        margin-top: 0;
+    }
+
+    .profile__title {
+        margin: 0 0 80px;
+    }
 }
 
 @media screen and (max-width: 320px) {
@@ -125,5 +137,9 @@
 
     .profile__format-form {
         padding: 70px 0 40px;
+    }
+
+    .profile__buttom {
+        font-size: 12px;
     }
 }

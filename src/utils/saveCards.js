@@ -1,6 +1,6 @@
-import cadr1 from "../image/card-list_1.png"
-import cadr2 from "../image/card-list_2.png"
-import cadr3 from "../image/card-list_3.png"
+import cadr1 from "../images/card-list_1.png"
+import cadr2 from "../images/card-list_2.png"
+import cadr3 from "../images/card-list_3.png"
 
 const Cards = [
     {

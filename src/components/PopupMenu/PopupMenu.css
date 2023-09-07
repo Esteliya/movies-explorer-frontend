@@ -59,7 +59,7 @@
 }
 
 .popup-menu__button-close {
-    background-image: url("../../image/popup_close.svg");
+    background-image: url("../../images/popup_close.svg");
     background-size: cover;
     background-repeat: no-repeat;
     background-color: #202020;

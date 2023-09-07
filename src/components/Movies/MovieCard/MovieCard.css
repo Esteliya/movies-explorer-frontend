@@ -61,17 +61,17 @@
 }
 
 .movie-card__button_like {
-    background-image: url("../../../image/bottom_like.svg");
+    background-image: url("../../../images/bottom_like.svg");
     background-size: contain;
     background-position: right;
 }
 
 .movie-card__button_like:focus {
-    background-image: url("../../../image/bottom_like-active.svg");
+    background-image: url("../../../images/bottom_like-active.svg");
 }
 
 .movie-card__button_delete {
-    background-image: url("../../../image/bottom_delete_card.svg");
+    background-image: url("../../../images/bottom_delete_card.svg");
     background-size: 30%;
     background-position: center;
     border-radius: 36px;

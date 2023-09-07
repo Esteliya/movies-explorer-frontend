@@ -29,7 +29,7 @@
 .search-form__button {
     width: 34px;
     height: 34px;
-    background-image: url("../../../image/search-form__enter.svg");
+    background-image: url("../../../images/search-form__enter.svg");
     border: none;
     border-radius: 17px;
     box-shadow: none;

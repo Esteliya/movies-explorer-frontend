@@ -8,7 +8,7 @@ import ButtonWithText from "../ButtonWithText/ButtonWithText"
 import ButtonWithIcon from "../ButtonWithIcon/ButtonWithIcon"
 import ButtonMenu from "../ButtonMenu/ButtonMenu";
 /* иконка для кнопки */
-import AccountIcon from "../../../image/button_icon_account.svg"
+import AccountIcon from "../../../images/button_icon_account.svg"
 /* контекст - пока логирование - ждем функционал */
 import CurrentUserContext from "../../../context/CurrentUserContext";
 

@@ -1,7 +1,7 @@
 import "./Student.css";
 import "../../../mixStile/titleSection.css";
 import "../../../mixStile/paddingSection.css";
-import studentPhoto from "../../../image/student__photo.jpg";//фото
+import studentPhoto from "../../../images/student__photo.jpg";//фото
 
 function Student() {
     return (

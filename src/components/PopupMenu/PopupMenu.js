@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import './PopupMenu.css'
 import ButtonWithIcon from "../Header/ButtonWithIcon/ButtonWithIcon";
-import AccountIcon from "../../image/button_icon_account.svg";
+import AccountIcon from "../../images/button_icon_account.svg";
 
 function PopupMenu(props) {
     const {isOpen, onClose, onClickAccount, onClickHome, onClickMovies, onClickSavedMovies } = props;

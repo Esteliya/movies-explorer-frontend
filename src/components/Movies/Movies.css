@@ -6,7 +6,7 @@
     flex-direction: column;
     align-items: center;
 }
-@media screen and (max-width: 1220px) {
+@media screen and (max-width: 1224px) {
     .movies {
         padding: 0 3.3vw;
     }

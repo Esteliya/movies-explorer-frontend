@@ -4,7 +4,7 @@ import "../../../mixStile/paddingSection.css";
 
 function Techs() {
     return (
-        <section id="techs" className="techs format-section padding-section">
+        <section id="techs" className="techs format-section">
             <h2 className="techs__title title-section">Технологии</h2>
             <div className="techs__context">
                 <h3 className="techs__subtitle">7 технологий</h3>

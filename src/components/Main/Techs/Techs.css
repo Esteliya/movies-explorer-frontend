@@ -3,6 +3,8 @@
     color: #FFF;
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
+    padding-bottom: 100px;
+    padding-top: 100px;
 }
 
 .techs__context {
@@ -58,6 +60,11 @@
 }
 
 @media screen and (max-width: 768px) {
+    .techs {
+        padding-bottom: 90px;
+        padding-top: 90px;
+    }
+
     .techs__list {
         font-size: 12px;
         letter-spacing: -0.48px;
@@ -97,6 +104,8 @@
     @media screen and (max-width: 320px) {
         .techs {
             background-color: #202020;
+            padding-bottom: 70px;
+            padding-top: 70px;
         }
 
         .techs__subtitle {

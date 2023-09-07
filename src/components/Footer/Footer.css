@@ -17,7 +17,7 @@
     line-height: normal;
     padding-bottom: 20px;
     border-bottom: 1px solid #424242;
-    margin: 70px 0 0;
+    margin: 79px 0 0;
 }
 
 .footer__context {
@@ -50,6 +50,9 @@
 @media screen and (max-width: 768px) {
     .footer {
         padding: 0 30px;
+    }
+    .footer__title {
+        margin: 79px 0 0;
     }
 }
 

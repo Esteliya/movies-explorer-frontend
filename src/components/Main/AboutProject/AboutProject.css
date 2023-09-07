@@ -6,6 +6,7 @@
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     color: #FFF;
+    box-sizing: border-box;
 }
 
 .about-project__title {}
@@ -91,6 +92,11 @@
     .about-project__context {
         gap: 30px;
         padding-bottom: 93px;
+    }
+
+    .about-project__text {
+        font-size: 12px;
+        line-height: 150%;
     }
 }
 

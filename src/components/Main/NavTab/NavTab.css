@@ -52,4 +52,7 @@
     .navigation {
         padding: 0 18px;
     }
+    .navigation__list {
+        padding: 25px 0;
+    }
 }

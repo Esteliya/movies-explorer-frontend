@@ -85,11 +85,13 @@
         font-size: 40px;
         line-height: 100%;
         letter-spacing: -1.6px;
+        margin-bottom: 16px;
     }
 
     .student__discription {
         font-size: 12px;
         line-height: 150%;
+        margin-bottom: 20px;
     }
 
     .student__text {

@@ -8,7 +8,7 @@ function MoviesCardList(props) {
     return (
         <section className='movies-card-list'>
             {
-                cards.map((card) => {
+                cards.slice(0, 12).map((card) => {
                     return (
                         <MovieCard
                             key={card.id}

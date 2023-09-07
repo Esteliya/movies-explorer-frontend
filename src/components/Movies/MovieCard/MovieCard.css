@@ -1,4 +1,4 @@
-.movie-card {
+ .movie-card {
     width: 100%;
     height: 100%;
     background-color: #222222;
@@ -35,7 +35,7 @@
 
 .movie-card__title {
     margin: 0 0 17px;
-    overflow: hidden;
+    /* overflow: hidden; */
     white-space: nowrap;
     text-overflow: ellipsis;
     font-size: 13px;
@@ -78,7 +78,7 @@
     display: block;
 }
 
-@media screen and (max-width: 1220px) {
+@media screen and (max-width: 1224px) {
     .movie-card__preview {
         min-height: 28vw;
     }
@@ -89,9 +89,9 @@
         border-radius: 6px;
     }
 
-    .movie-card__preview {
+/*     .movie-card__preview {
         min-height: 28vw;
-    }
+    } */
 
     .movie-card__info {
         padding: 14px;
@@ -111,7 +111,7 @@
     .movie-card__preview {
         min-height: 24.74vw;
         height: 100%;
-        background-size: cover;
+        /* background-size: cover; */
     }
 }
 

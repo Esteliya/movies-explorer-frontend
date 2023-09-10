@@ -44,7 +44,7 @@ function Profile(props) {
 
     return (
         <main className="profile">
-            <div className="profile__format-form">
+            <section className="profile__format-form">
                 <div className="profile__format-element">
                     <h1 className="profile__title">Привет, Виталий!</h1>
                     <form className="profile__form">
@@ -64,7 +64,7 @@ function Profile(props) {
                             <ButtonSave onClick={handleClickSave} />
                         </>}
                 </div>
-            </div>
+            </section>
         </main>
 
     )

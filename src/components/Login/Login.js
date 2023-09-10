@@ -20,10 +20,14 @@ function Login(props) {
                     type="email"
                     minLength="2"
                     maxLength="30"
+                    placeholder="Введите e-mail"
                 />
                 <ItemForm
                     label="Пароль"
                     type="password"
+                    minLength="8"
+                    maxLength="30"
+                    placeholder="Введите пароль"
                 />
             </Auth>
         </main>

@@ -27,7 +27,7 @@
 }
 
 .profile__format-element:first-child {
-    margin-top: 162px;
+    /* margin-top: 162px; */
 }
 
 .profile__title {
@@ -108,6 +108,9 @@
 @media screen and (max-width: 768px) {
     .profile__title {
         margin: 0 0 96px;
+    }
+    .profile__format-element:first-child {
+        margin-top: 162px;
     }
 }
 

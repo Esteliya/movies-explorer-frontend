@@ -20,16 +20,19 @@ function Register(props) {
                     type="text"
                     minLength="2"
                     maxLength="30"
+                    placeholder="Введите имя"
                 />
                 <ItemForm
                     label="E-mail"
                     type="email"
+                    placeholder="Введите e-mail"
                 />
                 <ItemForm
                     label="Пароль"
                     type="password"
                     minLength="8"
                     maxLength="30"
+                    placeholder="Введите пароль"
                 />
             </Auth>
         </main>

@@ -153,5 +153,10 @@
             line-height: 145.455%;
             margin: 0 0 40px;
         }
+
+        .student__photo {
+            min-width: 292px;
+            min-height: 352px;
+        }
     }
 }

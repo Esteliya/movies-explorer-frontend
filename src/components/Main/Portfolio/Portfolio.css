@@ -39,7 +39,7 @@
     justify-content: space-between;
     width: 100%;
     text-decoration: none;
-    max-height: 28px;
+    max-height: 70px;
 }
 
 .portfolio__name-link {
@@ -81,11 +81,10 @@
     .portfolio__item {
         border-bottom: 1px solid #E6E6E6;
     }
-}
 
-@media screen and (max-width: 768px) {
-    .portfolio__name-link {
-        font-size: 18px;
+    .portfolio__button-link {
+        background-position: center;
+        margin-top: 15px;
     }
 }
 
@@ -109,5 +108,15 @@
     .portfolio__button-link {
         background-size: 40%;
         background-position: 100% 0%;
+    }
+
+    .portfolio__link {
+        max-height: 28px;
+    }
+
+    .portfolio__button-link {
+        background-position: 100% 35%;
+        margin-top: 0;
+    
     }
 }

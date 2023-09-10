@@ -4,7 +4,7 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 function SearchForm() {
     return (
         <form name="Поиск фильмов" method="post" className="search-form">
-            <input className="search-form__input" placeholder="Фильм"></input>
+            <input className="search-form__input focus-effect" placeholder="Фильм" required></input>
             <button type="submit" className="search-form__button hover-effect"></button>
             <div className="search-form__checkbox">
                 <FilterCheckbox />

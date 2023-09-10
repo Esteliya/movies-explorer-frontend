@@ -22,4 +22,6 @@
     border: none;
     text-align: right;
     color: #fff;
+    box-sizing: border-box;
+    border-radius: 2px;
 }

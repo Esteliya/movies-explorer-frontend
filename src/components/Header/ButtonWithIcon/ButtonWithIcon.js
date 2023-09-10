@@ -5,13 +5,12 @@ function ButtonWithIcon(props) {
 
     // стиль cлоя кнопки Аккаунт (замена фона для домашней страницы)
     const styleButton = homepage ? "button-with-icon button-with-icon_home hover-effect" : "button-with-icon hover-effect";
-    const styleIcon = homepage ? "button-with-icon__icon button-with-icon__icon_home hover-effect" : "button-with-icon__icon hover-effect";
+    const styleIcon = homepage ? "button-with-icon__icon button-with-icon__icon_home" : "button-with-icon__icon";
 
 
     return (
-            <button type="button" className={styleButton} name={text} onClick={onClick}>
-                <p className="button-with-icon__text">{text}</p>
-                <div className={styleIcon} style={{ backgroundImage: `url(${icon})` }} />
+            <button type="button" className={styleButton} name={text} onClick={onClick}>{text}
+            <img src={`${icon}`} alt={text} className={styleIcon}/>
             </button>
     )
 }

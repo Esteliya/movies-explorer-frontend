@@ -7,7 +7,7 @@ function Login(props) {
     const { onClick } = props;
 
     return (
-        <section className="margin-form-center">
+        <main className="margin-form-center">
             <Auth
                 title='Рады видеть!'
                 btnText='Войти'
@@ -16,13 +16,17 @@ function Login(props) {
                 link='/signup'
                 onClick={onClick}>
                 <ItemForm
-                    titleInput="E-mail"
+                    label="E-mail"
+                    type="email"
+                    minLength="2"
+                    maxLength="30"
                 />
                 <ItemForm
-                    titleInput="Пароль"
+                    label="Пароль"
+                    type="password"
                 />
             </Auth>
-        </section>
+        </main>
 
     )
 }

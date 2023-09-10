@@ -63,7 +63,7 @@
 .movie-card__button_like {
     background-image: url("../../../images/bottom_like.svg");
     background-size: contain;
-    background-position: right;
+    background-position: center;
 }
 
 .movie-card__button_like:focus {

@@ -29,7 +29,7 @@
     font-size: 13px;
     font-weight: 500;
     line-height: normal;
-   /*  box-sizing: border-box; */
+    box-sizing: border-box;
 }
 
 .item-form__mistake {

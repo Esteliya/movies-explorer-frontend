@@ -6,6 +6,7 @@
     color: #fff;
     box-sizing: border-box;
     max-width: 410px;
+    width: 100%;
     margin: 0 auto;
     height: calc(100vh - 74px);
 }

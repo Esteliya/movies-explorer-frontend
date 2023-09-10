@@ -7,7 +7,7 @@ function Auth(props) {
     const { title, children, btnText, titleLink, textLink, link, onClick } = props;
 
     return (
-        <main className="auth">
+        <section className="auth">
             <div className="auth__format-form">
                 <div className="auth__format-element">
                     <Logo />
@@ -21,7 +21,7 @@ function Auth(props) {
                     <p className="auth__route">{titleLink} <Link to={link} name={textLink} className="auth__link hover-effect">{textLink}</Link></p>
                 </div>
             </div>
-        </main>
+        </section>
 
     )
 }

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import "./Navigate.css";
+import "../../../mixStile/hoverEffect.css";
 /* лого */
 import Logo from "../../Logo/Logo";
 /* кнопки */
@@ -34,7 +35,7 @@ function Navigate(props) {
                 {currentUser.loggedIn && !isMobile &&
                     <>
                         <Link to="/movies" name="Фильмы" className="navigate__link navigate__link_movie hover-effect">Фильмы</Link>
-                        <Link to="/saved-movies" name="Сохраненные фильмы" className="navigate__link hover-effect">Сохраненные фильмы</Link>
+                        <Link to="/saved-movies" name="Избранное" className="navigate__link hover-effect">Сохраненные фильмы</Link>
                     </>}
             </nav>
             <nav className="navigate navigate_profile">

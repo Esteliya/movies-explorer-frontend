@@ -8,13 +8,26 @@ function Profile(props) {
 
     const [editProfile, setEditProfile] = React.useState(false);
 
-    const [inputChange, setInputChange] = React.useState('');
+    // const [inputChange, setInputChange] = React.useState('');
+    // стейты для каждогго инпута
+    const [inputName, setInputName] = React.useState('');
+    const [inputEmail, setInputEmail] = React.useState('');
 
     const [disabledInput, setDisabledInput] = React.useState(true);
 
-    function handleInputChange(e) {
+/*     function handleInputChange(e) {
         setInputChange(e.target.value);
         console.log(inputChange);
+    } */
+
+    function handleInputName(e) {
+        setInputName(e.target.value);
+        console.log(inputName);
+    }
+
+    function handleInputEmail(e) {
+        setInputEmail(e.target.value);
+        console.log(inputEmail);
     }
 
     function handleClickSave() {
@@ -22,7 +35,7 @@ function Profile(props) {
         setEditProfile(false);
     }
 
-    function handleClickEditButton () {
+    function handleClickEditButton() {
         console.log("Редактируем");
         setEditProfile(true);
         setDisabledInput(false)
@@ -35,8 +48,8 @@ function Profile(props) {
                 <div className="profile__format-element">
                     <h1 className="profile__title">Привет, Виталий!</h1>
                     <form className="profile__form">
-                        <ItemFormProfile labelInput="Имя" placeholder="Виталий" onChange={handleInputChange} disabled={disabledInput}/>
-                        <ItemFormProfile labelInput="E-mail" placeholder="pochta@yandex.ru" onChange={handleInputChange} disabled={disabledInput} />
+                        <ItemFormProfile labelInput="Имя" placeholder="Виталий" onChange={handleInputName} disabled={disabledInput} typeInput="text"minLength="2" maxLength="30"/>
+                        <ItemFormProfile labelInput="E-mail" placeholder="pochta@yandex.ru" onChange={handleInputEmail} disabled={disabledInput} typeInput="email"/>
                     </form>
                 </div>
                 <div className="profile__format-element">

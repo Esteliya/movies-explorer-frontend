@@ -130,7 +130,7 @@
     }
 
     .about-project__context {  
-        padding-top: 60px;
+        padding-top: 62px;
         padding-bottom: 60px;
         gap: 56px;
     }
@@ -140,7 +140,7 @@
     }
 
     .about-project__discription {
-        margin: 0 auto 16px;
+        margin: 0 auto 18px;
         font-size: 18px;
         letter-spacing: -0.72px;
     }
@@ -173,5 +173,6 @@
 
     .about-project__trend-comment {
         margin: 10px 0 0;
+        font-size: 11px;
     }
 }

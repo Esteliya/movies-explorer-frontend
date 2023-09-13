@@ -1,0 +1,7 @@
+/* форматирование для страниц с формами */
+/* вся форма по центру */
+.margin-form-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

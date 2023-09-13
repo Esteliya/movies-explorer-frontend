@@ -1,0 +1,178 @@
+@import url(../../../mixStile/formatSection.css);
+
+.about-project {
+    padding-bottom: 110px;
+    padding-top: 110px;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    color: #FFF;
+    box-sizing: border-box;
+}
+
+.about-project__title {}
+
+.about-project__context {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 70px;
+    padding-bottom: 110px;
+    display: flex;
+    gap: 40px;
+}
+
+.about-project__column {
+    max-width: 550px;
+}
+
+.about-project__discription {
+    margin: 0 auto 26px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.8px;
+}
+
+.about-project__text {
+    margin: 0;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 142.857%;
+}
+
+.about-project__progress {
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 17.8125vw auto;
+}
+
+.about-project__time {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+.about-project__trend {
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-project__trend_back {
+    background-color: #3DDC84;
+    color: #000;
+}
+
+.about-project__trend_front {
+    background-color: #303030;
+}
+
+.about-project__trend-text {
+    margin: 0;
+}
+
+.about-project__trend-comment {
+    display: flex;
+    justify-content: center;
+    line-height: 121.429%;
+    color: #8B8B8B;
+    margin: 14px 0 0;
+}
+
+@media screen and (max-width: 768px) {
+    .about-project {
+        padding-bottom: 90px;
+        padding-top: 90px;
+    }
+
+    .about-project__context {
+        gap: 30px;
+        padding-bottom: 93px;
+    }
+
+    .about-project__text {
+        font-size: 12px;
+        line-height: 150%;
+    }
+}
+
+@media screen and (max-width: 610px) {
+    .about-project__progress {
+        grid-template-columns: minmax(18vw, 110px) auto;
+    }
+
+    .about-project__trend-text {
+        font-size: 12px;
+    }
+
+    .about-project__trend-comment {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 462px) {
+
+    .about-project__context {
+        padding-top: 80px;
+        padding-bottom: 80px;
+        flex-direction: column;
+        gap: 64px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .about-project {
+        display: block;
+    }
+
+    .about-project__context {  
+        padding-top: 62px;
+        padding-bottom: 60px;
+        gap: 56px;
+    }
+
+    .about-project__column {
+        gap: 56px;
+    }
+
+    .about-project__discription {
+        margin: 0 auto 18px;
+        font-size: 18px;
+        letter-spacing: -0.72px;
+    }
+
+    .about-project__text {
+        font-size: 11px;
+        line-height: 145.455%;
+    }
+
+    .about-project__progress {
+        grid-template-columns: 100px 1fr;
+    }
+
+    .about-project__time {
+        font-size: 11px;
+    }
+
+    .about-project__trend {
+        height: 35px;
+    }
+
+    .about-project__trend_back {
+        background-color: #3DDC84;
+        color: #000;
+    }
+
+    .about-project__trend_front {
+        background-color: #303030;
+    }
+
+    .about-project__trend-comment {
+        margin: 10px 0 0;
+        font-size: 11px;
+    }
+}

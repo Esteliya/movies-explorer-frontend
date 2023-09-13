@@ -1,0 +1,17 @@
+/* вертикальные отступы секций */
+.padding-section {
+    padding-bottom: 110px;
+    padding-top: 110px;
+}
+@media screen and (max-width: 768px) {
+    .padding-section {
+        padding-bottom: 90px;
+        padding-top: 90px;
+    }
+}
+@media screen and (max-width: 320px) {
+    .padding-section {
+        padding-bottom: 70px;
+        padding-top: 70px;
+    }
+}

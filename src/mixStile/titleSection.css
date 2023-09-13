@@ -1,0 +1,19 @@
+/* заголовки секций */
+.title-section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 0 23px;
+    border-bottom: 1px solid #FFF;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.88px;
+}
+
+@media screen and (max-width: 320px) {
+    .title-section {
+        font-size: 18px;
+        letter-spacing: -0.72px;
+        padding-bottom: 28px;
+    }
+}

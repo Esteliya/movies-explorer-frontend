@@ -1,0 +1,123 @@
+ .movie-card {
+    width: 100%;
+    height: 100%;
+    background-color: #222222;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    color: #FFF;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.movie-card__preview {
+    margin: 0;
+    display: block;
+    min-height: 203px;
+    width: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.movie-card__info {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.movie-card__data {
+    max-width: 290px;
+    gap: 12px;
+}
+
+.movie-card__title {
+    margin: 0 0 17px;
+    /* overflow: hidden; */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.movie-card__time {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.movie-card__button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    box-shadow: none;
+    background-repeat: no-repeat;
+    background-color: #222222;
+    padding: 0;
+}
+
+.movie-card__button_like {
+    background-image: url("../../../images/bottom_like.svg");
+    background-size: contain;
+    background-position: center;
+}
+
+.movie-card__button_like:focus {
+    background-image: url("../../../images/bottom_like-active.svg");
+}
+
+.movie-card__button_delete {
+    background-image: url("../../../images/bottom_delete_card.svg");
+    background-size: 30%;
+    background-position: center;
+    border-radius: 36px;
+    display: block;
+}
+
+@media screen and (max-width: 1224px) {
+    .movie-card__preview {
+        min-height: 28vw;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .movie-card {
+        border-radius: 6px;
+    }
+
+/*     .movie-card__preview {
+        min-height: 28vw;
+    } */
+
+    .movie-card__info {
+        padding: 14px;
+    }
+
+    .movie-card__title {
+        margin: 0 0 15px;
+    }
+
+    .movie-card__preview {
+        min-height: 190px;
+    }
+
+}
+
+@media screen and (max-width: 712px) {
+    .movie-card__preview {
+        min-height: 24.74vw;
+        height: 100%;
+        /* background-size: cover; */
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .movie-card__preview {
+        min-height: 168px;
+    }
+
+}

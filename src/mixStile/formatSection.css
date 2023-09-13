@@ -1,0 +1,32 @@
+/* форматирование секций */
+.format-section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: 70px;
+    padding-right: 70px;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 768px) {
+    .format-section {
+        max-width: 768px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
+
+@media screen and (max-width: 574px) {
+    .format-section {
+        max-width: 574px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .format-section {
+        max-width: 320px;
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+}

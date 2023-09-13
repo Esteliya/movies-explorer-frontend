@@ -1,0 +1,16 @@
+.button-else {
+    width: 100%;
+    min-height: 36px;
+    padding: 0;
+    margin: 0 auto 80px;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: normal;
+    color: #fff;
+    background-color: #2F2F2F;
+    border: none;
+    box-shadow: none;
+    max-width: 1140px;
+}

@@ -1,0 +1,56 @@
+.item-form {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    margin: 20px 0 0;
+    position: relative;
+    border: none;
+    padding: 0;
+}
+
+.item-form__label {
+    margin: 0 0 10px;
+    color: #8B8B8B;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.item-form__input {
+    background-color: #2F2F2F;
+    /* менять при валидации - ждем функционал!!! */
+    /* color: #EE3465; */
+    color: #fff;
+    max-height: 46px;
+    border-radius: 8px;
+    border: none;
+    padding: 15px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: normal;
+    box-sizing: border-box;
+}
+
+.item-form__mistake {
+    color: #EE3465;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 80%;
+    /* замена для сохранения размеров макета с учетом слишком длинного текста ошибки */
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+}
+.item-form__mistake_none {
+    display: none;
+}
+
+@media screen and (max-width: 460px) {
+    .item-form {
+        width: 100%;
+    }
+    .item-form:last-child {
+        margin-bottom: 80px;
+    }
+}

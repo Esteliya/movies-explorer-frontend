@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom'; 
 import './MovieCard.css'
+import { BASE_MOVIES_URL } from '../../../utils/config'; // ловим путь к превью
 
 function MovieCard(props) {
     const { cardImg, cardTitle, cardTime } = props;
@@ -29,7 +30,7 @@ function MovieCard(props) {
 
     return (
         <div className='movie-card'>
-            <div className='movie-card__preview' style={{ backgroundImage: `url(${cardImg})` }}></div>
+            <div className='movie-card__preview' style={{ backgroundImage: `url(${BASE_MOVIES_URL}${cardImg})` }}></div>
             <div className='movie-card__info' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <div className='movie-card__data'>
                     <h2 className='movie-card__title'>{cardTitle}.</h2>

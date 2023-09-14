@@ -24,6 +24,12 @@ import Footer from '../Footer/Footer';// подвал
 import NotFound from '../NotFound/NotFound';// страницы не существует
 
 import PopupMenu from "../PopupMenu/PopupMenu";
+import TestPage from '../TestPage/TestPage';
+
+// API
+import { apiWithMovies } from '../../utils/MoviesApi';
+
+// тестовый компонент для api запросов
 
 
 function App() {
@@ -38,7 +44,12 @@ function App() {
 
   // контролируем размер экрана - меняем данные на страницах согласно размера 
   const [withWindow, setwithWindow] = React.useState(window.innerWidth);
+
+// стейт массива карточек стороннего апи
+const [dataMovies, setDataMovies] = React.useState([]);
+
   React.useEffect(() => {
+    getMovies();
     const handleResize = () => {
       setwithWindow(window.innerWidth);
     };
@@ -48,6 +59,8 @@ function App() {
     };
   }, []);
 
+  // АУТЕНТИФИКАЦИЯ 
+  // регистрируемся
   function register() {
     navigate('/signin', {
       replace: true
@@ -64,13 +77,15 @@ function App() {
   }
 
   function getExit() {
-    // разлогинились* - переход на страницу авторизации
+    // разлогинились - переход на страницу авторизации
     navigate('/', {
       replace: true
     })
     setCurrentUser({ loggedIn: "false" });
     // setLoggedIn(false);
   }
+
+  // БУРГЕР-МЕНЮ
   // открываем попап меню
   function handleOpenMenu() {
     setIsBurgerMenuPopup(true)
@@ -79,6 +94,7 @@ function App() {
   function closePopup() {
     setIsBurgerMenuPopup(false)
   }
+  // РОУТИНГ
   // пререход на страницу данных пользователя
   function handleClickAccount() {
     navigate('/profile', {
@@ -109,10 +125,32 @@ function App() {
     setIsBurgerMenuPopup(false);// закрываем меню
   }
 
+  //КАРТОЧКИ ФИЛЬМОВ
+  //запрашиваем данные карточек с сервера 
+  function getMovies() {
+    //console.log('запросили данные карточек');
+    apiWithMovies.getMovieInfo()
+      .then((moviesData) => {
+        console.log('запросили данные карточек');
+        //setCards(cardsData);//выводим на страницу карточки
+        console.log(moviesData);
+        setDataMovies(moviesData);
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      });
+  }
+
+  function handleSearchClick () {
+    // getMovies()
+    console.log("клик поиска фильмов");
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Routes>
+          <Route path='/testpage' element={<TestPage />} />
           <Route path="/" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
@@ -125,7 +163,7 @@ function App() {
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
               <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow}/>
-              <MoviesBase mobile={withWindow}/>
+              <MoviesBase mobile={withWindow} cards={dataMovies} onClick={handleSearchClick}/>
               <Footer />
             </>} />
           <Route path="/saved-movies" element={
@@ -137,8 +175,7 @@ function App() {
             </>} />
 
           <Route path="/signup" element={<Register onClick={register} />} />
-          <Route path="/signin" element={<Login onClick={getLogin}
-          />} />
+          <Route path="/signin" element={<Login onClick={getLogin} />} />
           <Route path="/profile" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />

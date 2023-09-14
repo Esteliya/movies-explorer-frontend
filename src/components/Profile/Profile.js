@@ -15,11 +15,6 @@ function Profile(props) {
 
     const [disabledInput, setDisabledInput] = React.useState(true);
 
-/*     function handleInputChange(e) {
-        setInputChange(e.target.value);
-        console.log(inputChange);
-    } */
-
     function handleInputName(e) {
         setInputName(e.target.value);
         console.log(inputName);

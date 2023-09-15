@@ -7,11 +7,21 @@ const MOVIES_URL = {
       'Content-Type': 'application/json'
     },
   };
-  // данные: изображения
+  // точечные данные с api: изображения
   const BASE_MOVIES_URL = 'https://api.nomoreparties.co';
 
+  // мой апи 
+  const API_URL = 'http://localhost:3001'
+/*   const API_URL = {
+    // url: 'https://api.mymovies.nomoreparties.co',
+    url: 'http://localhost:3000',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  }; */
 
 export {
     MOVIES_URL,
     BASE_MOVIES_URL,
+    API_URL,
 };

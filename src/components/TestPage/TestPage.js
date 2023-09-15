@@ -3,9 +3,10 @@ import { apiWithMovies, baseApi } from "../../utils/MoviesApi";
 import { BASE_MOVIES_URL } from '../../utils/config';
 
 
-function TestPage() {
-
+function TestPage(props) {
+    const { onClick } = props;
     function handleClick() {
+        
         // console.log("кнопка работает");
         /* baseApi.getMovieInfo()
         .then((data) => {
@@ -27,9 +28,9 @@ function TestPage() {
     }
 
     return (
-        <section>
+        <section className="test-page">
             <h1>ТЕСТОВАЯ СТРАНИЦА</h1>
-            <button type="button" className="test-page" onClick={handleClick}>ТЕСТОВАЯ КНОПКА</button>
+            <button type="button" className="test-page__button" onClick={onClick}>ТЕСТОВАЯ КНОПКА</button>
         </section>
     )
 }

@@ -8,11 +8,11 @@ import ButtonElse from "./ButtonElse/ButtonElse"
 
 function MoviesBase(props) {
 
-    const {mobile, cards, onClick} = props;
+    const {mobile, cards, onClick, blankPage, messageText} = props;
     
     return (
-        <Movies cards={cards} mobile={mobile} onClick={onClick}>
-            <ButtonElse />
+        <Movies cards={cards} mobile={mobile} onClick={onClick} blankPage={blankPage} messageText={messageText}>
+            {!blankPage && <ButtonElse />}
         </Movies>
     )
 }

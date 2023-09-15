@@ -4,14 +4,14 @@ import Logo from "../Logo/Logo";
 
 
 function Auth(props) {
-    const { title, children, btnText, titleLink, textLink, link, onClick } = props;
+    const { title, children, btnText, titleLink, textLink, link, onClick, onSubmit } = props;
 
     return (
         <section className="auth">
             <div className="auth__format-form">
                 <div className="auth__format-element">
                     <Logo />
-                    <form className="auth__form" id={btnText}>
+                    <form className="auth__form" id={btnText} onSubmit={onSubmit}>
                         <h1 className="auth__title">{title}</h1>
                         {children}
                     </form>

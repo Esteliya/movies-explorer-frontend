@@ -17,9 +17,10 @@ class Auth {
     //запрос проверки ответа
     _request(urlEndpoint, options) {
         //debugger;
-        return fetch(`${this._url}`, options)
+        return fetch(`${this._url}${urlEndpoint}`, options)
             .then(this._checkResponse)
     }
+
     // ПОЛЬЗОВАТЕЛЬ
     //запрашиваем данные о пользователе
     getUserInfo() {
@@ -72,7 +73,7 @@ class Auth {
             headers: this._headers,
         })
     }
-    
+
 }
 
 const auth = new Auth(API_URL);

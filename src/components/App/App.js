@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'; // импортируем Routes
+import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom'; // импортируем Routes
 // РОУТЫ
 import Main from '../Main/Main';// о проекте
 // import Movies from '../Movies/Movies';// шаблонная страница для фильмов
@@ -39,7 +39,7 @@ function App() {
   const navigate = useNavigate();
   //контекст текущего пользователя
   const [currentUser, setCurrentUser] = React.useState({});
-  // const location = useLocation();//будем следить за роутами
+  const location = useLocation();//будем следить за роутами
   //контекст логина
   const [loggedIn, setLoggedIn] = React.useState(false);
   //попап бургер-меню
@@ -54,6 +54,7 @@ function App() {
   const [messageText, setMessageText] = React.useState('');
 
   React.useEffect(() => {
+    tockenCheck();
     getMovies();
     getDataLocalStorage();
     setMessageText('Запустите поиск интересующих Вас фильмов');
@@ -74,6 +75,10 @@ function App() {
       .then((data) => {
         console.log(data)
         alert('Регистрация прошла успешно')//работает 
+        // перебрасываем пользователя на авторизацию
+        navigate('/signin', {
+          replace: true
+        })
       })
       .catch((err) => {
         //console.log('ОШИБКА РЕГИСТРАЦИИ')
@@ -83,12 +88,16 @@ function App() {
       replace: true
     }) */
   }
-
+  // авторизируемся
   function hendleLogin(data) {
     const { email, password } = data;
     auth.authorize(email, password)
       .then(() => {
-        console.log("авторизировались")
+        console.log("авторизировались");
+        setCurrentUser({ loggedIn: "true" });
+        navigate('/movies', {
+          replace: true
+        });
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
@@ -103,14 +112,53 @@ function App() {
     // setLoggedIn(true);
   }
 
-  function getExit() {
-    // разлогинились - переход на страницу авторизации
-    navigate('/', {
-      replace: true
+ //проверяем наличие токена в localStorage
+ function tockenCheck() {
+  auth.checkToken()
+    .then(() => {
+      console.log('сравнили токен - есть');
+      setCurrentUser({ loggedIn: "true" });
+      console.log(loggedIn);
+  // запросиv данные пользователя
+  //запросим фильмы с сервера
+      //console.log(location);
+      const path = location.pathname;
+      //console.log(path);
+      switch (path) {//навигируем авторизацию и регистрацию на фильмы, если пользователь туда заходит напрямую
+        case "/signin":
+          navigate('/movies');
+          break;
+        case "/signup":
+          navigate('/movies');
+          break;
+        default:
+      }
     })
-    setCurrentUser({ loggedIn: "false" });
-    // setLoggedIn(false);
+    .catch((err) => {
+      console.error(`Ошибка: ${err}`);
+    });
+}
+
+
+// удаляем токен
+  function handleExitProfile() {
+    auth.logout()
+      .then(() => {
+        console.log("разлогинились")
+        // разлогинились - переход на страницу авторизации
+        navigate('/', {
+          replace: true
+        })
+        setCurrentUser({ loggedIn: "false" });
+        // setLoggedIn(false);
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+
+      });
   }
+
+
 
   // БУРГЕР-МЕНЮ
   // открываем попап меню
@@ -231,7 +279,7 @@ function App() {
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
               <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} />
-              <Profile onClickExit={getExit} />
+              <Profile onClickExit={handleExitProfile} />
             </>} />
 
           <Route path='*' element={<NotFound />} replace />

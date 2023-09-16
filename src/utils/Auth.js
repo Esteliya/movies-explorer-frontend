@@ -2,7 +2,7 @@ import { API_URL } from '../utils/config';
 
 // проверяем ответ сервера
 const response = (res) => {
-    debugger
+    // debugger
     if (res.ok) {
         return res.json();
     } else {
@@ -26,7 +26,7 @@ export const register = (name, email, password) => {
 
 //авторизация пользователя
 export const authorize = (email, password) => {
-    debugger
+    // debugger
     return fetch(`${API_URL}/signin`, {
         method: 'POST',
         credentials: 'include',

@@ -142,6 +142,8 @@ function App() {
 
 // удаляем токен
   function handleExitProfile() {
+    // debugger
+    console.log("выходим из акка?")
     auth.logout()
       .then(() => {
         console.log("разлогинились")
@@ -154,7 +156,6 @@ function App() {
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
-
       });
   }
 

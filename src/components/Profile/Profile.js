@@ -3,17 +3,33 @@ import "./Profile.css";
 import ItemFormProfile from "./ItemFormProfile/ItemFormProfile";
 import ButtonSave from "./ButtonSave/ButtonSave";
 
+import CurrentUserContext from "../../context/CurrentUserContext";
+
 function Profile(props) {
     const { onClickExit } = props;
+
+    // контекст - ловим данные пользователя
+    const currentUser = React.useContext(CurrentUserContext);
+
+     //переменые полей имени и имейла пользователя
+     const [name, setName] = React.useState(currentUser.name);
+     const [email, setEmail] = React.useState(currentUser.email);
 
     const [editProfile, setEditProfile] = React.useState(false);
 
     // const [inputChange, setInputChange] = React.useState('');
-    // стейты для каждогго инпута
+    // стейты для каждого инпута
     const [inputName, setInputName] = React.useState('');
     const [inputEmail, setInputEmail] = React.useState('');
 
     const [disabledInput, setDisabledInput] = React.useState(true);
+
+    //используем данные, полученные из api выше
+    React.useEffect(() => {
+        setName(currentUser.name);
+        setEmail(currentUser.email);
+        console.log(name)
+    }, [currentUser]);
 
     function handleInputName(e) {
         setInputName(e.target.value);
@@ -41,10 +57,10 @@ function Profile(props) {
         <main className="profile">
             <section className="profile__format-form">
                 <div className="profile__format-element">
-                    <h1 className="profile__title">Привет, Виталий!</h1>
+                    <h1 className="profile__title">Привет, {name}!</h1>
                     <form className="profile__form">
-                        <ItemFormProfile labelInput="Имя" placeholder="Виталий" onChange={handleInputName} disabled={disabledInput} typeInput="text"minLength="2" maxLength="30"/>
-                        <ItemFormProfile labelInput="E-mail" placeholder="pochta@yandex.ru" onChange={handleInputEmail} disabled={disabledInput} typeInput="email"/>
+                        <ItemFormProfile labelInput="Имя" placeholder={name} onChange={handleInputName} disabled={disabledInput} typeInput="text" minLength="2" maxLength="30" />
+                        <ItemFormProfile labelInput="E-mail" placeholder={email} onChange={handleInputEmail} disabled={disabledInput} typeInput="email" />
                     </form>
                 </div>
                 <div className="profile__format-element">

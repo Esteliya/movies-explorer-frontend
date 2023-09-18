@@ -92,10 +92,10 @@ function App() {
   function hendleLogin(data) {
     const { email, password } = data;
     auth.authorize(email, password)
-      .then(() => {
+      .then((dataUser) => {
         console.log("авторизировались");
-        // setCurrentUser({ loggedIn: "true" });
         setLoggedIn(true);
+        setCurrentUser(dataUser)
         navigate('/movies', {
           replace: true
         });
@@ -119,9 +119,7 @@ function App() {
     .then(() => {
       console.log('сравнили токен - есть');
       setLoggedIn(true)
-      // setCurrentUser({ loggedIn: "true" });
-      console.log(loggedIn);
-  // запросиv данные пользователя
+  // запросим данные пользователя
   //запросим фильмы с сервера
       //console.log(location);
       const path = location.pathname;

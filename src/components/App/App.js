@@ -94,7 +94,8 @@ function App() {
     auth.authorize(email, password)
       .then(() => {
         console.log("авторизировались");
-        setCurrentUser({ loggedIn: "true" });
+        // setCurrentUser({ loggedIn: "true" });
+        setLoggedIn(true);
         navigate('/movies', {
           replace: true
         });
@@ -117,7 +118,8 @@ function App() {
   auth.checkToken()
     .then(() => {
       console.log('сравнили токен - есть');
-      setCurrentUser({ loggedIn: "true" });
+      setLoggedIn(true)
+      // setCurrentUser({ loggedIn: "true" });
       console.log(loggedIn);
   // запросиv данные пользователя
   //запросим фильмы с сервера
@@ -151,8 +153,8 @@ function App() {
         navigate('/', {
           replace: true
         })
-        setCurrentUser({ loggedIn: "false" });
-        // setLoggedIn(false);
+        // setCurrentUser({ loggedIn: "false" });
+        setLoggedIn(false);
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
@@ -254,7 +256,7 @@ function App() {
           <Route path="/" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header homepage='true' openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} />
+              <Header homepage='true' openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn}/>
               <Main />
               <Footer />
             </>
@@ -262,14 +264,14 @@ function App() {
           <Route path="/movies" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} />
+              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn}/>
               <MoviesBase mobile={withWindow} cards={dataMovies} onClick={handleSearchClick} blankPage={blankPage} messageText={messageText} />
               <Footer />
             </>} />
           <Route path="/saved-movies" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} />
+              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn}/>
               <MoviesSaved />
               <Footer />
             </>} />
@@ -279,7 +281,7 @@ function App() {
           <Route path="/profile" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} />
+              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn}/>
               <Profile onClickExit={handleExitProfile} />
             </>} />
 

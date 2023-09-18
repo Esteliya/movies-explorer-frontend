@@ -41,7 +41,7 @@ export const authorize = (email, password) => {
 
 //выход из аккуанта
 export const logout = () => {
-    debugger
+    // debugger
     return fetch(`${API_URL}/signout`, {
         credentials: 'include',
         headers: {

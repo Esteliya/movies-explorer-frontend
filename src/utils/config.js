@@ -11,17 +11,18 @@ const MOVIES_URL = {
   const BASE_MOVIES_URL = 'https://api.nomoreparties.co';
 
   // мой апи 
-  const API_URL = 'http://localhost:3001'
-/*   const API_URL = {
+  const BASE_API_URL = 'http://localhost:3001'
+  const API_URL = {
     // url: 'https://api.mymovies.nomoreparties.co',
-    url: 'http://localhost:3000',
+    url: 'http://localhost:3001',
     headers: {
       'Content-Type': 'application/json'
     },
-  }; */
+  };
 
 export {
     MOVIES_URL,
     BASE_MOVIES_URL,
+    BASE_API_URL,
     API_URL,
 };

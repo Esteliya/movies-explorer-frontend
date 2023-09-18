@@ -1,4 +1,4 @@
-import { API_URL } from '../utils/config';
+import { BASE_API_URL } from '../utils/config';
 
 // проверяем ответ сервера
 const response = (res) => {
@@ -13,7 +13,7 @@ const response = (res) => {
 
 // регистрация пользователя 
 export const register = (name, email, password) => {
-    return fetch(`${API_URL}/signup`, {
+    return fetch(`${BASE_API_URL}/signup`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -27,7 +27,7 @@ export const register = (name, email, password) => {
 //авторизация пользователя
 export const authorize = (email, password) => {
     // debugger
-    return fetch(`${API_URL}/signin`, {
+    return fetch(`${BASE_API_URL}/signin`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -42,7 +42,7 @@ export const authorize = (email, password) => {
 //выход из аккуанта
 export const logout = () => {
     // debugger
-    return fetch(`${API_URL}/signout`, {
+    return fetch(`${BASE_API_URL}/signout`, {
         credentials: 'include',
         headers: {
             'Accept': 'application/json',
@@ -55,7 +55,7 @@ export const logout = () => {
 //проверка пользователя
 export const checkToken = () => {
     // debugger;
-    return fetch(`${API_URL}/users/me`, {
+    return fetch(`${BASE_API_URL}/users/me`, {
         method: 'GET',
         credentials: 'include',
         headers: {

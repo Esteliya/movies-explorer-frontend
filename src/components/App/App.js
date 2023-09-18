@@ -28,6 +28,7 @@ import TestPage from '../TestPage/TestPage';
 
 // API
 import { apiWithMovies } from '../../utils/MoviesApi';
+import mainApi from '../../utils/MainApi';
 //import auth from '../../utils/MainApi';
 import * as auth from '../../utils/Auth';
 
@@ -113,34 +114,53 @@ function App() {
     // setLoggedIn(true);
   }
 
- //проверяем наличие токена в localStorage
- function tockenCheck() {
-  auth.checkToken()
-    .then(() => {
-      console.log('сравнили токен - есть');
-      setLoggedIn(true)
-  // запросим данные пользователя
-  //запросим фильмы с сервера
-      //console.log(location);
-      const path = location.pathname;
-      //console.log(path);
-      switch (path) {//навигируем авторизацию и регистрацию на фильмы, если пользователь туда заходит напрямую
-        case "/signin":
-          navigate('/movies');
-          break;
-        case "/signup":
-          navigate('/movies');
-          break;
-        default:
-      }
-    })
-    .catch((err) => {
-      console.error(`Ошибка: ${err}`);
-    });
-}
+  //проверяем наличие токена в localStorage
+  function tockenCheck() {
+    auth.checkToken()
+      .then((dataUser) => {
+        console.log('сравнили токен - есть');
+        setLoggedIn(true)
+        setCurrentUser(dataUser)
+        // запросим данные пользователя
+        //запросим фильмы с сервера
+        //console.log(location);
+        const path = location.pathname;
+        //console.log(path);
+        switch (path) {//навигируем авторизацию и регистрацию на фильмы, если пользователь туда заходит напрямую
+          case "/signin":
+            navigate('/movies');
+            break;
+          case "/signup":
+            navigate('/movies');
+            break;
+          default:
+        }
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      });
+  }
+
+  // обновляем данные пользователя
+  function handleUpdataUser(data) {
+    //mainApi.patchUserInfo 
+    console.log(data)
+    // const { name, email } = data;
+    debugger
+    mainApi.patchUserInfo(data)
+      .then((data) => {
+        console.log("запрос patch успешен?")
+        console.log(data)// +
+        alert('Изменение данных прошло успешно')//работает 
+        setCurrentUser(data)// ????? как-то обновить 
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      })
+  }
 
 
-// удаляем токен
+  // удаляем токен
   function handleExitProfile() {
     // debugger
     console.log("выходим из акка?")
@@ -254,7 +274,7 @@ function App() {
           <Route path="/" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header homepage='true' openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn}/>
+              <Header homepage='true' openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn} />
               <Main />
               <Footer />
             </>
@@ -262,14 +282,14 @@ function App() {
           <Route path="/movies" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn}/>
+              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn} />
               <MoviesBase mobile={withWindow} cards={dataMovies} onClick={handleSearchClick} blankPage={blankPage} messageText={messageText} />
               <Footer />
             </>} />
           <Route path="/saved-movies" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn}/>
+              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn} />
               <MoviesSaved />
               <Footer />
             </>} />
@@ -279,8 +299,8 @@ function App() {
           <Route path="/profile" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn}/>
-              <Profile onClickExit={handleExitProfile} />
+              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn} />
+              <Profile onClickExit={handleExitProfile} handleDataForm={handleUpdataUser} />
             </>} />
 
           <Route path='*' element={<NotFound />} replace />

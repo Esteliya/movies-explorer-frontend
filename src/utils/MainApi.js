@@ -1,6 +1,6 @@
 import { API_URL } from '../utils/config';
 
-class Auth {
+class MainApi {
     constructor(data) {
         this._url = data.url;//основная строка url из customize
         this._headers = data.headers;//заголовок fetch из customize
@@ -39,7 +39,7 @@ class Auth {
             headers: this._headers,
             body: JSON.stringify({
                 name: data.name,
-                about: data.email
+                email: data.email
             })
         })
     }
@@ -66,8 +66,8 @@ class Auth {
     }
 
     // удаляем фильм по id 
-    deleteCard(cardId) {
-        return this._request(`/cards/${cardId}`, {
+    deleteCard(movieId) {
+        return this._request(`/cards/${movieId}`, {
             method: 'DELETE',
             credentials: 'include',
             headers: this._headers,
@@ -76,6 +76,6 @@ class Auth {
 
 }
 
-const auth = new Auth(API_URL);
+const mainApi = new MainApi(API_URL);
 
-export default auth;
+export default mainApi;

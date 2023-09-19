@@ -1,10 +1,12 @@
 import "./TestPage.css";
 import { apiWithMovies, baseApi } from "../../utils/MoviesApi";
 import { BASE_MOVIES_URL } from '../../utils/config';
+import React from "react";
 
 
 function TestPage(props) {
     const { onClick } = props;
+
     function handleClick() {
         
         // console.log("кнопка работает");
@@ -26,7 +28,6 @@ function TestPage(props) {
             })
         })
     }
-
     return (
         <section className="test-page">
             <h1>ТЕСТОВАЯ СТРАНИЦА</h1>

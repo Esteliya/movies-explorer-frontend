@@ -6,7 +6,6 @@ import Main from '../Main/Main';// о проекте
 // import Movies from '../Movies/Movies';// шаблонная страница для фильмов
 import MoviesBase from '../MoviesBase/MoviesBase'// страница с фильмами из api
 import MoviesSaved from '../MoviesSaved/MoviesSaved';// сохраненные фильмы
-
 // контекст
 import CurrentUserContext from "../../context/CurrentUserContext";
 
@@ -18,22 +17,18 @@ import Login from '../Login/Login';// страница авторизации
 import Profile from '../Profile/Profile';// страница редактирования профиля
 // общие для всех компоненты
 import Header from '../Header/Header';// меню
-// import Navigation from '../Navigation/Navigation';// навигация ????? 
 import Footer from '../Footer/Footer';// подвал
 
 import NotFound from '../NotFound/NotFound';// страницы не существует
 
 import PopupMenu from "../PopupMenu/PopupMenu";
-import TestPage from '../TestPage/TestPage';
+import TestPage from '../TestPage/TestPage';// ВРЕМЕННАЯ! УБРАТЬ! 
 
 // API
 import { apiWithMovies } from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 //import auth from '../../utils/MainApi';
 import * as auth from '../../utils/Auth';
-
-
-// тестовый компонент для api запросов
 
 
 function App() {
@@ -43,19 +38,48 @@ function App() {
   const location = useLocation();//будем следить за роутами
   //контекст логина
   const [loggedIn, setLoggedIn] = React.useState(false);
+  // стейл станиц с контекстом - да/нет
+  const [isContent, setIsContent] = React.useState();
   //попап бургер-меню
   const [isBurgerMenuPopup, setIsBurgerMenuPopup] = React.useState(false);
   // контролируем размер экрана - меняем данные на страницах согласно размера 
   const [withWindow, setwithWindow] = React.useState(window.innerWidth);
   // МАССИВЫ ФИЛЬМОВ
-  // стейт массива карточек стороннего апи
+  // стейт массива карточек стороннего апи 
   const [dataMovies, setDataMovies] = React.useState([]);
-  // стейт поиска фильмов в общей базе
+  // стейт найденных фильмов в общей базе
   const [dataSearchMovies, setDataSearchMovies] = React.useState([]);
-  // стпаница с фильмими пустая? 
+  // страница с фильмими пустая? 
   const [blankPage, setBlankPage] = React.useState(true);
   // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
   const [messageText, setMessageText] = React.useState('');
+
+  // отслеживаем свой роут
+/*   React.useEffect(() => {
+    console.log('Current location is ', location.pathname);
+  }, [location]); */
+
+  function watchRoutes() {
+    const path = location.pathname;
+    console.log(path);
+    //setIsContent(path)
+    /* switch (path) {//навигируем существующие роуты на карточки при авторизации, иначе 404 страница
+      case "/":
+        setIsContent(true)
+        break;
+      case "/movies":
+        setIsContent(true)
+        break;
+        case "/profile":
+        setIsContent(true)
+        break;
+      case "/saved-movies":
+        setIsContent(true)
+        break;
+      default:
+    }
+ */
+  }
 
   React.useEffect(() => {
     tockenCheck();
@@ -265,11 +289,18 @@ function App() {
         } */
   }
 
+  // ПОИСК ФИЛЬМОВ
+  // поиск по общей базе 
+  function handleSearchInAllMovies(string) {
+    handleSearch(string, "Movies")
+  }
 
-  // поиск фильмов 
-  function handleSearch(string) {
+  // поиск по базе избранных
+
+  // общий поиск фильмов 
+  function handleSearch(string, base) {
     console.log("ищем фильмы")
-    const arrMovies = localStorage.getItem("Movies")
+    const arrMovies = localStorage.getItem(base)
     const movies = JSON.parse(arrMovies); // преобразуем строку в массив
     console.log(movies)// массив!
     /*  if (Array.isArray(movies)) {
@@ -291,67 +322,41 @@ function App() {
         newArr.push(item);
       }
     }
-    console.log(newArr) // нужный массив 
+    // console.log(newArr) // нужный массив 
     // console.log(newArr.length)// длина массива
-    if (newArr.length === 0) {
+    if (newArr.length === 0) {// длина массива 0?
       setBlankPage(true)
       setMessageText("Фильмы по запросу не найдены")
+    } else {
+      // запишем в локальное хранилище 
+      // Преобразование массива объектов в JSON
+      const jsonData = JSON.stringify(newArr);
+      // Сохранение данных в локальном хранилище
+      localStorage.setItem("SearchMovies", jsonData);
+      console.log("получим найденныей фильмы из LS")
+      const searchMovies = localStorage.getItem("SearchMovies")
+      const arrSearchMovies = JSON.parse(searchMovies); // преобразуем строку в массив
+      console.log(arrSearchMovies)// ++ нужный массив
+      setDataSearchMovies(arrSearchMovies)
     }
-    // запишем в локальное хранилище 
-    // Преобразование массива объектов в JSON
-    const jsonData = JSON.stringify(newArr);
-    // Сохранение данных в локальном хранилище
-    localStorage.setItem("SearchMovies", jsonData);
-    console.log("получим найденныей фильмы из LS")
-    const searchMovies = localStorage.getItem("SearchMovies")
-    const arrSearchMovies = JSON.parse(searchMovies); // преобразуем строку в массив
-    console.log(arrSearchMovies)// ++ нужный массив
-    setDataSearchMovies(arrSearchMovies)
-    /* if (arrSearchMovies.length < 1) {
-      setBlankPage(true)
-      setMessageText("Фильмы по запросу не найдены")
-    } */
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
+        <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn} />
         <Routes>
           <Route path='/testpage' element={<TestPage onClick={handleSearch} />} />
-          <Route path="/" element={
-            <>
-              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header homepage='true' openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn} />
-              <Main />
-              <Footer />
-            </>
-          } />
-          <Route path="/movies" element={
-            <>
-              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn} />
-              <MoviesBase mobile={withWindow} cards={dataSearchMovies} blankPage={blankPage} messageText={messageText} handleDataForm={handleSearch} />
-              <Footer />
-            </>} />
-          <Route path="/saved-movies" element={
-            <>
-              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn} />
-              <MoviesSaved />
-              <Footer />
-            </>} />
-
+          <Route path="/" element={<Main />} />
+          <Route path="/movies" element={<MoviesBase mobile={withWindow} cards={dataSearchMovies} blankPage={blankPage} messageText={messageText} handleDataForm={handleSearchInAllMovies} />} />
+          <Route path="/saved-movies" element={<MoviesSaved />} />
           <Route path="/signup" element={<Register handleDataForm={handleRegister} />} />
           <Route path="/signin" element={<Login handleDataForm={hendleLogin} />} />
-          <Route path="/profile" element={
-            <>
-              <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
-              <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn} />
-              <Profile onClickExit={handleExitProfile} handleDataForm={handleUpdataUser} />
-            </>} />
-
+          <Route path="/profile" element={<Profile onClickExit={handleExitProfile} handleDataForm={handleUpdataUser} />} />
           <Route path='*' element={<NotFound />} replace />
         </Routes>
+        <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
+        <Footer />
       </div>
     </CurrentUserContext.Provider>
   );

@@ -6,7 +6,7 @@ import Student from "./Student/Student";
 import Portfolio from "./Portfolio/Portfolio"
 import Cover from "./Cover/Cover";
 
-function Main() {
+function Main() { 
     return (
         <main>
             <Cover />

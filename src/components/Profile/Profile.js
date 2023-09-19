@@ -32,12 +32,12 @@ function Profile(props) {
 
     function handleInputName(e) {
         setName(e.target.value);
-        console.log(name);
+        // console.log(name);
     }
 
     function handleInputEmail(e) {
         setEmail(e.target.value);
-        console.log(email);
+        // console.log(email);
     }
 
     //обработчик формы

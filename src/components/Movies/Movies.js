@@ -6,14 +6,15 @@ import Message from './Message/Message';
 // import Preloader from '../Preloader/Preloader'
 
 function Movies(props) {
-    const { children, cards, mobile, onClick, blankPage, messageText } = props;
+    const { children, cards, mobile, onClick, blankPage, messageText, handleDataForm } = props;
 
     // const messageText = 'Запустите поиск интересующих Вас фильмов';
 
+    
     return (
         <main className='movies'>
-            <SearchForm onClick={onClick} />
-            {!blankPage ?
+            <SearchForm onClick={onClick} handleDataForm={handleDataForm}/>
+            {blankPage ?
                 <Message text={messageText} /> :
                 <MoviesCardList cards={cards} mobile={mobile} />}
             {children}

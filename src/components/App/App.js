@@ -47,8 +47,11 @@ function App() {
   const [isBurgerMenuPopup, setIsBurgerMenuPopup] = React.useState(false);
   // контролируем размер экрана - меняем данные на страницах согласно размера 
   const [withWindow, setwithWindow] = React.useState(window.innerWidth);
+  // МАССИВЫ ФИЛЬМОВ
   // стейт массива карточек стороннего апи
   const [dataMovies, setDataMovies] = React.useState([]);
+  // стейт поиска фильмов в общей базе
+  const [dataSearchMovies, setDataSearchMovies] = React.useState([]);
   // стпаница с фильмими пустая? 
   const [blankPage, setBlankPage] = React.useState(true);
   // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
@@ -97,6 +100,7 @@ function App() {
         console.log("авторизировались");
         setLoggedIn(true);
         setCurrentUser(dataUser)
+        getMovies();
         navigate('/movies', {
           replace: true
         });
@@ -137,6 +141,7 @@ function App() {
         }
       })
       .catch((err) => {
+        cleanLocalSsorage()
         console.error(`Ошибка: ${err}`);
       });
   }
@@ -151,7 +156,7 @@ function App() {
       .then((data) => {
         console.log("запрос patch успешен?")
         console.log(data)// +
-        alert('Изменение данных прошло успешно')//работает 
+        alert('Изменение данных прошло успешно')//работает СДЕЛАТЬ ПОПАП
         setCurrentUser(data)// ????? как-то обновить 
       })
       .catch((err) => {
@@ -167,6 +172,7 @@ function App() {
     auth.logout()
       .then(() => {
         console.log("разлогинились")
+        cleanLocalSsorage()
         // разлогинились - переход на страницу авторизации
         navigate('/', {
           replace: true
@@ -178,8 +184,11 @@ function App() {
         console.error(`Ошибка: ${err}`);
       });
   }
-
-
+  // очищаем локальное хранилище
+  function cleanLocalSsorage() {
+    localStorage.removeItem("Movies");
+    localStorage.removeItem("SearchMovies");
+  }
 
   // БУРГЕР-МЕНЮ
   // открываем попап меню
@@ -223,16 +232,13 @@ function App() {
   }
 
   //КАРТОЧКИ ФИЛЬМОВ
-  //запрашиваем данные фильмов с сервера 
+  //запрашиваем все фильмы с сервера и записываем в локальное хранилище
   function getMovies() {
     //console.log('запросили данные карточек');
     apiWithMovies.getMovieInfo()
       .then((moviesData) => {
-        // console.log('запросили данные карточек');
-        //setCards(cardsData);//выводим на страницу карточки
         // console.log(moviesData);
-        // setDataMovies(moviesData);// меняем получение стейта на локалсторидж
-
+        setDataMovies(moviesData);// меняем получение стейта на локалсторидж
         // Преобразование массива объектов в JSON
         const jsonData = JSON.stringify(moviesData);
         // Сохранение данных в локальном хранилище
@@ -242,13 +248,6 @@ function App() {
         console.error(`Ошибка: ${err}`);
       });
   }
-
-  // клик по кнопке поиска фильмов
-  function handleSearchClick() {
-    console.log("клик поиска фильмов");
-    // getMovies();
-  }
-
 
   // получаем данные из локалсторидж
   function getDataLocalStorage() {
@@ -266,11 +265,59 @@ function App() {
         } */
   }
 
+
+  // поиск фильмов 
+  function handleSearch(string) {
+    console.log("ищем фильмы")
+    const arrMovies = localStorage.getItem("Movies")
+    const movies = JSON.parse(arrMovies); // преобразуем строку в массив
+    console.log(movies)// массив!
+    /*  if (Array.isArray(movies)) {
+       console.log('Это массив!');// точно массив
+     } else {
+       console.log('Это не массив!');
+     } */
+
+    let newArr = []// соберем новый массив
+    // let string = "ло";
+    for (let i = 0; i < movies.length; i++) {
+      const item = movies[i]
+      // поиск в названии RU и EN без учета регистра
+      let result = item.nameRU.toLowerCase().includes(string.toLowerCase()) || item.nameEN.toLowerCase().includes(string.toLowerCase());
+      // console.log(result)// правда/ложь
+      if (result) {// если правда 
+        // console.log(item)// нужнный объект
+        setBlankPage(false)
+        newArr.push(item);
+      }
+    }
+    console.log(newArr) // нужный массив 
+    // console.log(newArr.length)// длина массива
+    if (newArr.length === 0) {
+      setBlankPage(true)
+      setMessageText("Фильмы по запросу не найдены")
+    }
+    // запишем в локальное хранилище 
+    // Преобразование массива объектов в JSON
+    const jsonData = JSON.stringify(newArr);
+    // Сохранение данных в локальном хранилище
+    localStorage.setItem("SearchMovies", jsonData);
+    console.log("получим найденныей фильмы из LS")
+    const searchMovies = localStorage.getItem("SearchMovies")
+    const arrSearchMovies = JSON.parse(searchMovies); // преобразуем строку в массив
+    console.log(arrSearchMovies)// ++ нужный массив
+    setDataSearchMovies(arrSearchMovies)
+    /* if (arrSearchMovies.length < 1) {
+      setBlankPage(true)
+      setMessageText("Фильмы по запросу не найдены")
+    } */
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Routes>
-          <Route path='/testpage' element={<TestPage onClick={getDataLocalStorage} />} />
+          <Route path='/testpage' element={<TestPage onClick={handleSearch} />} />
           <Route path="/" element={
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
@@ -283,7 +330,7 @@ function App() {
             <>
               <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
               <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn} />
-              <MoviesBase mobile={withWindow} cards={dataMovies} onClick={handleSearchClick} blankPage={blankPage} messageText={messageText} />
+              <MoviesBase mobile={withWindow} cards={dataSearchMovies} blankPage={blankPage} messageText={messageText} handleDataForm={handleSearch} />
               <Footer />
             </>} />
           <Route path="/saved-movies" element={

@@ -3,25 +3,33 @@ import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm(props) {
-    const { onClick } = props;
+    const { onClick, handleDataForm } = props;
 
-    const {inputMovies, setInputMovies} = React.useState('строка');
-
+    const [inputMovies, setInputMovies] = React.useState('');
     
     function handleInputMovies (e) {
         console.log(inputMovies)
-        //setInputMovies(e.target.value);
         // console.log(inputMovies);
         
         const value = e.target.value;
         console.log(value)
+        setInputMovies(value)
         
     }
+
+     //обработчик формы
+     function handleSubmit(e) {
+        e.preventDefault();
+        console.log("сабмит формы поиска фильмов")
+        // передаем запрос в функцию-обработчик поиска
+        handleDataForm(inputMovies)
+     }
+
 
 
     return (
         <section className="search-form">
-            <form name="Поиск фильмов" method="post" >
+            <form name="Поиск фильмов" method="post" onSubmit={handleSubmit}>
                 <input className="search-form__input focus-effect" placeholder="Фильм" required onChange={handleInputMovies}></input>
                 <button type="submit" className="search-form__button hover-effect" onClick={onClick}></button>
                 <div className="search-form__checkbox">

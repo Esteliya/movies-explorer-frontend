@@ -1,10 +1,10 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom'; 
 import './MovieCard.css'
-import { BASE_MOVIES_URL } from '../../../utils/config'; // ловим путь к превью
+import { BASE_MOVIES_URL, MOVIES_URL } from '../../../utils/config'; // ловим путь к превью
 
 function MovieCard(props) {
-    const { cardImg, cardTitle, cardTime } = props;
+    const { cardImg, cardTitle, cardTime, movie, onClickCardButton } = props;
 
     const [showDeleteButton, setShowDeleteButton] = React.useState(false);
 
@@ -28,6 +28,11 @@ function MovieCard(props) {
         return `${hours}ч ${mins}м`;
     }
 
+/*     const handleClick = (e) => {
+        console.log("работает")
+        console.log(e.target)
+    } */
+
     return (
         <div className='movie-card'>
             <div className='movie-card__preview' style={{ backgroundImage: `url(${BASE_MOVIES_URL}${cardImg})` }}></div>
@@ -36,8 +41,8 @@ function MovieCard(props) {
                     <h2 className='movie-card__title'>{cardTitle}.</h2>
                     <p className='movie-card__time'>{hoursMins(cardTime)}</p>
                 </div>
-                {location.pathname === '/saved-movies' && showDeleteButton && <button className='movie-card__button movie-card__button_delete hover-effect' type="button" />}
-                {location.pathname === '/movies' && <button className='movie-card__button movie-card__button_like hover-effect' type="button" />}
+                {location.pathname === '/saved-movies' && showDeleteButton && <button className='movie-card__button movie-card__button_delete hover-effect' type="button" onClick={() => {onClickCardButton(movie)}}/>}
+                {location.pathname === '/movies' && <button className='movie-card__button movie-card__button_like hover-effect' type="button" onClick={() => {onClickCardButton(movie)}}/>}
             </div>
         </div>
 

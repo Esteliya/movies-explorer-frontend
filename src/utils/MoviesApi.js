@@ -29,13 +29,13 @@ class ApiWithMovies {
         })
     }
 
-        //запрашиваем изображение 
-        getInfo() {
-            return this._request('/users/me', {
-                headers: this._headers,
-                /* credentials: 'include', */
-            })
-        }
+    //запрашиваем изображение 
+    getInfo() {
+        return this._request('/users/me', {
+            headers: this._headers,
+            /* credentials: 'include', */
+        })
+    }
 }
 
 export const apiWithMovies = new ApiWithMovies(MOVIES_URL);

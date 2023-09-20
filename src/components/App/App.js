@@ -29,6 +29,7 @@ import { apiWithMovies } from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 //import auth from '../../utils/MainApi';
 import * as auth from '../../utils/Auth';
+import { BASE_MOVIES_URL } from '../../utils/config'// путь к картинкам фильмов
 
 
 function App() {
@@ -38,8 +39,6 @@ function App() {
   const location = useLocation();//будем следить за роутами
   //контекст логина
   const [loggedIn, setLoggedIn] = React.useState(false);
-  // стейл станиц с контекстом - да/нет
-  const [isContent, setIsContent] = React.useState();
   //попап бургер-меню
   const [isBurgerMenuPopup, setIsBurgerMenuPopup] = React.useState(false);
   // контролируем размер экрана - меняем данные на страницах согласно размера 
@@ -49,37 +48,10 @@ function App() {
   const [dataMovies, setDataMovies] = React.useState([]);
   // стейт найденных фильмов в общей базе
   const [dataSearchMovies, setDataSearchMovies] = React.useState([]);
-  // страница с фильмими пустая? 
+  // страница с фильмими пустая ? (выдаем сообщения) ↓ ↓ ↓
   const [blankPage, setBlankPage] = React.useState(true);
   // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
   const [messageText, setMessageText] = React.useState('');
-
-  // отслеживаем свой роут
-/*   React.useEffect(() => {
-    console.log('Current location is ', location.pathname);
-  }, [location]); */
-
-  function watchRoutes() {
-    const path = location.pathname;
-    console.log(path);
-    //setIsContent(path)
-    /* switch (path) {//навигируем существующие роуты на карточки при авторизации, иначе 404 страница
-      case "/":
-        setIsContent(true)
-        break;
-      case "/movies":
-        setIsContent(true)
-        break;
-        case "/profile":
-        setIsContent(true)
-        break;
-      case "/saved-movies":
-        setIsContent(true)
-        break;
-      default:
-    }
- */
-  }
 
   React.useEffect(() => {
     tockenCheck();
@@ -112,9 +84,6 @@ function App() {
         //console.log('ОШИБКА РЕГИСТРАЦИИ')
         console.error(`Ошибка: ${err}`);
       })
-    /* navigate('/signin', {
-      replace: true
-    }) */
   }
   // авторизируемся
   function hendleLogin(data) {
@@ -133,13 +102,6 @@ function App() {
         console.error(`Ошибка: ${err}`);
 
       });
-
-    // залогинились
-    /*     navigate('/movies', {
-          replace: true
-        })
-        setCurrentUser({ loggedIn: "true" }); */
-    // setLoggedIn(true);
   }
 
   //проверяем наличие токена в localStorage
@@ -341,6 +303,33 @@ function App() {
     }
   }
 
+  // Обработчики кнопок
+  // сохраняем фильм
+  function handleSaveMovie(movie) {
+    debugger
+    console.log("здесь тоже работает")// +
+    console.log(movie)
+    const { country, director, duration, year, description, trailerLink, owner, nameRU, nameEN } = movie
+    mainApi.postUserMovies({
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image: `${BASE_MOVIES_URL}${movie.image.url}`,
+      trailerLink,
+      thumbnail: `${BASE_MOVIES_URL}${movie.image.formats.thumbnail.url}`,
+      owner,
+      movieId: movie.id,
+      nameRU,
+      nameEN,
+    })
+      .then((movie) => {
+        alert("фильм сохранен")
+      })
+
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -348,8 +337,8 @@ function App() {
         <Routes>
           <Route path='/testpage' element={<TestPage onClick={handleSearch} />} />
           <Route path="/" element={<Main />} />
-          <Route path="/movies" element={<MoviesBase mobile={withWindow} cards={dataSearchMovies} blankPage={blankPage} messageText={messageText} handleDataForm={handleSearchInAllMovies} />} />
-          <Route path="/saved-movies" element={<MoviesSaved />} />
+          <Route path="/movies" element={<MoviesBase mobile={withWindow} cards={dataSearchMovies} blankPage={blankPage} messageText={messageText} handleDataForm={handleSearchInAllMovies} onClickCardButton={handleSaveMovie} />} />
+          <Route path="/saved-movies" element={<MoviesSaved cards={dataSearchMovies} blankPage={blankPage} messageText={messageText} handleDataForm={handleSearchInAllMovies} />} />
           <Route path="/signup" element={<Register handleDataForm={handleRegister} />} />
           <Route path="/signin" element={<Login handleDataForm={hendleLogin} />} />
           <Route path="/profile" element={<Profile onClickExit={handleExitProfile} handleDataForm={handleUpdataUser} />} />

@@ -14,10 +14,10 @@ function Header(props) {
     const routeContent = location.pathname === '/movies' || location.pathname === '/saved-movies' || location.pathname === '/profile' || location.pathname === '/';
 
     // отслеживаем свой роут
-    React.useEffect(() => {
+/*     React.useEffect(() => {
         console.log('Current location is ', location.pathname);
         console.log(routeContent)
-    }, [location]);
+    }, [location]); */
 
     return (
         <>

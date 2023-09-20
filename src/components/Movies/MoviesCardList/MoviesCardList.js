@@ -3,7 +3,7 @@ import './MoviesCardList.css';
 import MovieCard from '../MovieCard/MovieCard';
 
 function MoviesCardList(props) {
-    const { cards, mobile } = props;
+    const { cards, mobile, onClickCardButton } = props;
 
     // debugger;
     
@@ -20,6 +20,8 @@ function MoviesCardList(props) {
                             cardImg={card.image.url}
                             cardTitle={card.nameRU}
                             cardTime={card.duration}
+                            onClickCardButton={onClickCardButton}
+                            movie={card}
                         />
                     )
                 })

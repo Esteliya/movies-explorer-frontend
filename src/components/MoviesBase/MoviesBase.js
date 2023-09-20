@@ -8,16 +8,25 @@ import ButtonElse from "./ButtonElse/ButtonElse"
 
 function MoviesBase(props) {
 
-    const {mobile, cards, blankPage, messageText, handleDataForm} = props;
+    const { mobile, cards, blankPage, messageText, handleDataForm, onClickCardButton } = props;
 
-    
+
     function handleClickStart() {
         console.log("Ищем фильмы в общей базе");
     }
-    
+/* 
+    function handlelickCardButton() {
+        // console.log("клик по кнопке лайка")// +
+        handleClickLike();
+    } */
+
+    function handleClickElse() {
+        console.log("клик по кнопке Еще")// +
+    }
+
     return (
-        <Movies cards={cards} mobile={mobile} onClick={handleClickStart} blankPage={blankPage} messageText={messageText} handleDataForm={handleDataForm} >
-            {!blankPage && <ButtonElse />}
+        <Movies cards={cards} mobile={mobile} onClickForm={handleClickStart} blankPage={blankPage} messageText={messageText} handleDataForm={handleDataForm} onClickCardButton={onClickCardButton} >
+            {!blankPage && <ButtonElse onClickElse={handleClickElse}/>}
         </Movies>
     )
 }

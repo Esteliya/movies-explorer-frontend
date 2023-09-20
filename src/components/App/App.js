@@ -47,6 +47,8 @@ function App() {
   // стейт массива карточек стороннего апи 
   const [dataMovies, setDataMovies] = React.useState([]);
   // стейт найденных фильмов в общей базе
+  const [dataSavedMovies, setDataSavedMovies] = React.useState([]);
+    // стейт массива избранных фильмов
   const [dataSearchMovies, setDataSearchMovies] = React.useState([]);
   // страница с фильмими пустая ? (выдаем сообщения) ↓ ↓ ↓
   const [blankPage, setBlankPage] = React.useState(true);
@@ -56,7 +58,8 @@ function App() {
   React.useEffect(() => {
     tockenCheck();
     getMovies();
-    getDataLocalStorage();
+    getSavedMovies();
+    getDataLocalStorage("Movies", setDataMovies);
     setMessageText('Запустите поиск интересующих Вас фильмов');
     const handleResize = () => {
       setwithWindow(window.innerWidth);
@@ -235,20 +238,42 @@ function App() {
       });
   }
 
-  // получаем данные из локалсторидж
-  function getDataLocalStorage() {
+  // получаем данные из локалсторидж ОБЩАЯ 
+  function getDataLocalStorage(name, set) {
     // console.log("работает")
     // Получаем фильмы из локального хранилища
-    const savedMovies = localStorage.getItem("Movies");
+    const savedMovies = localStorage.getItem(name);
     // Переводим JSON-строки обратно в массив объектов
     const parsedData = JSON.parse(savedMovies);
     // console.log(parsedData)// нужный массив! 
-    setDataMovies(parsedData); // записали в стей массив - разбираем в MoviesList
+    set(parsedData); // записали в стей массив - разбираем в MoviesList
 
     // разбираем массив
     /*     for (var i = 0; i < parsedData.length; i++) {
           console.log(parsedData[i]); // + нужное
         } */
+  }
+
+  // избранные фильмы пользователя
+  // запрашиваем и записываем в localStorage
+  function getSavedMovies() {
+    mainApi.getArrMovies()
+    .then((movies) => {
+      console.log(movies)
+        // console.log(moviesData);
+        setDataSavedMovies(movies);// меняем получение стейта на локалсторидж
+        // Преобразование массива объектов в JSON
+        const jsonData = JSON.stringify(movies);
+        // Сохранение данных в локальном хранилище
+        localStorage.setItem("SavedMovies", jsonData);
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      });
+  }
+
+  function getSavedDataLocalStorage() {
+    getDataLocalStorage("SavedMovies", setDataSavedMovies)
   }
 
   // ПОИСК ФИЛЬМОВ
@@ -326,6 +351,7 @@ function App() {
     })
       .then((movie) => {
         alert("фильм сохранен")
+
       })
 
   }
@@ -338,7 +364,7 @@ function App() {
           <Route path='/testpage' element={<TestPage onClick={handleSearch} />} />
           <Route path="/" element={<Main />} />
           <Route path="/movies" element={<MoviesBase mobile={withWindow} cards={dataSearchMovies} blankPage={blankPage} messageText={messageText} handleDataForm={handleSearchInAllMovies} onClickCardButton={handleSaveMovie} />} />
-          <Route path="/saved-movies" element={<MoviesSaved cards={dataSearchMovies} blankPage={blankPage} messageText={messageText} handleDataForm={handleSearchInAllMovies} />} />
+          <Route path="/saved-movies" element={<MoviesSaved cards={dataSavedMovies} blankPage={false} messageText={messageText} handleDataForm={handleSearchInAllMovies} getMovies={getSavedDataLocalStorage}/>} />
           <Route path="/signup" element={<Register handleDataForm={handleRegister} />} />
           <Route path="/signin" element={<Login handleDataForm={hendleLogin} />} />
           <Route path="/profile" element={<Profile onClickExit={handleExitProfile} handleDataForm={handleUpdataUser} />} />

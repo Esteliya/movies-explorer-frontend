@@ -2,6 +2,7 @@ import './MoviesBase.css'
 
 import Movies from "../Movies/Movies"
 import ButtonElse from "./ButtonElse/ButtonElse"
+import { BASE_MOVIES_URL, MOVIES_URL } from '../../utils/config'; // ловим путь к превью
 
 // import cards from "../../utils/cards";
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import './MoviesSaved.css'
 
 import Movies from "../Movies/Movies"
@@ -8,14 +9,19 @@ import Movies from "../Movies/Movies"
 
 
 function MoviesSaved(props) {
-    const {mobile, cards, blankPage, messageText, handleDataForm} = props;
+    const {mobile, cards, blankPage, messageText, handleDataForm, getMovies} = props;
+
+    // запрашиваем фильмы
+React.useEffect(() => {
+    getMovies()
+}, []); 
 
     
     function handleClickStart() {
         console.log("Ищем фильмы в базе");
     }
     return (
-        <Movies cards={cards}  mobile={mobile} onClickForm={handleClickStart} blankPage={blankPage} messageText={messageText} handleDataForm={handleDataForm} />
+        <Movies cards={cards} mobile={mobile} onClickForm={handleClickStart} blankPage={blankPage} messageText={messageText} handleDataForm={handleDataForm} />
     )
 }
 export default MoviesSaved;

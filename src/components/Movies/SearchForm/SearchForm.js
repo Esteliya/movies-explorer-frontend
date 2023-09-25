@@ -1,37 +1,55 @@
 import React from "react";
+// import { useLocation } from 'react-router-dom';
 import "./SearchForm.css";
+import ValidationForm from "../../../utils/validationForm";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm(props) {
-    const { onClickForm, handleDataForm } = props;
+    // запрос поиска/ строка поиска/ поиск по запросу
+    const { setQuery, query, handleSearch } = props;
 
-    const [inputMovies, setInputMovies] = React.useState('');
-    
+    /* const location = useLocation();//проверим, на каком роуте выдаем карточки
+    // все фильмы 
+    const savedMovies = location.pathname === '/saved-movies'
+    // сохраненные фильмы
+    const movies = location.pathname === '/movies' */
+
+
+
+    // обработка инпута
     function handleInputMovies (e) {
-       //  console.log(inputMovies)
-        // console.log(inputMovies);
-        
         const value = e.target.value;
-        // console.log(value)
-        setInputMovies(value)
+        console.log(value)//что в инпуте? 
+        setQuery(value)
         
     }
 
      //обработчик формы
-     function handleSubmit(e) {
+     function handleSearchForm(e) {
         e.preventDefault();
         // console.log("сабмит формы поиска фильмов")
-        // передаем запрос в функцию-обработчик поиска
-        handleDataForm(inputMovies)
+        handleSearch(query)
      }
-
-
 
     return (
         <section className="search-form">
-            <form name="Поиск фильмов" method="post" onSubmit={handleSubmit}>
-                <input className="search-form__input focus-effect" placeholder="Фильм" required onChange={handleInputMovies}></input>
-                <button type="submit" className="search-form__button hover-effect" onClick={onClickForm}></button>
+            <form name="Поиск фильмов"
+                method="post"
+                onSubmit={handleSearchForm}
+            >
+                <input
+                    className="search-form__input focus-effect"
+                    name='query'
+                    placeholder="Фильм"
+                    type='text'
+                    required
+                    onChange={handleInputMovies}></input>
+
+                <button
+                    type="submit"
+                    className="search-form__button hover-effect"
+                ></button>
+
                 <div className="search-form__checkbox">
                     <FilterCheckbox />
                     <p className="search-form__checkbox-title">Короткометражки</p>

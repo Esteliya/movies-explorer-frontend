@@ -39,4 +39,4 @@ class ApiWithMovies {
 }
 
 export const apiWithMovies = new ApiWithMovies(MOVIES_URL);
-export const baseApi = new ApiWithMovies(BASE_MOVIES_URL);
+//export const baseApi = new ApiWithMovies(BASE_MOVIES_URL);

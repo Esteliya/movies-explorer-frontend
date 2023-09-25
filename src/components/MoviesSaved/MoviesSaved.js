@@ -9,19 +9,27 @@ import Movies from "../Movies/Movies"
 
 
 function MoviesSaved(props) {
-    const {mobile, cards, blankPage, messageText, handleDataForm, getMovies} = props;
+    const { mobile, cards, blankPage, messageText, handleDataForm, getMovies, onClickCardButton } = props;
+//  setQuery, query, handleSearch
 
     // запрашиваем фильмы
-React.useEffect(() => {
-    getMovies()
-}, []); 
+    React.useEffect(() => {
+        getMovies()
+    }, []);
 
-    
+
     function handleClickStart() {
         console.log("Ищем фильмы в базе");
     }
     return (
-        <Movies cards={cards} mobile={mobile} onClickForm={handleClickStart} blankPage={blankPage} messageText={messageText} handleDataForm={handleDataForm} />
+        <Movies
+            cards={cards}
+            mobile={mobile}
+            onClickForm={handleClickStart}
+            blankPage={blankPage}
+            messageText={messageText}
+            handleDataForm={handleDataForm}
+            onClickCardButton={onClickCardButton} />
     )
 }
 export default MoviesSaved;

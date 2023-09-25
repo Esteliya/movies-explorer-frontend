@@ -16,6 +16,7 @@ const MOVIES_URL = {
     // url: 'https://api.mymovies.nomoreparties.co',
     url: 'http://localhost:3001',
     headers: {
+      //'Accept': 'application/json',//???
       'Content-Type': 'application/json'
     },
   };

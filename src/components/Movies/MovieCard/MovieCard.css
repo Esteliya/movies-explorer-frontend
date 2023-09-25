@@ -35,6 +35,8 @@
 }
 
 .movie-card__title {
+    display: block;
+    overflow: hidden;
     margin: 0 0 17px;
     /* overflow: hidden; */
     white-space: nowrap;
@@ -90,6 +92,10 @@
         border-radius: 6px;
     }
 
+    .movie-card__data {
+        max-width: 260px;
+        gap: 12px;
+    }
 /*     .movie-card__preview {
         min-height: 28vw;
     } */

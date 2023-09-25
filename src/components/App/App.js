@@ -43,23 +43,19 @@ function App() {
   const [isBurgerMenuPopup, setIsBurgerMenuPopup] = React.useState(false);
   // контролируем размер экрана - меняем данные на страницах согласно размера 
   const [withWindow, setwithWindow] = React.useState(window.innerWidth);
+
   // МАССИВЫ ФИЛЬМОВ
-  // стейт массива карточек стороннего апи 
-  const [dataMovies, setDataMovies] = React.useState([]);
-  // стейт найденных фильмов в общей базе
-  const [dataSavedMovies, setDataSavedMovies] = React.useState([]);
-    // стейт массива избранных фильмов
-  const [dataSearchMovies, setDataSearchMovies] = React.useState([]);
+  // база всех фильмов 
+  const [allMovies, setAllMovies] = React.useState([]);
+
   // страница с фильмими пустая ? (выдаем сообщения) ↓ ↓ ↓
   const [blankPage, setBlankPage] = React.useState(true);
   // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
   const [messageText, setMessageText] = React.useState('');
 
+
   React.useEffect(() => {
     tockenCheck();
-    getMovies();
-    getSavedMovies();
-    getDataLocalStorage("Movies", setDataMovies);
     setMessageText('Запустите поиск интересующих Вас фильмов');
     const handleResize = () => {
       setwithWindow(window.innerWidth);
@@ -70,7 +66,9 @@ function App() {
     };
   }, []);
 
-  // АУТЕНТИФИКАЦИЯ 
+
+
+  // АУТЕНТИФИКАЦИЯ +++
   // регистрируемся
   function handleRegister(data) {
     const { name, email, password } = data;
@@ -90,13 +88,14 @@ function App() {
   }
   // авторизируемся
   function hendleLogin(data) {
+    //debugger
     const { email, password } = data;
     auth.authorize(email, password)
       .then((dataUser) => {
         console.log("авторизировались");
         setLoggedIn(true);
         setCurrentUser(dataUser)
-        getMovies();
+        // getMovies();
         navigate('/movies', {
           replace: true
         });
@@ -107,16 +106,19 @@ function App() {
       });
   }
 
-  //проверяем наличие токена в localStorage
+  //проверяем наличие токена 
   function tockenCheck() {
     auth.checkToken()
       .then((dataUser) => {
-        console.log('сравнили токен - есть');
+        //console.log('сравнили токен - есть');
         setLoggedIn(true)
         setCurrentUser(dataUser)
         // запросим данные пользователя
         //запросим фильмы с сервера
         //console.log(location);
+        //getMovies();// запрашиваем все фильмы
+        //getSavedMovies();// запрашиваем сохраненные фильмы пользователя 
+        //getDataLocalStorage("Movies", setDataMovies);
         const path = location.pathname;
         //console.log(path);
         switch (path) {//навигируем авторизацию и регистрацию на фильмы, если пользователь туда заходит напрямую
@@ -130,7 +132,7 @@ function App() {
         }
       })
       .catch((err) => {
-        cleanLocalSsorage()
+        cleanLocalStorage()
         console.error(`Ошибка: ${err}`);
       });
   }
@@ -153,7 +155,6 @@ function App() {
       })
   }
 
-
   // удаляем токен
   function handleExitProfile() {
     // debugger
@@ -161,7 +162,7 @@ function App() {
     auth.logout()
       .then(() => {
         console.log("разлогинились")
-        cleanLocalSsorage()
+        cleanLocalStorage()
         // разлогинились - переход на страницу авторизации
         navigate('/', {
           replace: true
@@ -173,9 +174,23 @@ function App() {
         console.error(`Ошибка: ${err}`);
       });
   }
+  // ФИЛЬМЫ
+  // запросим фильмы - передадим на страницу
+  function getMovies() {
+    return apiWithMovies.getMovieInfo()
+      .then((arrMovies) => {
+        setAllMovies(arrMovies);
+        return arrMovies;// вернем массив карточек
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      });
+  };
+
   // очищаем локальное хранилище
-  function cleanLocalSsorage() {
+  function cleanLocalStorage() {
     localStorage.removeItem("Movies");
+    localStorage.removeItem("SavedMovies");
     localStorage.removeItem("SearchMovies");
   }
 
@@ -220,157 +235,43 @@ function App() {
     setIsBurgerMenuPopup(false);// закрываем меню
   }
 
-  //КАРТОЧКИ ФИЛЬМОВ
-  //запрашиваем все фильмы с сервера и записываем в локальное хранилище
-  function getMovies() {
-    //console.log('запросили данные карточек');
-    apiWithMovies.getMovieInfo()
-      .then((moviesData) => {
-        // console.log(moviesData);
-        setDataMovies(moviesData);// меняем получение стейта на локалсторидж
-        // Преобразование массива объектов в JSON
-        const jsonData = JSON.stringify(moviesData);
-        // Сохранение данных в локальном хранилище
-        localStorage.setItem("Movies", jsonData);
-      })
-      .catch((err) => {
-        console.error(`Ошибка: ${err}`);
-      });
+  function test() {
+    console.log("тестируем")
   }
 
-  // получаем данные из локалсторидж ОБЩАЯ 
-  function getDataLocalStorage(name, set) {
-    // console.log("работает")
-    // Получаем фильмы из локального хранилища
-    const savedMovies = localStorage.getItem(name);
-    // Переводим JSON-строки обратно в массив объектов
-    const parsedData = JSON.parse(savedMovies);
-    // console.log(parsedData)// нужный массив! 
-    set(parsedData); // записали в стей массив - разбираем в MoviesList
-
-    // разбираем массив
-    /*     for (var i = 0; i < parsedData.length; i++) {
-          console.log(parsedData[i]); // + нужное
-        } */
-  }
-
-  // избранные фильмы пользователя
-  // запрашиваем и записываем в localStorage
-  function getSavedMovies() {
-    mainApi.getArrMovies()
-    .then((movies) => {
-      console.log(movies)
-        // console.log(moviesData);
-        setDataSavedMovies(movies);// меняем получение стейта на локалсторидж
-        // Преобразование массива объектов в JSON
-        const jsonData = JSON.stringify(movies);
-        // Сохранение данных в локальном хранилище
-        localStorage.setItem("SavedMovies", jsonData);
-      })
-      .catch((err) => {
-        console.error(`Ошибка: ${err}`);
-      });
-  }
-
-  function getSavedDataLocalStorage() {
-    getDataLocalStorage("SavedMovies", setDataSavedMovies)
-  }
-
-  // ПОИСК ФИЛЬМОВ
-  // поиск по общей базе 
-  function handleSearchInAllMovies(string) {
-    handleSearch(string, "Movies")
-  }
-
-  // поиск по базе избранных
-
-  // общий поиск фильмов 
-  function handleSearch(string, base) {
-    console.log("ищем фильмы")
-    const arrMovies = localStorage.getItem(base)
-    const movies = JSON.parse(arrMovies); // преобразуем строку в массив
-    console.log(movies)// массив!
-    /*  if (Array.isArray(movies)) {
-       console.log('Это массив!');// точно массив
-     } else {
-       console.log('Это не массив!');
-     } */
-
-    let newArr = []// соберем новый массив
-    // let string = "ло";
-    for (let i = 0; i < movies.length; i++) {
-      const item = movies[i]
-      // поиск в названии RU и EN без учета регистра
-      let result = item.nameRU.toLowerCase().includes(string.toLowerCase()) || item.nameEN.toLowerCase().includes(string.toLowerCase());
-      // console.log(result)// правда/ложь
-      if (result) {// если правда 
-        // console.log(item)// нужнный объект
-        setBlankPage(false)
-        newArr.push(item);
-      }
-    }
-    // console.log(newArr) // нужный массив 
-    // console.log(newArr.length)// длина массива
-    if (newArr.length === 0) {// длина массива 0?
-      setBlankPage(true)
-      setMessageText("Фильмы по запросу не найдены")
-    } else {
-      // запишем в локальное хранилище 
-      // Преобразование массива объектов в JSON
-      const jsonData = JSON.stringify(newArr);
-      // Сохранение данных в локальном хранилище
-      localStorage.setItem("SearchMovies", jsonData);
-      console.log("получим найденныей фильмы из LS")
-      const searchMovies = localStorage.getItem("SearchMovies")
-      const arrSearchMovies = JSON.parse(searchMovies); // преобразуем строку в массив
-      console.log(arrSearchMovies)// ++ нужный массив
-      setDataSearchMovies(arrSearchMovies)
-    }
-  }
-
-  // Обработчики кнопок
-  // сохраняем фильм
-  function handleSaveMovie(movie) {
-    debugger
-    console.log("здесь тоже работает")// +
-    console.log(movie)
-    const { country, director, duration, year, description, trailerLink, owner, nameRU, nameEN } = movie
-    mainApi.postUserMovies({
-      country,
-      director,
-      duration,
-      year,
-      description,
-      image: `${BASE_MOVIES_URL}${movie.image.url}`,
-      trailerLink,
-      thumbnail: `${BASE_MOVIES_URL}${movie.image.formats.thumbnail.url}`,
-      owner,
-      movieId: movie.id,
-      nameRU,
-      nameEN,
-    })
-      .then((movie) => {
-        alert("фильм сохранен")
-
-      })
-
-  }
+  // отображения лайка
+  // сравнима массивы > выведем лайки
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn} />
         <Routes>
-          <Route path='/testpage' element={<TestPage onClick={handleSearch} />} />
+          <Route path='/testpage' element={<TestPage onClick={test} />} />
+
           <Route path="/" element={<Main />} />
-          <Route path="/movies" element={<MoviesBase mobile={withWindow} cards={dataSearchMovies} blankPage={blankPage} messageText={messageText} handleDataForm={handleSearchInAllMovies} onClickCardButton={handleSaveMovie} />} />
-          <Route path="/saved-movies" element={<MoviesSaved cards={dataSavedMovies} blankPage={false} messageText={messageText} handleDataForm={handleSearchInAllMovies} getMovies={getSavedDataLocalStorage}/>} />
+
+          <Route path="/movies" element={<MoviesBase
+            cards={allMovies}
+            getMovies={getMovies}
+          />} />
+
+          <Route path="/saved-movies" element={<MoviesSaved
+          />} />
+
           <Route path="/signup" element={<Register handleDataForm={handleRegister} />} />
           <Route path="/signin" element={<Login handleDataForm={hendleLogin} />} />
           <Route path="/profile" element={<Profile onClickExit={handleExitProfile} handleDataForm={handleUpdataUser} />} />
           <Route path='*' element={<NotFound />} replace />
         </Routes>
-        <PopupMenu isOpen={isBurgerMenuPopup} onClose={closePopup} onClickAccount={handleClickAccount} onClickHome={handleClickHome} onClickMovies={handleClickMovies} onClickSavedMovies={handleClickSavedMovies} />
+
+        <PopupMenu
+          isOpen={isBurgerMenuPopup}
+          onClose={closePopup}
+          onClickAccount={handleClickAccount}
+          onClickHome={handleClickHome}
+          onClickMovies={handleClickMovies}
+          onClickSavedMovies={handleClickSavedMovies} />
         <Footer />
       </div>
     </CurrentUserContext.Provider>

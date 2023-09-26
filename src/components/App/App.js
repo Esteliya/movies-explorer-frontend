@@ -49,14 +49,14 @@ function App() {
   const [allMovies, setAllMovies] = React.useState([]);
 
   // страница с фильмими пустая ? (выдаем сообщения) ↓ ↓ ↓
-  const [blankPage, setBlankPage] = React.useState(true);
+  //const [blankPage, setBlankPage] = React.useState(true);
   // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
-  const [messageText, setMessageText] = React.useState('');
+  //const [messageText, setMessageText] = React.useState('');
 
 
   React.useEffect(() => {
     tockenCheck();
-    setMessageText('Запустите поиск интересующих Вас фильмов');
+    // setMessageText('Запустите поиск интересующих Вас фильмов');
     const handleResize = () => {
       setwithWindow(window.innerWidth);
     };
@@ -189,9 +189,9 @@ function App() {
 
   // очищаем локальное хранилище
   function cleanLocalStorage() {
-    localStorage.removeItem("Movies");
-    localStorage.removeItem("SavedMovies");
-    localStorage.removeItem("SearchMovies");
+    localStorage.removeItem("allMovies");
+    localStorage.removeItem("searchMovies");
+    localStorage.removeItem("queryMovies");
   }
 
   // БУРГЕР-МЕНЮ

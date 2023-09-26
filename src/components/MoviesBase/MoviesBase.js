@@ -10,15 +10,47 @@ import { BASE_MOVIES_URL } from '../../utils/config'// путь к картин�
 
 function MoviesBase(props) {
     // пустая страница?/ массив фильмов/ формат экрана/ клик по кнопке карточки/ запрос к апи за фильмами
-    const { blankPage, cards, mobile, onClickCardButton, getMovies } = props;
+    const { cards, mobile, onClickCardButton, getMovies } = props;
 
     // СТЕЙТЫ
     // массив поиска
-    const [query, setQuery] = React.useState(localStorage.getItem("queryMovies") || []);
-    // массив фильмов после поиска - зачистить ЛС при разлогине!!!
-    const [searchMovies, setSearchMovies] = React.useState(localStorage.getItem("searchMovies") || []);
-    // запрос поиска
-    const updateQuery = (newQuery) => {
+    const allArrMovies = JSON.parse(localStorage.getItem("allMovies"))
+    // запрос
+    const [query, setQuery] = React.useState(localStorage.getItem("queryMovies") || '');
+    // массив фильмов после поиска - изменяемый при каждом поиске- зачистить ЛС при разлогине!!!
+    const [searchMovies, setSearchMovies] = React.useState(JSON.parse(localStorage.getItem("searchMovies")) || []);
+    // стейт состояния страницы
+    const [blankPage, setBlankPage] = React.useState(true);
+    // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
+    const [messageText, setMessageText] = React.useState('Запустите поиск интересующих Вас фильмов');
+
+    // идет загрузка → отображаем преоладер
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        console.log(query)
+        console.log(searchMovies)
+        if (allArrMovies === null) {
+            setMessageText('Запустите поиск интересующих Вас фильмов')
+        } else {
+            handleMassege();
+        }
+
+    }, [cards, searchMovies, query])
+
+    // отобразим фильмы или сообщение 
+    function handleMassege() {
+        if (searchMovies.length === 0) {
+            setBlankPage(true);
+            setMessageText('Фильмы по запросу не найдены')
+        } else {
+            setBlankPage(false);
+
+        }
+    }
+
+    // запрос поиска - обновляем
+    function updateQuery(newQuery) {
         setQuery(newQuery);
     };
 
@@ -29,28 +61,33 @@ function MoviesBase(props) {
     const filtered = [];//отфильтрованные фильмы по запросу
 
     const handleSearch = async (query) => {
-        console.log(cards)
+        //console.log(cards)
         let searchMovies = cards;
         if (cards.length === 0) {
             searchMovies = await getMovies();
-        }
-        console.log(searchMovies);// массив с апи +
+            const newArr = transformArrMovies(searchMovies)// преобразовали фильмы +
+            console.log(newArr)// преобразованный массив +
+            pushLocalStorage(newArr)
+            console.warn(JSON.parse(localStorage.getItem("allMovies")))
 
-        const newArr = transformArrMovies(searchMovies)// преобразовали фильмы +
-        console.log(newArr)// преобразованный массив +
+        }
+        //console.log(searchMovies);// массив с апи +
+
+        // const newArr = transformArrMovies(searchMovies)// преобразовали фильмы +
+        //console.log(newArr)// преобразованный массив +
         //setSearchMovies(newArr)
 
-        pushLocalStorage(newArr)
-        console.warn(localStorage.getItem("allMovies"))
+        //pushLocalStorage(newArr)
+        //console.warn(localStorage.getItem("allMovies"))
 
 
-        console.warn(searchMovies)
-
-        filteredMovies(query, newArr)
-        console.log(filtered)// преобразованный массив
+        // console.warn(searchMovies)
+        // фильтруем фильмы из ЛС
+        filteredMovies(query, JSON.parse(localStorage.getItem("allMovies")))
+        console.log(filtered)// преобразованный массив +
 
         setSearchMovies(filtered);
-        localStorage.setItem("queryMovies", JSON.stringify(filtered));
+        localStorage.setItem("searchMovies", JSON.stringify(filtered));
     }
 
     // трансформируем массив с апи в нужный формат
@@ -74,8 +111,8 @@ function MoviesBase(props) {
     }
 
     // сохраняем фильмы с апи в ЛС
-    async function pushLocalStorage (arr) {
-       await localStorage.setItem("allMovies", JSON.stringify(arr));
+    function pushLocalStorage(arr) {
+        localStorage.setItem("allMovies", JSON.stringify(arr));
     }
 
     // отфильтруем фильмы из базы по запросу в форме
@@ -83,15 +120,13 @@ function MoviesBase(props) {
         for (let i = 0; i < movies.length; i++) {
             const item = movies[i]
             // поиск в названии RU и EN без учета регистра
-            let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) ||
-                item.nameEN.toLowerCase().includes(req.toLowerCase());
+            let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
             if (result) {
                 filtered.push(item);
             }
 
         }
     }
-
 
 
     return (
@@ -103,6 +138,7 @@ function MoviesBase(props) {
             query={query}
             setQuery={updateQuery}
             handleSearch={handleSearch}
+            messageText={messageText}
         >
             {!blankPage && <ButtonElse onClickElse={handleClickElse} />}
         </Movies>

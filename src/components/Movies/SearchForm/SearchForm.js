@@ -19,8 +19,9 @@ function SearchForm(props) {
     // обработка инпута
     function handleInputMovies (e) {
         const value = e.target.value;
-        console.log(value)//что в инпуте? 
+        //console.log(value)//что в инпуте? 
         setQuery(value)
+        //console.log(query)// нужная строка +
         
     }
 
@@ -28,6 +29,7 @@ function SearchForm(props) {
      function handleSearchForm(e) {
         e.preventDefault();
         // console.log("сабмит формы поиска фильмов")
+        console.log(query)
         handleSearch(query)
      }
 

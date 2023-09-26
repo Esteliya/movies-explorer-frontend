@@ -10,7 +10,7 @@ import { BASE_MOVIES_URL } from '../../utils/config'// путь к картин�
 
 function MoviesBase(props) {
     // пустая страница?/ массив фильмов/ формат экрана/ клик по кнопке карточки/ запрос к апи за фильмами
-    const { cards, mobile, onClickCardButton, getMovies } = props;
+    const { cards, window, onClickCardButton, getMovies } = props;
 
     // СТЕЙТЫ
     // массив поиска
@@ -57,6 +57,18 @@ function MoviesBase(props) {
     function handleClickElse() {
         console.log("клик по кнопке Еще")// +
     }
+
+    function getInitialVisibleCards() {
+        if (window >= 1279) {
+          return 16;
+        } else if (window >= 1040) {
+          return 12;
+        } else if (window >= 641) {
+          return 8;
+        } else {
+          return 5;
+        }
+      }
 
     const filtered = [];//отфильтрованные фильмы по запросу
 
@@ -132,7 +144,7 @@ function MoviesBase(props) {
     return (
         <Movies
             cards={searchMovies}
-            mobile={mobile}
+            window={window}
             onClickCardButton={onClickCardButton}
             blankPage={blankPage}
             query={query}

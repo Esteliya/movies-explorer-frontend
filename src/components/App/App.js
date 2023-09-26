@@ -245,7 +245,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
-        <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} mobile={withWindow} loggedIn={loggedIn} />
+        <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} window={withWindow} loggedIn={loggedIn} />
         <Routes>
           <Route path='/testpage' element={<TestPage onClick={test} />} />
 
@@ -254,6 +254,7 @@ function App() {
           <Route path="/movies" element={<MoviesBase
             cards={allMovies}
             getMovies={getMovies}
+            window={withWindow}
           />} />
 
           <Route path="/saved-movies" element={<MoviesSaved

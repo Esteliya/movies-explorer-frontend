@@ -5,7 +5,7 @@ import Navigate from "./Navigate/Navigate";
 
 
 function Header(props) {
-    const { openButton, onClickAccount, mobile, loggedIn } = props;
+    const { openButton, onClickAccount, window, loggedIn } = props;
     const location = useLocation();//будем следить за роутами
     // домашняя страница (меняем фон шапки)
     const homepage = location.pathname === '/';
@@ -22,7 +22,7 @@ function Header(props) {
     return (
         <>
             {routeContent && <header className={styleHeader}>
-                <Navigate mobile={mobile} homepage={homepage} openButton={openButton} onClickAccount={onClickAccount} loggedIn={loggedIn} />
+                <Navigate window={window} homepage={homepage} openButton={openButton} onClickAccount={onClickAccount} loggedIn={loggedIn} />
             </header>}
         </>
 

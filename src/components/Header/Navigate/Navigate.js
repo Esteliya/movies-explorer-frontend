@@ -14,9 +14,9 @@ import AccountIcon from "../../../images/button_icon_account.svg"
 // import CurrentUserContext from "../../../context/CurrentUserContext";
 
 function Navigate(props) {
-    const { mobile, homepage, openButton, onClickAccount, loggedIn } = props
+    const { window, homepage, openButton, onClickAccount, loggedIn } = props
     // если экран меньше или равно - показать кнопку меню
-    const isMobile = mobile <= 768;
+    const isWindow = window <= 768;
 
    //  const currentUser = React.useContext(CurrentUserContext);
 
@@ -32,7 +32,7 @@ function Navigate(props) {
         <>
             <nav className="navigate navigate_movie">
                 <Logo />
-                {loggedIn && !isMobile &&
+                {loggedIn && !isWindow &&
                     <>
                         <Link to="/movies" name="Фильмы" className="navigate__link navigate__link_movie hover-effect">Фильмы</Link>
                         <Link to="/saved-movies" name="Избранное" className="navigate__link hover-effect">Сохраненные фильмы</Link>
@@ -44,8 +44,8 @@ function Navigate(props) {
                         <Link to="/signup" name="Регистрация" className="navigate__link hover-effect">Регистрация</Link>
                         <ButtonWithText text="Войти" onClick={passPageLogin} />
                     </>}
-                {!isMobile && loggedIn && <ButtonWithIcon text="Аккаунт" homepage={homepage} icon={AccountIcon} onClick={onClickAccount} />}
-                {isMobile && loggedIn && <ButtonMenu homepage={homepage} onClick={openButton} />}
+                {!isWindow && loggedIn && <ButtonWithIcon text="Аккаунт" homepage={homepage} icon={AccountIcon} onClick={onClickAccount} />}
+                {isWindow && loggedIn && <ButtonMenu homepage={homepage} onClick={openButton} />}
             </nav>
         </>
     )

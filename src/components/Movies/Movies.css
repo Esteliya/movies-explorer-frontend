@@ -29,6 +29,6 @@
 @media screen and (max-width: 320px) {
     .movies {
         padding: 0 10px;
-        height: calc(100vh - 74px - 253px);
+        min-height: calc(100vh - 74px - 253px);
     }  
 }

@@ -38,6 +38,7 @@ function MoviesBase(props) {
 
     React.useEffect(() => {
         localStorage.setItem('savedLineCard', JSON.stringify(renderedCard));
+        compareLengthArr()
     }, [renderedCard]);
 
     React.useEffect(() => {
@@ -61,7 +62,7 @@ function MoviesBase(props) {
         }
     }
 
-   // запрос поиска - обновляем
+    // запрос поиска - обновляем
     function updateQuery(newQuery) {
         setQuery(newQuery);
         setRenderedCard(defaultRenderedCard);// выдаем изначальное число карточек
@@ -136,7 +137,45 @@ function MoviesBase(props) {
 
         }
     }
+    // мониторим экран → отображаем кнопку
+    React.useEffect(() => {
+        compareLengthArr()
+    }, [window])
 
+    // стейт активности кнопки ЕЩЕ 
+    const [activeButtonElse, setActiveButtonElse] = React.useState(true)
+
+    // отобразим/ скроем кнопку ЕЩЕ 
+    function compareLengthArr() {
+        const arr = JSON.parse(localStorage.getItem("searchMovies"))
+        console.log(arr.length)
+        console.log(renderedCard.desktop)
+        /* switch (window) {
+          case "/":
+            navigate('/');
+            break
+          case "/sign-in":
+            navigate('/');
+            break
+          case "/sign-up":
+            navigate('/');
+            break
+        } */
+        if (window >= 1225 && arr.length <= renderedCard.desktop) {
+            // дизейбл кнопки!! 
+            console.log("выбрали массив на desktop")
+            setActiveButtonElse(false)
+        } else if (window >= 713 && arr.length <= renderedCard.tablet) {
+            console.log("выбрали массив на tablet")
+            setActiveButtonElse(false)
+        } else if (window <= 712 && arr.length <= renderedCard.mobile) {
+            console.log("выбрали массив на mobile")
+            setActiveButtonElse(false)
+        } else {
+            console.log("еще не весь массив")
+            setActiveButtonElse(true)
+        }
+    }
 
     return (
         <Movies
@@ -150,7 +189,7 @@ function MoviesBase(props) {
             handleSearch={handleSearch}
             messageText={messageText}
         >
-            {!blankPage && <ButtonElse onClickElse={handleClickElse} />}
+            {!blankPage && <ButtonElse onClickElse={handleClickElse} activeButtonElse={activeButtonElse} />}
         </Movies>
     )
 }

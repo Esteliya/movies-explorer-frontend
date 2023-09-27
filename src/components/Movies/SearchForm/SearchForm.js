@@ -8,14 +8,6 @@ function SearchForm(props) {
     // запрос поиска/ строка поиска/ поиск по запросу
     const { setQuery, query, handleSearch } = props;
 
-    /* const location = useLocation();//проверим, на каком роуте выдаем карточки
-    // все фильмы 
-    const savedMovies = location.pathname === '/saved-movies'
-    // сохраненные фильмы
-    const movies = location.pathname === '/movies' */
-
-
-
     // обработка инпута
     function handleInputMovies (e) {
         const value = e.target.value;

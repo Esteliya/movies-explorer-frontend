@@ -116,8 +116,9 @@
 
 @media screen and (max-width: 712px) {
     .movie-card__preview {
-        min-height: 24.74vw;
+        min-height: 63vw;
         height: 100%;
+        
         /* background-size: cover; */
     }
 }

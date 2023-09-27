@@ -189,10 +189,11 @@ function App() {
 
   // очищаем локальное хранилище
   function cleanLocalStorage() {
-    localStorage.removeItem("allMovies");
+    localStorage.clear();
+    /* localStorage.removeItem("allMovies");
     localStorage.removeItem("searchMovies");
     localStorage.removeItem("queryMovies");
-    localStorage.removeItem("savedLineCard");
+    localStorage.removeItem("savedLineCard"); */
   }
 
   // БУРГЕР-МЕНЮ

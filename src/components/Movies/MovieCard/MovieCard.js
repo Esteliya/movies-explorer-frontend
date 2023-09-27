@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import './MovieCard.css'
 
 function MovieCard(props) {
@@ -9,17 +9,17 @@ function MovieCard(props) {
 
     const location = useLocation();//проверим, на каком роуте выдаем карточки
     // все фильмы 
-    const savedMovies = location.pathname === '/saved-movies'
+    const savedMovies = location.pathname === '/saved-movies';
     // сохраненные фильмы
-    const movies = location.pathname === '/movies'
+    const movies = location.pathname === '/movies';
 
     function handleMouseEnter() {
         setShowDeleteButton(true);
-    }
+    };
 
     function handleMouseLeave() {
         setShowDeleteButton(false);
-    }
+    };
 
     // высчитываем часы и минуты
     const hoursMins = (num) => {
@@ -29,17 +29,28 @@ function MovieCard(props) {
             mins = "0" + mins;
         }
         return `${hours}ч ${mins}м`;
-    }
+    };
 
+    //console.log(movie.trailerLink)
+
+    // меняем ссылку
+    const url = movie.trailerLink;
+    const toRemove = "http://localhost:3000/movies/";
+
+    const cleanUrl = url.replace(toRemove, "");
+    //console.log(cleanUrl);
 
     return (
         <div className='movie-card'>
-            {movies &&
+            <a href={movie.trailerLink} target="_blank" rel="noopener noreferrer">
                 <div className='movie-card__preview'
-                    style={{ backgroundImage: `url(${movie.image})` }}></div>}
+                    style={{ backgroundImage: `url(${movie.image})` }}></div>
+            </a>
 
-            {savedMovies && <div className='movie-card__preview'
-                style={{ backgroundImage: `url(${movie.image})` }}></div>}
+            {/* <Link to={cleanUrl} target="_blank" rel="noopener noreferrer">
+                <div className='movie-card__preview'
+                    style={{ backgroundImage: `url(${movie.image})` }}></div>
+            </Link> */}
 
             <div className='movie-card__info'
                 onMouseEnter={handleMouseEnter}
@@ -63,5 +74,6 @@ function MovieCard(props) {
         </div>
 
     )
-}
+};
+
 export default MovieCard;

@@ -11,9 +11,6 @@ function Movies(props) {
     const { children, blankPage, messageText, cards, renderedCard, window, onClickCardButton,
         // от формы поиска: запрос поиска/ строка поиска/ поиск по запросу
         setQuery, query, handleSearch, defaultRenderedCard } = props;
-    // const messageText = 'Запустите поиск интересующих Вас фильмов';
-
-
 
     return (
         <main className='movies'>

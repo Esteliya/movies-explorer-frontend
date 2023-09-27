@@ -1,9 +1,8 @@
 import React from 'react';
-import './MoviesBase.css'
-import Movies from "../Movies/Movies"
-import ButtonElse from "./ButtonElse/ButtonElse"
-// fgb
-import { BASE_MOVIES_URL } from '../../utils/config'// путь к картинкам фильмов
+import './MoviesBase.css';
+import Movies from "../Movies/Movies";
+import ButtonElse from "./ButtonElse/ButtonElse";
+import { BASE_MOVIES_URL } from '../../utils/config'; // путь к картинкам фильмов
 // import { BASE_MOVIES_URL, MOVIES_URL } from '../../utils/config'; // ловим путь к превью
 // import cards from "../../utils/cards";
 
@@ -12,13 +11,13 @@ function MoviesBase(props) {
     const { cards, window, onClickCardButton, getMovies } = props;
 
     // СТЕЙТЫ
-    // массив поиска
-    const allArrMovies = JSON.parse(localStorage.getItem("allMovies"))
-    // запрос
+    // массив поиска → из get-запроса
+    const allArrMovies = JSON.parse(localStorage.getItem("allMovies"));
+    // запрос (строка)
     const [query, setQuery] = React.useState(localStorage.getItem("queryMovies") || '');
-    // массив фильмов после поиска - изменяемый при каждом поиске- зачистить ЛС при разлогине!!!
+    // массив фильмов после поиска → изменяем при каждом поиске
     const [searchMovies, setSearchMovies] = React.useState(JSON.parse(localStorage.getItem("searchMovies")) || []);
-    // стейт состояния страницы
+    // стейт состояния страницы: пустая или нет? 
     const [blankPage, setBlankPage] = React.useState(true);
     // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
     const [messageText, setMessageText] = React.useState('Запустите поиск интересующих Вас фильмов');
@@ -27,42 +26,58 @@ function MoviesBase(props) {
         desktop: 12,
         tablet: 8,
         mobile: 5,
-    }
-    // стейт отображаемых карточек фильмов 
+    };
+    // стейт отображаемых карточек с фильмами  
     const [renderedCard, setRenderedCard] = React.useState(() => {
         const savedRenderedCard = localStorage.getItem('savedLineCard');
         return savedRenderedCard ? JSON.parse(savedRenderedCard) : defaultRenderedCard;
     });
+    // стейт активности кнопки ЕЩЕ 
+    const [activeButtonElse, setActiveButtonElse] = React.useState(true);
     // идет загрузка → отображаем преоладер
     const [isLoading, setIsLoading] = React.useState(true);
+    // все массивы ЛС
+    const allArrInLocalStorage = localStorage.getItem('savedLineCard') && localStorage.getItem('allMovies') && localStorage.getItem('searchMovies');
 
+    // ЭФФЕКТЫ 
     React.useEffect(() => {
-        localStorage.setItem('savedLineCard', JSON.stringify(renderedCard));
-        compareLengthArr()
+        if (localStorage.getItem('allMovies') && localStorage.getItem('searchMovies')) {
+            console.log('---- ЗДЕСЬ КОД ----')
+            console.log(allArrInLocalStorage)
+            localStorage.setItem('savedLineCard', JSON.stringify(renderedCard));
+            compareLengthArr();
+        }
+        //localStorage.setItem('savedLineCard', JSON.stringify(renderedCard));
+        //compareLengthArr();
     }, [renderedCard]);
 
     React.useEffect(() => {
-
         if (allArrMovies === null) {
-            setMessageText('Запустите поиск интересующих Вас фильмов')
+            setMessageText('Запустите поиск интересующих Вас фильмов');
         } else {
             handleMassege();
         }
-        setRenderedCard(renderedCard)
+        setRenderedCard(renderedCard);
+    }, [allArrMovies]);
 
-    }, [allArrMovies])
+    // мониторим экран → отображаем кнопку
+    React.useEffect(() => {
+        if (localStorage.getItem('allMovies') && localStorage.getItem('searchMovies')) {
+            compareLengthArr();
+        }
+    }, [window]);
 
     // отобразим фильмы или сообщение 
     function handleMassege() {
         if (searchMovies.length === 0) {
             setBlankPage(true);
-            setMessageText('Фильмы по запросу не найдены')
+            setMessageText('Фильмы по запросу не найдены');
         } else {
             setBlankPage(false);
-        }
-    }
+        };
+    };
 
-    // запрос поиска - обновляем
+    // запрос поиска → обновляем
     function updateQuery(newQuery) {
         setQuery(newQuery);
         setRenderedCard(defaultRenderedCard);// выдаем изначальное число карточек
@@ -75,8 +90,8 @@ function MoviesBase(props) {
             desktop: prevState.desktop + 3,
             tablet: prevState.tablet + 2,
             mobile: prevState.mobile + 2,
-        }))
-    }
+        }));
+    };
 
     const filtered = [];//отфильтрованные фильмы по запросу
 
@@ -85,16 +100,15 @@ function MoviesBase(props) {
         let searchMovies = cards;
         if (cards.length === 0) {
             searchMovies = await getMovies();
-            const newArr = transformArrMovies(searchMovies)// преобразовали фильмы +
-            console.log(newArr)// преобразованный массив +
-            pushLocalStorage(newArr)
-            console.warn(JSON.parse(localStorage.getItem("allMovies")))
-
-        }
+            const newArr = transformArrMovies(searchMovies);// преобразовали фильмы +
+            console.log(newArr);// преобразованный массив +
+            pushLocalStorage(newArr);
+            console.warn(JSON.parse(localStorage.getItem("allMovies")));
+        };
 
         // фильтруем фильмы из ЛС
-        filteredMovies(query, JSON.parse(localStorage.getItem("allMovies")))
-        console.log(filtered)// преобразованный массив +
+        filteredMovies(query, JSON.parse(localStorage.getItem("allMovies")));
+        console.log(filtered); // преобразованный массив +
 
         setSearchMovies(filtered);
         localStorage.setItem("searchMovies", JSON.stringify(filtered));
@@ -103,7 +117,7 @@ function MoviesBase(props) {
     // трансформируем массив с апи в нужный формат
     function transformArrMovies(arr) {
         return arr.map((movie) => {
-            const { country, director, duration, year, description, trailerLink, nameRU, nameEN } = movie
+            const { country, director, duration, year, description, trailerLink, nameRU, nameEN } = movie;
             return {
                 country,
                 director,
@@ -116,9 +130,9 @@ function MoviesBase(props) {
                 id: movie.id,
                 nameRU,
                 nameEN,
-            }
-        })
-    }
+            };
+        });
+    };
 
     // сохраняем фильмы с апи в ЛС
     function pushLocalStorage(arr) {
@@ -128,54 +142,34 @@ function MoviesBase(props) {
     // отфильтруем фильмы из базы по запросу в форме
     function filteredMovies(req, movies) {
         for (let i = 0; i < movies.length; i++) {
-            const item = movies[i]
+            const item = movies[i];
             // поиск в названии RU и EN без учета регистра
             let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
             if (result) {
                 filtered.push(item);
-            }
-
-        }
-    }
-    // мониторим экран → отображаем кнопку
-    React.useEffect(() => {
-        compareLengthArr()
-    }, [window])
-
-    // стейт активности кнопки ЕЩЕ 
-    const [activeButtonElse, setActiveButtonElse] = React.useState(true)
+            };
+        };
+    };
 
     // отобразим/ скроем кнопку ЕЩЕ 
     function compareLengthArr() {
-        const arr = JSON.parse(localStorage.getItem("searchMovies"))
-        console.log(arr.length)
-        console.log(renderedCard.desktop)
-        /* switch (window) {
-          case "/":
-            navigate('/');
-            break
-          case "/sign-in":
-            navigate('/');
-            break
-          case "/sign-up":
-            navigate('/');
-            break
-        } */
+        const arr = JSON.parse(localStorage.getItem("searchMovies"));
+        console.log(arr.length);
+        console.log(renderedCard.desktop);
         if (window >= 1225 && arr.length <= renderedCard.desktop) {
-            // дизейбл кнопки!! 
-            console.log("выбрали массив на desktop")
-            setActiveButtonElse(false)
+            console.log("выбрали массив на desktop");
+            setActiveButtonElse(false);
         } else if (window >= 713 && arr.length <= renderedCard.tablet) {
-            console.log("выбрали массив на tablet")
-            setActiveButtonElse(false)
+            console.log("выбрали массив на tablet");
+            setActiveButtonElse(false);
         } else if (window <= 712 && arr.length <= renderedCard.mobile) {
-            console.log("выбрали массив на mobile")
-            setActiveButtonElse(false)
+            console.log("выбрали массив на mobile");
+            setActiveButtonElse(false);
         } else {
-            console.log("еще не весь массив")
-            setActiveButtonElse(true)
-        }
-    }
+            console.log("еще не весь массив");
+            setActiveButtonElse(true);
+        };
+    };
 
     return (
         <Movies

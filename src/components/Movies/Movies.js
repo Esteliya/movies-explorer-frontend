@@ -10,14 +10,14 @@ function Movies(props) {
     // * / пустая страница? / сообщение/ карточки / формат экрана/ обработчик кнопки карточки
     const { children, blankPage, messageText, cards, renderedCard, window, onClickCardButton,
         // от формы поиска: запрос поиска/ строка поиска/ поиск по запросу
-        setQuery, query, handleSearch } = props;
+        setQuery, query, handleSearch, defaultRenderedCard } = props;
     // const messageText = 'Запустите поиск интересующих Вас фильмов';
 
 
 
     return (
         <main className='movies'>
-            <SearchForm setQuery={setQuery} query={query} handleSearch={handleSearch} />
+            <SearchForm setQuery={setQuery} query={query} handleSearch={handleSearch} defaultRenderedCard={defaultRenderedCard}/>
             {blankPage ?
                 <Message text={messageText} /> :
                 <MoviesCardList cards={cards} window={window} onClickCardButton={onClickCardButton} renderedCard={renderedCard}/>}

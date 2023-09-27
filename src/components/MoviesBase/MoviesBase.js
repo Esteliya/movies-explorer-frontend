@@ -7,7 +7,6 @@ import { BASE_MOVIES_URL } from '../../utils/config'// путь к картин�
 // import { BASE_MOVIES_URL, MOVIES_URL } from '../../utils/config'; // ловим путь к превью
 // import cards from "../../utils/cards";
 
-
 function MoviesBase(props) {
     // пустая страница?/ массив фильмов/ формат экрана/ клик по кнопке карточки/ запрос к апи за фильмами
     const { cards, window, onClickCardButton, getMovies } = props;
@@ -24,14 +23,12 @@ function MoviesBase(props) {
     // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
     const [messageText, setMessageText] = React.useState('Запустите поиск интересующих Вас фильмов');
     // количество карточек по умолчанию → передадим в стейт ↓ ↓ ↓
-    //const defaultRenderedCard = window <= 1224 ? (window <= 712 ? 5 : 8) : 12;
     const defaultRenderedCard = {
         desktop: 12,
         tablet: 8,
         mobile: 5,
     }
     // стейт отображаемых карточек фильмов 
-    //const [renderedCard, setRenderedCard] = React.useState(defaultRenderedCard);
     const [renderedCard, setRenderedCard] = React.useState(() => {
         const savedRenderedCard = localStorage.getItem('savedLineCard');
         return savedRenderedCard ? JSON.parse(savedRenderedCard) : defaultRenderedCard;
@@ -41,10 +38,6 @@ function MoviesBase(props) {
 
     React.useEffect(() => {
         localStorage.setItem('savedLineCard', JSON.stringify(renderedCard));
-        //console.log("1")
-        //localStorage.setItem('savedLineCard', JSON.stringify(renderedCard));
-        //console.log(`следим за количеством карточек: `)
-        //console.log(renderedCard)
     }, [renderedCard]);
 
     React.useEffect(() => {
@@ -54,17 +47,8 @@ function MoviesBase(props) {
         } else {
             handleMassege();
         }
-        //console.log(renderedCard === defaultRenderedCard)
         setRenderedCard(renderedCard)
-        //const savedLineCard = localStorage.getItem('savedLineCard');
-        //console.warn(JSON.parse(savedLineCard))
-        //console.log(savedLineCard)
-        /* if (!JSON.parse(savedLineCard)) {
-            console.log("мы тут")
-            // setRenderedCard(defaultRenderedCard) // по умолчанияю
-        } */
-        //setRenderedCard(renderedCard) ?? setRenderedCard(defaultRenderedCard)
-        //setRenderedCard(renderedCard)
+
     }, [allArrMovies])
 
     // отобразим фильмы или сообщение 
@@ -77,46 +61,20 @@ function MoviesBase(props) {
         }
     }
 
-    // запрос поиска - обновляем
+   // запрос поиска - обновляем
     function updateQuery(newQuery) {
         setQuery(newQuery);
         setRenderedCard(defaultRenderedCard);// выдаем изначальное число карточек
     };
-    // отрисовываем нужное число карточек
-    /*     function handleRenderedCard() {
-            if (window >= 1225) {
-                return 12;
-              } else if (window >= 713) {
-                return 8;
-              } else {
-                return 5;
-              }
-        } */
 
+    // отрисовываем нужное число карточек
     function handleClickElse() {
-        console.log("клик по кнопке Еще")// +
-        //console.log(renderedCard)// +
         setRenderedCard((prevState) => ({
             ...prevState, // копирование предыдущего состояния
             desktop: prevState.desktop + 3,
             tablet: prevState.tablet + 2,
             mobile: prevState.mobile + 2,
         }))
-        console.log("2")
-        //setRenderedCard(JSON.parse(localStorage.getItem('savedLineCard')))
-        //localStorage.setItem('savedLineCard', JSON.stringify(renderedCard));
-        /*         if (window >= 1225) {
-                    setRenderedCard((renderedCard) => renderedCard + 3);
-                  } else if (window >= 713) {
-                    setRenderedCard((renderedCard) => renderedCard + 2);
-                  } else {
-                    setRenderedCard((renderedCard) => renderedCard + 2);
-                  } */
-        /* window <= 1224 ?
-            (window <= 712 ?
-                setRenderedCard(renderedCard + 2) :
-                setRenderedCard(renderedCard + 4)) :
-                setRenderedCard(renderedCard + 3) */
     }
 
     const filtered = [];//отфильтрованные фильмы по запросу
@@ -132,17 +90,7 @@ function MoviesBase(props) {
             console.warn(JSON.parse(localStorage.getItem("allMovies")))
 
         }
-        //console.log(searchMovies);// массив с апи +
 
-        // const newArr = transformArrMovies(searchMovies)// преобразовали фильмы +
-        //console.log(newArr)// преобразованный массив +
-        //setSearchMovies(newArr)
-
-        //pushLocalStorage(newArr)
-        //console.warn(localStorage.getItem("allMovies"))
-
-
-        // console.warn(searchMovies)
         // фильтруем фильмы из ЛС
         filteredMovies(query, JSON.parse(localStorage.getItem("allMovies")))
         console.log(filtered)// преобразованный массив +

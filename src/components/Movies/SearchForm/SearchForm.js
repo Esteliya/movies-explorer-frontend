@@ -8,11 +8,13 @@ function SearchForm(props) {
     // запрос поиска/ строка поиска/ поиск по запросу
     const { setQuery, query, handleSearch } = props;
 
+let stringValue;
     // обработка инпута
     function handleInputMovies (e) {
-        const value = e.target.value;
+        stringValue = e.target.value;
         //console.log(value)//что в инпуте? 
-        setQuery(value)
+        //const value = e.target.value;
+        //setQuery(value)
         //console.log(query)// нужная строка +
         
     }
@@ -20,8 +22,9 @@ function SearchForm(props) {
      //обработчик формы
      function handleSearchForm(e) {
         e.preventDefault();
+        setQuery(stringValue)
         // console.log("сабмит формы поиска фильмов")
-        console.log(query)
+       // console.log(query)
         handleSearch(query)
      }
 

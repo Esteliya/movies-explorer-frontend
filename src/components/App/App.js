@@ -192,6 +192,7 @@ function App() {
     localStorage.removeItem("allMovies");
     localStorage.removeItem("searchMovies");
     localStorage.removeItem("queryMovies");
+    localStorage.removeItem("savedLineCard");
   }
 
   // БУРГЕР-МЕНЮ

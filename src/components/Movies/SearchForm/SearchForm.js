@@ -5,28 +5,27 @@ import ValidationForm from "../../../utils/validationForm";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm(props) {
-    // запрос поиска/ строка поиска/ поиск по запросу
-    const { setQuery, query, handleSearch } = props;
+    // запрос поиска/ строка поиска/ поиск по запросу/ чекнули?да-нет/ стейт-управление стейтом короткометражек/ обработчик чекбокса
+    const { setQuery, query, handleSearch, beChecked, onClickFilter } = props;
 
-let stringValue;
+    //let stringValue;
     // обработка инпута
-    function handleInputMovies (e) {
-        stringValue = e.target.value;
-        //console.log(value)//что в инпуте? 
-        //const value = e.target.value;
-        //setQuery(value)
-        //console.log(query)// нужная строка +
-        
+    function handleInputMovies(e) {
+        //stringValue = e.target.value;
+        const value = e.target.value;
+        console.log(value)//что в инпуте? 
+        setQuery(value)
+        //console.log(query)// нужная строка +   
     }
 
-     //обработчик формы
-     function handleSearchForm(e) {
+    //обработчик формы
+    function handleSearchForm(e) {
         e.preventDefault();
-        setQuery(stringValue)
+        //setQuery(stringValue)
         // console.log("сабмит формы поиска фильмов")
-       // console.log(query)
+        // console.log(query)
         handleSearch(query)
-     }
+    }
 
     return (
         <section className="search-form">
@@ -48,7 +47,7 @@ let stringValue;
                 ></button>
 
                 <div className="search-form__checkbox">
-                    <FilterCheckbox />
+                    <FilterCheckbox beChecked={beChecked} onClickFilter={onClickFilter} />
                     <p className="search-form__checkbox-title">Короткометражки</p>
                 </div>
             </form>

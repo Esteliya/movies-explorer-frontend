@@ -15,11 +15,15 @@ function MoviesCardList(props) {
     const movies = location.pathname === '/movies'
 
     //debugger
-    // количество карточек на разных экранах
-    const arrCard = window <= 1224 ?
+    // количество карточек на разных экранах → тольно на странице /movies 
+    let arrCard =[]
+    if (movies) {
+        arrCard = window <= 1224 ?
         (window <= 712 ? cards.slice(0, renderedCard.mobile) :
             cards.slice(0, renderedCard.tablet)) :
         cards.slice(0, renderedCard.desktop);
+    }
+   
 
     // проверяем размер экрана и отображаем необходимое количество карточек на странице с фильмами
     //const arrCard = window <= 1224 ? (window <= 712 ? cards.slice(0, 5) : cards.slice(0, 8)) : cards.slice(0, 12);
@@ -27,7 +31,7 @@ function MoviesCardList(props) {
     return (
         <section className='movies-card-list'>
             {
-                movies ? arrCard.map((card) => {
+                movies && arrCard.map((card) => {
                     return (
                         <MovieCard
                             key={card.id || card._id}
@@ -37,8 +41,9 @@ function MoviesCardList(props) {
                             movie={card}
                         />
                     )
-                }) :
-                    cards.map((card) => {
+                })
+            }
+            {savedMovies && cards.map((card) => {
                         return (
                             <MovieCard
                                 key={card.id || card._id}

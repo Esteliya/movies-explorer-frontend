@@ -48,6 +48,9 @@ function App() {
   // база всех фильмов 
   const [allMovies, setAllMovies] = React.useState([]);
 
+  // сохраненные фильмы польоватея с бэка
+  const [savedAllMovies, setSavedAllMovies] = React.useState([]);
+
   // страница с фильмими пустая ? (выдаем сообщения) ↓ ↓ ↓
   //const [blankPage, setBlankPage] = React.useState(true);
   // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
@@ -57,14 +60,37 @@ function App() {
   React.useEffect(() => {
     tockenCheck();
     // setMessageText('Запустите поиск интересующих Вас фильмов');
+// следим за шириной экрана 
     const handleResize = () => {
+      setwithWindow(window.innerWidth);
+    };
+    
+    let resizeTimeout;
+    // но не сразу → задержим на ?? ms
+    const delayedHandleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(handleResize, 100); // задержка в ?? ms
+    };
+    
+    window.addEventListener('resize', delayedHandleResize);
+    
+    return () => {
+      window.removeEventListener('resize', delayedHandleResize);
+    };
+
+    /* const handleResize = () => {
       setwithWindow(window.innerWidth);
     };
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-    };
+    }; */
   }, []);
+
+
+
+
+
 
 
 
@@ -187,6 +213,18 @@ function App() {
       });
   };
 
+  // запрос сохраненных фильмов
+  function getSavedMovies() {
+    return mainApi.getArrMovies()
+      .then((arrMovies) => {
+        setSavedAllMovies(arrMovies);
+        return arrMovies;// вернем массив карточек
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      });
+  };
+
   // очищаем локальное хранилище
   function cleanLocalStorage() {
     localStorage.clear();
@@ -260,6 +298,9 @@ function App() {
           />} />
 
           <Route path="/saved-movies" element={<MoviesSaved
+          cards={savedAllMovies}
+          getMovies={getSavedMovies}
+          window={withWindow}
           />} />
 
           <Route path="/signup" element={<Register handleDataForm={handleRegister} />} />

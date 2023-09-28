@@ -36,19 +36,15 @@ function MoviesBase(props) {
     const [activeButtonElse, setActiveButtonElse] = React.useState(true);
     // идет загрузка → отображаем преоладер
     const [isLoading, setIsLoading] = React.useState(true);
-    // все массивы ЛС
-    const allArrInLocalStorage = localStorage.getItem('savedLineCard') && localStorage.getItem('allMovies') && localStorage.getItem('searchMovies');
 
     // ЭФФЕКТЫ 
     React.useEffect(() => {
         if (localStorage.getItem('allMovies') && localStorage.getItem('searchMovies')) {
-            console.log('---- ЗДЕСЬ КОД ----')
-            console.log(allArrInLocalStorage)
+            // console.log('---- КОД ЗДЕСЬ ----')
             localStorage.setItem('savedLineCard', JSON.stringify(renderedCard));
-            compareLengthArr();
+            setRenderedCard(renderedCard);// сколько штук? ↑
+            //compareLengthArr();//следим за длиной массива
         }
-        //localStorage.setItem('savedLineCard', JSON.stringify(renderedCard));
-        //compareLengthArr();
     }, [renderedCard]);
 
     React.useEffect(() => {
@@ -57,17 +53,18 @@ function MoviesBase(props) {
         } else {
             handleMassege();
         }
-        setRenderedCard(renderedCard);
+        //debugger
+        //setRenderedCard(renderedCard);
     }, [allArrMovies]);
 
     // мониторим экран → отображаем кнопку
     React.useEffect(() => {
         if (localStorage.getItem('allMovies') && localStorage.getItem('searchMovies')) {
-            compareLengthArr();
+            compareLengthArr();//следим за длиной массива
         }
-    }, [window]);
+    }, [window, activeButtonElse]);
 
-    // отобразим фильмы или сообщение 
+    // отобразим сообщение, если фильмы не найдены
     function handleMassege() {
         if (searchMovies.length === 0) {
             setBlankPage(true);
@@ -81,6 +78,7 @@ function MoviesBase(props) {
     function updateQuery(newQuery) {
         setQuery(newQuery);
         setRenderedCard(defaultRenderedCard);// выдаем изначальное число карточек
+        compareLengthArr();
     };
 
     // отрисовываем нужное число карточек
@@ -91,6 +89,7 @@ function MoviesBase(props) {
             tablet: prevState.tablet + 2,
             mobile: prevState.mobile + 2,
         }));
+        compareLengthArr();
     };
 
     const filtered = [];//отфильтрованные фильмы по запросу
@@ -100,6 +99,7 @@ function MoviesBase(props) {
         let searchMovies = cards;
         if (cards.length === 0) {
             searchMovies = await getMovies();
+            console.log(searchMovies)
             const newArr = transformArrMovies(searchMovies);// преобразовали фильмы +
             console.log(newArr);// преобразованный массив +
             pushLocalStorage(newArr);
@@ -108,10 +108,12 @@ function MoviesBase(props) {
 
         // фильтруем фильмы из ЛС
         filteredMovies(query, JSON.parse(localStorage.getItem("allMovies")));
+        console.log("---- ЧТО НАФИЛЬТРОВАЛИ? ----")
         console.log(filtered); // преобразованный массив +
 
         setSearchMovies(filtered);
         localStorage.setItem("searchMovies", JSON.stringify(filtered));
+        compareLengthArr();// проверим, весь ли массив → да → убираем ЕЩЕ
     }
 
     // трансформируем массив с апи в нужный формат
@@ -147,28 +149,62 @@ function MoviesBase(props) {
             let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
             if (result) {
                 filtered.push(item);
-            };
+            }
         };
     };
 
-    // отобразим/ скроем кнопку ЕЩЕ 
+    // стейт чекбокса - изначально неактивен
+    const [isChecked, setIsChecked] = React.useState(false);
+
+    // обработчик чекбокса 
+    function handleChecked(e) {
+        //console.log("чекнули")
+        if (!isChecked) {
+            setIsChecked(true)// включили 
+            console.log("ON")
+            //setIsShortMovies(e.target.value);
+            //localStorage.setItem('shortFilms', e.target.value);
+            //console.log(localStorage.getItem('shortFilms'))
+        } else {
+            setIsChecked(false)// выключили 
+            console.log("OFF")
+            //localStorage.removeItem("shortFilms");// удалить??
+        }
+    }
+    // стейт массива короткометражек 
+    const [isShortMovies, setIsShortMovies] = React.useState(localStorage.getItem("isShortMovies"))
+
+    // отобразим/ скроем кнопку ЕЩЕ --- НЕ ОБНОВЛЯЕСТСЯ ПОСЛЕ ОКОНЧАНИЯ МАССИВА - после обновления страницы ОК ---
     function compareLengthArr() {
         const arr = JSON.parse(localStorage.getItem("searchMovies"));
-        console.log(arr.length);
-        console.log(renderedCard.desktop);
-        if (window >= 1225 && arr.length <= renderedCard.desktop) {
-            console.log("выбрали массив на desktop");
-            setActiveButtonElse(false);
-        } else if (window >= 713 && arr.length <= renderedCard.tablet) {
-            console.log("выбрали массив на tablet");
-            setActiveButtonElse(false);
-        } else if (window <= 712 && arr.length <= renderedCard.mobile) {
-            console.log("выбрали массив на mobile");
-            setActiveButtonElse(false);
+        //console.log(arr.length);
+        //console.log(renderedCard.desktop);
+        //if (arr.length === 0) {
+        if (arr === null || undefined) {
+            return
         } else {
-            console.log("еще не весь массив");
-            setActiveButtonElse(true);
-        };
+            if (window >= 1225 && arr.length <= renderedCard.desktop) {
+                console.log("выбрали массив на desktop");
+                console.log(arr.length);
+                console.log(renderedCard.desktop);
+                setActiveButtonElse(false);
+            } else if (window >= 713 && arr.length <= renderedCard.tablet) {
+                console.log("выбрали массив на tablet");
+                console.log(arr.length);
+                console.log(renderedCard.tablet);
+                setActiveButtonElse(false);
+            } else if (window <= 712 && arr.length <= renderedCard.mobile) {
+                console.log("выбрали массив на mobile");
+                console.log(arr.length);
+                console.log(renderedCard.mobile);
+                setActiveButtonElse(false);
+            } else {
+                console.log("еще не весь массив");
+                console.log(arr.length);
+                console.log(renderedCard);
+                setActiveButtonElse(true);
+            };
+        }
     };
 
     return (
@@ -181,6 +217,8 @@ function MoviesBase(props) {
             query={query}
             setQuery={updateQuery}
             handleSearch={handleSearch}
+            beChecked={isChecked}
+            onClickFilter={handleChecked}
             messageText={messageText}
         >
             {!blankPage && <ButtonElse onClickElse={handleClickElse} activeButtonElse={activeButtonElse} />}

@@ -9,7 +9,7 @@ import Movies from "../Movies/Movies"
 
 
 function MoviesSaved(props) {
-    const { mobile, cards, blankPage, messageText, handleDataForm, getMovies, onClickCardButton } = props;
+    const { mobile, cards, blankPage, messageText, handleDataForm, getMovies, deleteMovies } = props;
     //  setQuery, query, handleSearch
 
     // СТЕЙТЫ
@@ -88,6 +88,17 @@ function MoviesSaved(props) {
         localStorage.setItem("savedAllMovies", JSON.stringify(arr));
     }
 
+    // удаляем фильм
+    function handlenClickCardButton (card) {
+        console.log("передадим карточку дальше")
+        console.log(card)
+        // удалить с бэка
+        deleteMovies(card)
+        // ждем удаления 
+        
+        //удалить из ЛС в двух местах "savedAllMovies" и "searchSavedMovies"
+    }
+
 
     return (
         <Movies
@@ -99,7 +110,7 @@ function MoviesSaved(props) {
             handleSearch={handleSavedMoviesSearch}
             messageText={messageText}
             handleDataForm={handleDataForm}
-            onClickCardButton={onClickCardButton} />
+            onClickCardButton={handlenClickCardButton} />
     )
 }
 

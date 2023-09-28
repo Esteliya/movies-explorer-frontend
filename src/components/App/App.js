@@ -88,12 +88,6 @@ function App() {
   }, []);
 
 
-
-
-
-
-
-
   // АУТЕНТИФИКАЦИЯ +++
   // регистрируемся
   function handleRegister(data) {
@@ -225,6 +219,18 @@ function App() {
       });
   };
 
+  // удаление фильма 
+  function deleteMovies(card) {
+    console.log(card._id)
+    /* mainApi.deleteCard(card._id)
+      .then(() => {
+        alert("фильм успешно удален")
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      }); */
+  };
+
   // очищаем локальное хранилище
   function cleanLocalStorage() {
     localStorage.clear();
@@ -300,6 +306,7 @@ function App() {
           <Route path="/saved-movies" element={<MoviesSaved
           cards={savedAllMovies}
           getMovies={getSavedMovies}
+          deleteMovies={deleteMovies}
           window={withWindow}
           />} />
 

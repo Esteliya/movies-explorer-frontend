@@ -64,6 +64,10 @@ function MoviesBase(props) {
         }
     }, [window, activeButtonElse]);
 
+        React.useEffect (() => {
+        compareLengthArr();// проверим, весь ли массив → да → убираем ЕЩЕ
+    }, [renderedCard])
+
     // отобразим сообщение, если фильмы не найдены
     function handleMassege() {
         if (searchMovies.length === 0) {

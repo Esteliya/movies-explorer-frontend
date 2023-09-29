@@ -4,11 +4,6 @@ import './MoviesSaved.css'
 
 import Movies from "../Movies/Movies"
 
-// import cards from "../../utils/saveCards";
-
-// СДЕЛАТЬ!! 
-
-
 function MoviesSaved(props) {
     const { mobile, cards, handleDataForm, getMovies, deleteMovies } = props;
     //  setQuery, query, handleSearch
@@ -114,11 +109,20 @@ function MoviesSaved(props) {
     }
 
     // удаляем фильм
-    function handlenClickCardButton(card) {
+    async function handlenClickCardButton(card) {
         console.log("передадим карточку дальше")
-        console.log(card)
+        console.log(card._id)
         // удалить с бэка
-        deleteMovies(card)
+        await deleteMovies(card)
+            .then(() => {
+                console.log("фильм на бэке удален")
+                // убрать фильм из локалсторидж   КАК????
+                //const arr = getMovies();// запросили фильмы с апи
+                //pushLocalStorage(arr)// в Лс новые данные из GET 
+
+                
+
+            })
         // ждем удаления 
 
         //удалить из ЛС в двух местах "savedAllMovies" и "searchSavedMovies"

@@ -22,6 +22,7 @@ import Footer from '../Footer/Footer';// подвал
 import NotFound from '../NotFound/NotFound';// страницы не существует
 
 import PopupMenu from "../PopupMenu/PopupMenu";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import TestPage from '../TestPage/TestPage';// ВРЕМЕННАЯ! УБРАТЬ! 
 
 // API
@@ -56,24 +57,31 @@ function App() {
   // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
   //const [messageText, setMessageText] = React.useState('');
 
+  // ИНФОРМАЦИОННЫЙ ПОПАП: регистрация/ удаление карточки  --- ???
+  //контекст попапа оповещения 
+  const [showInfoToolTip, setShowInfoToolTip] = React.useState(false)
+  //текст попапа  оповещения 
+  const [textInfoTooltip, setTextInfoTooltip] = React.useState('тестовый текст');
+  //const textInfoTooltip = result ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз.';
+
 
   React.useEffect(() => {
     tockenCheck();
     // setMessageText('Запустите поиск интересующих Вас фильмов');
-// следим за шириной экрана 
+    // следим за шириной экрана 
     const handleResize = () => {
       setwithWindow(window.innerWidth);
     };
-    
+
     let resizeTimeout;
     // но не сразу → задержим на ?? ms
     const delayedHandleResize = () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(handleResize, 100); // задержка в ?? ms
     };
-    
+
     window.addEventListener('resize', delayedHandleResize);
-    
+
     return () => {
       window.removeEventListener('resize', delayedHandleResize);
     };
@@ -222,13 +230,17 @@ function App() {
   // удаление фильма 
   function deleteMovies(card) {
     console.log(card._id)
-    /* mainApi.deleteCard(card._id)
-      .then(() => {
-        alert("фильм успешно удален")
-      })
-      .catch((err) => {
-        console.error(`Ошибка: ${err}`);
-      }); */
+    return new Promise((resolve, reject) => {
+      mainApi.deleteCard(card._id)
+        .then(() => {
+          alert("фильм успешно удален")
+          // нужен попап
+        })
+        .catch((err) => {
+          console.error(`Ошибка: ${err}`);
+          // нужен попап
+        });
+    });// дождемся выполнения → дальнейшая обработка в компонентах MoviesBase и MoviesSeved
   };
 
   // очищаем локальное хранилище
@@ -246,8 +258,9 @@ function App() {
     setIsBurgerMenuPopup(true)
   }
   // закрываем попап 
-  function closePopup() {
+  function closeAllPopups() {
     setIsBurgerMenuPopup(false)
+    setShowInfoToolTip(false)
   }
 
   // РОУТИНГ
@@ -304,10 +317,10 @@ function App() {
           />} />
 
           <Route path="/saved-movies" element={<MoviesSaved
-          cards={savedAllMovies}
-          getMovies={getSavedMovies}
-          deleteMovies={deleteMovies}
-          window={withWindow}
+            cards={savedAllMovies}
+            getMovies={getSavedMovies}
+            deleteMovies={deleteMovies}
+            window={withWindow}
           />} />
 
           <Route path="/signup" element={<Register handleDataForm={handleRegister} />} />
@@ -318,11 +331,18 @@ function App() {
 
         <PopupMenu
           isOpen={isBurgerMenuPopup}
-          onClose={closePopup}
+          onClose={closeAllPopups}
           onClickAccount={handleClickAccount}
           onClickHome={handleClickHome}
           onClickMovies={handleClickMovies}
           onClickSavedMovies={handleClickSavedMovies} />
+
+        <InfoTooltip
+          isOpen={showInfoToolTip}
+          onClose={closeAllPopups}
+          text={textInfoTooltip}
+        />
+
         <Footer />
       </div>
     </CurrentUserContext.Provider>

@@ -58,12 +58,12 @@ function App() {
   //const [messageText, setMessageText] = React.useState('');
 
   // ИНФОРМАЦИОННЫЙ ПОПАП: регистрация/ удаление карточки  --- ???
-  //контекст попапа оповещения 
+  //стейт попапа оповещения 
   const [showInfoToolTip, setShowInfoToolTip] = React.useState(false)
   //текст попапа  оповещения 
   const [textInfoTooltip, setTextInfoTooltip] = React.useState('тестовый текст');
-  //const textInfoTooltip = result ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз.';
-
+  //стейт результата отправки запроса к api (для попапа InfoTooltip)
+  const [result, setResult] = React.useState(false);
 
   React.useEffect(() => {
     tockenCheck();
@@ -102,8 +102,12 @@ function App() {
     const { name, email, password } = data;
     auth.register(name, email, password)
       .then((data) => {
-        console.log(data)
-        alert('Регистрация прошла успешно')//работает 
+        //console.log(data)
+        //alert('Регистрация прошла успешно')//работает 
+        setShowInfoToolTip(true)
+        setResult(true)
+        setTextInfoTooltip("Регистрация прошла успешно")
+
         // перебрасываем пользователя на авторизацию
         navigate('/signin', {
           replace: true
@@ -111,6 +115,9 @@ function App() {
       })
       .catch((err) => {
         //console.log('ОШИБКА РЕГИСТРАЦИИ')
+        setShowInfoToolTip(true)
+        setResult(false)
+        setTextInfoTooltip("Ошибка регистрации")// текст ошибки?????
         console.error(`Ошибка: ${err}`);
       })
   }
@@ -129,6 +136,9 @@ function App() {
         });
       })
       .catch((err) => {
+        setShowInfoToolTip(true)
+        setResult(false)
+        setTextInfoTooltip("Ошибка авторизации")// текст ошибки?????
         console.error(`Ошибка: ${err}`);
 
       });
@@ -234,6 +244,9 @@ function App() {
       mainApi.deleteCard(card._id)
         .then(() => {
           alert("фильм успешно удален")
+          setShowInfoToolTip(false)
+          setResult(false)
+          setTextInfoTooltip("Ошибка авторизации")// текст ошибки?????
           // нужен попап
         })
         .catch((err) => {
@@ -340,6 +353,7 @@ function App() {
         <InfoTooltip
           isOpen={showInfoToolTip}
           onClose={closeAllPopups}
+          res={result}
           text={textInfoTooltip}
         />
 

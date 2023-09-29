@@ -210,6 +210,7 @@ function MoviesBase(props) {
             };
         }
     };
+    
 
     return (
         <Movies

@@ -31,27 +31,12 @@ function MovieCard(props) {
         return `${hours}ч ${mins}м`;
     };
 
-    //console.log(movie.trailerLink)
-
-    // меняем ссылку
-    const url = movie.trailerLink;
-    const toRemove = "http://localhost:3000/movies/";
-
-    const cleanUrl = url.replace(toRemove, "");
-    //console.log(cleanUrl);
-
     return (
         <div className='movie-card'>
             <a href={movie.trailerLink} target="_blank" rel="noopener noreferrer">
                 <div className='movie-card__preview'
                     style={{ backgroundImage: `url(${movie.image})` }}></div>
             </a>
-
-            {/* <Link to={cleanUrl} target="_blank" rel="noopener noreferrer">
-                <div className='movie-card__preview'
-                    style={{ backgroundImage: `url(${movie.image})` }}></div>
-            </Link> */}
-
             <div className='movie-card__info'
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}>

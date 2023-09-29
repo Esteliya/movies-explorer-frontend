@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './MoviesSaved.css'
 
 import Movies from "../Movies/Movies"
@@ -11,6 +12,7 @@ import Movies from "../Movies/Movies"
 function MoviesSaved(props) {
     const { mobile, cards, blankPage, messageText, handleDataForm, getMovies, deleteMovies } = props;
     //  setQuery, query, handleSearch
+    const location = useLocation();
 
     // СТЕЙТЫ
     // массив → из get-запроса
@@ -26,18 +28,23 @@ function MoviesSaved(props) {
     // запрос (строка)
     const [query, setQuery] = React.useState(localStorage.getItem("querySavedMovies") || '');
     // стейт карточек для рендера
-    const [isRenderCard, setRenderCard] = React.useState(JSON.parse(localStorage.getItem('savedAllMovies')))
+    const [isRenderCard, setRenderCard] = React.useState(JSON.parse(localStorage.getItem('savedAllMovies')) || [])
     // JSON.parse(localStorage.getItem('searchSavedMovies')) ?? JSON.parse(localStorage.getItem('savedAllMovies')) // МАССИВЫ
 
 
     // запрашиваем фильмы
     React.useEffect(() => {
+        console.log("принудительно обновили страницу")
         if (!localStorage.getItem('savedAllMovies')) {
             getMovies();// приходит массив с апи
-        } else {
-            console.log(JSON.parse(localStorage.getItem('searchSavedMovies')))// есть в ЛС сохраненные фильмы
+            console.log("GET запрос прошел")
         }
         getSavedMovies();
+        console.log("запросили сохраненные фильмы - ГиДЕ???")
+    }, [location]);
+
+    React.useEffect(() => {
+        setRenderCard(isRenderCard)
     }, []);
 
     // запрос поиска → обновляем
@@ -53,7 +60,7 @@ function MoviesSaved(props) {
             searchMovies = await getMovies();
             console.log(searchMovies)
             pushLocalStorage(searchMovies);
-            console.warn(JSON.parse(localStorage.getItem("savedAllMovies")));
+            //console.warn(JSON.parse(localStorage.getItem("savedAllMovies")));
         };
     }
 
@@ -86,16 +93,17 @@ function MoviesSaved(props) {
     // сохраняем фильмы с апи в ЛС
     function pushLocalStorage(arr) {
         localStorage.setItem("savedAllMovies", JSON.stringify(arr));
+        setRenderCard(arr);
     }
 
     // удаляем фильм
-    function handlenClickCardButton (card) {
+    function handlenClickCardButton(card) {
         console.log("передадим карточку дальше")
         console.log(card)
         // удалить с бэка
         deleteMovies(card)
         // ждем удаления 
-        
+
         //удалить из ЛС в двух местах "savedAllMovies" и "searchSavedMovies"
     }
 

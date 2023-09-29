@@ -6,7 +6,9 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm(props) {
     // запрос поиска/ строка поиска/ поиск по запросу/ чекнули?да-нет/ стейт-управление стейтом короткометражек/ обработчик чекбокса
-    const { setQuery, query, handleSearch, beChecked, onClickFilter } = props;
+    const { submitQuery, setSubmitQuery, handleSearch, beChecked, onClickFilter } = props;
+
+     const [query, setQuery] = React.useState('');
 
     //let stringValue;
     // обработка инпута
@@ -21,9 +23,11 @@ function SearchForm(props) {
     //обработчик формы
     function handleSearchForm(e) {
         e.preventDefault();
+        setQuery(e.target.value);
         //setQuery(stringValue)
         // console.log("сабмит формы поиска фильмов")
         // console.log(query)
+        setSubmitQuery(query);// отправка запроса по сабмиту!!!!
         handleSearch(query)
     }
 

@@ -10,16 +10,16 @@ function Movies(props) {
     // * / пустая страница? / сообщение/ карточки / формат экрана/ обработчик кнопки карточки
     const { children, blankPage, messageText, cards, renderedCard, window, onClickCardButton,
         // от формы поиска: запрос поиска/ строка поиска/ поиск по запросу/ чекбокс/ обработчик чекбокса 
-        setQuery, query, handleSearch, beChecked, onClickFilter  } = props;
+        submitQuery, setSubmitQuery, handleSearch, beChecked, onClickFilter } = props;
 
     return (
         <main className='movies'>
             <SearchForm
-                setQuery={setQuery}
-                query={query}
+                submitQuery={submitQuery}
+                setSubmitQuery={setSubmitQuery}
                 handleSearch={handleSearch}
-                beChecked={beChecked} 
-                onClickFilter={onClickFilter}/>
+                beChecked={beChecked}
+                onClickFilter={onClickFilter} />
             {blankPage ?
                 <Message text={messageText} /> :
                 <MoviesCardList

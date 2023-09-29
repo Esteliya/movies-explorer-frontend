@@ -10,7 +10,7 @@ import Movies from "../Movies/Movies"
 
 
 function MoviesSaved(props) {
-    const { mobile, cards, blankPage, messageText, handleDataForm, getMovies, deleteMovies } = props;
+    const { mobile, cards, handleDataForm, getMovies, deleteMovies } = props;
     //  setQuery, query, handleSearch
     const location = useLocation();
 
@@ -30,26 +30,43 @@ function MoviesSaved(props) {
     // стейт карточек для рендера
     const [isRenderCard, setRenderCard] = React.useState(JSON.parse(localStorage.getItem('savedAllMovies')) || [])
     // JSON.parse(localStorage.getItem('searchSavedMovies')) ?? JSON.parse(localStorage.getItem('savedAllMovies')) // МАССИВЫ
+    // стейт состояния страницы: пустая или нет? 
+    const [blankPage, setBlankPage] = React.useState(false);
+    // стейт сообщения на странице с фильмами: фильмы не найдены
+    const [messageText, setMessageText] = React.useState('');
 
 
     // запрашиваем фильмы
     React.useEffect(() => {
-        console.log("принудительно обновили страницу")
+        // console.log("принудительно обновили страницу")
         if (!localStorage.getItem('savedAllMovies')) {
             getMovies();// приходит массив с апи
-            console.log("GET запрос прошел")
+            // console.log("GET запрос прошел")
         }
         getSavedMovies();
-        console.log("запросили сохраненные фильмы - ГиДЕ???")
-    }, [location]);
+        // console.log("запросили сохраненные фильмы - ГиДЕ???")
+    }, [location]);// принудительно запустим первое монтирование при перелючении на роут
 
     React.useEffect(() => {
         setRenderCard(isRenderCard)
     }, []);
 
+
+    // отобразим сообщение, если фильмы не найдены
+    function handleMassege() {
+        if (searchSavedMovies.length === 0) {
+            setBlankPage(true);
+            setMessageText('Фильмы по запросу не найдены');
+        } else {
+            setBlankPage(false);
+        };
+    };
+
+
     // запрос поиска → обновляем
     function updateQuery(newQuery) {
         setQuery(newQuery);
+        handleMassege();// если фильмы не найдены → сообщение
     };
 
     // отрисовываем карточки
@@ -66,6 +83,7 @@ function MoviesSaved(props) {
 
     const filteredSavedMovies = [];//отфильтрованные фильмы по запросу
 
+    // обработчик полученных сохраненных фильмов
     function handleSavedMoviesSearch(query) {
         // фильтруем фильмы из ЛС
         filteredMovies(query, JSON.parse(localStorage.getItem("savedAllMovies")));
@@ -75,7 +93,6 @@ function MoviesSaved(props) {
         setSearchSavedMovies(filteredSavedMovies);
         localStorage.setItem('searchSavedMovies', JSON.stringify(filteredSavedMovies));
         setRenderCard(JSON.parse(localStorage.getItem('searchSavedMovies')))
-
     }
 
     // отфильтруем фильмы из базы по запросу в форме
@@ -113,8 +130,8 @@ function MoviesSaved(props) {
             cards={isRenderCard}
             mobile={mobile}
             blankPage={blankPage}
-            query={query}
-            setQuery={updateQuery}
+            submitQuery={query}
+            setSubmitQuery={updateQuery}
             handleSearch={handleSavedMoviesSearch}
             messageText={messageText}
             handleDataForm={handleDataForm}

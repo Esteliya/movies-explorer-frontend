@@ -219,8 +219,8 @@ function MoviesBase(props) {
             window={window}
             onClickCardButton={onClickCardButton}
             blankPage={blankPage}
-            query={query}
-            setQuery={updateQuery}
+            submitQuery={query}
+            setSubmitQuery={updateQuery}
             handleSearch={handleSearch}
             beChecked={isChecked}
             onClickFilter={handleChecked}

@@ -115,9 +115,10 @@ function App() {
       })
       .catch((err) => {
         //console.log('ОШИБКА РЕГИСТРАЦИИ')
+        // попап только на ошибку сервера??? if err===500 ... остальное в span 
         setShowInfoToolTip(true)
         setResult(false)
-        setTextInfoTooltip("Ошибка регистрации")// текст ошибки?????
+        setTextInfoTooltip(err.message);// текст ошибки?????
         console.error(`Ошибка: ${err}`);
       })
   }
@@ -127,7 +128,7 @@ function App() {
     const { email, password } = data;
     auth.authorize(email, password)
       .then((dataUser) => {
-        console.log("авторизировались");
+        //console.log("авторизировались");
         setLoggedIn(true);
         setCurrentUser(dataUser)
         // getMovies();
@@ -136,13 +137,27 @@ function App() {
         });
       })
       .catch((err) => {
-        setShowInfoToolTip(true)
-        setResult(false)
-        setTextInfoTooltip("Ошибка авторизации")// текст ошибки?????
+        // попап только на ошибку сервера??? if err===500 ... остальное в span 
+        //const result = removeSubstrings(err);
         console.error(`Ошибка: ${err}`);
-
+        console.log(err.message);//+
+        //console.log(result);
+        /* console.log(err.message);
+        const {message} = err
+        console.log(message); */
+        setTextInfoTooltip(err.message);// текст ошибки?????
+        setShowInfoToolTip(true);
+        setResult(false);
+    
       });
   }
+
+/*   function removeSubstrings(str) {
+    str = str.replace('{"message":"', '');
+    str = str.replace('"}', '');
+    return str;
+  }
+ */
 
   //проверяем наличие токена 
   function tockenCheck() {

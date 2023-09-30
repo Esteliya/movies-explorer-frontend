@@ -64,7 +64,7 @@ function MoviesBase(props) {
         }
     }, [window, activeButtonElse]);
 
-        React.useEffect (() => {
+    React.useEffect(() => {
         compareLengthArr();// проверим, весь ли массив → да → убираем ЕЩЕ
     }, [renderedCard])
 
@@ -112,9 +112,8 @@ function MoviesBase(props) {
 
         // фильтруем фильмы из ЛС
         filteredMovies(query, JSON.parse(localStorage.getItem("allMovies")));
-        console.log("---- ЧТО НАФИЛЬТРОВАЛИ? ----")
-        console.log(filtered); // преобразованный массив +
-
+        //console.log("---- ЧТО НАФИЛЬТРОВАЛИ? ----")
+        //console.log(filtered); // преобразованный массив +
         setSearchMovies(filtered);
         localStorage.setItem("searchMovies", JSON.stringify(filtered));
         compareLengthArr();// проверим, весь ли массив → да → убираем ЕЩЕ
@@ -146,31 +145,36 @@ function MoviesBase(props) {
     }
 
     // отфильтруем фильмы из базы по запросу в форме
-    function filteredMovies(req, movies) {
+    function filteredMovies(req, movies, isShort) {
         for (let i = 0; i < movies.length; i++) {
             const item = movies[i];
+            let result;
+             if (isShort) {
+ 
+             }
             // поиск в названии RU и EN без учета регистра
-            let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
+            result = item.nameRU.toLowerCase().includes(req.toLowerCase()) ||
+                item.nameEN.toLowerCase().includes(req.toLowerCase());
             if (result) {
                 filtered.push(item);
             }
         };
     };
 
-    // стейт чекбокса - изначально неактивен
-    const [isChecked, setIsChecked] = React.useState(false);
+    // стейт чекбокса - изначально неактивен  ПЕРЕНЕСТИ ↑↑↑
+    const [isCheckedShort, setIsCheckedShort] = React.useState(false);
 
     // обработчик чекбокса 
     function handleChecked(e) {
         //console.log("чекнули")
-        if (!isChecked) {
-            setIsChecked(true)// включили 
+        if (!isCheckedShort) {
+            setIsCheckedShort(true)// включили 
             console.log("ON")
             //setIsShortMovies(e.target.value);
             //localStorage.setItem('shortFilms', e.target.value);
             //console.log(localStorage.getItem('shortFilms'))
         } else {
-            setIsChecked(false)// выключили 
+            setIsCheckedShort(false)// выключили 
             console.log("OFF")
             //localStorage.removeItem("shortFilms");// удалить??
         }
@@ -210,7 +214,7 @@ function MoviesBase(props) {
             };
         }
     };
-    
+
 
     return (
         <Movies
@@ -222,7 +226,7 @@ function MoviesBase(props) {
             submitQuery={query}
             setSubmitQuery={updateQuery}
             handleSearch={handleSearch}
-            beChecked={isChecked}
+            beChecked={isCheckedShort}
             onClickFilter={handleChecked}
             messageText={messageText}
         >

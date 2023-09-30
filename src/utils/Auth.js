@@ -1,12 +1,14 @@
 import { BASE_API_URL } from '../utils/config';
 
 // проверяем ответ сервера
-const response = (res) => {
+const response = async (res) => {
     // debugger
     if (res.ok) {
         return res.json();
     } else {
-        return Promise.reject(`Ошибка ${res.status}`);
+        //const json = const body = await res.text()
+        const body = await res.text()
+        return Promise.reject(JSON.parse(body));
     }
 
 }

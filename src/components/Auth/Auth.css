@@ -56,6 +56,10 @@
     line-height: normal;
 }
 
+.auth__button_disable {
+    opacity: 0.5;
+}
+
 .auth__route {
     margin: 16px auto 0;
     color: #8B8B8B;

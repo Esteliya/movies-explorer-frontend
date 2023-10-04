@@ -3,15 +3,25 @@ import { useLocation, Link } from 'react-router-dom';
 import './MovieCard.css'
 
 function MovieCard(props) {
-    const { cardTitle, cardTime, movie, onClickCardButton } = props;
+    const { cardTitle, cardTime, movie, onClickCardButton, window } = props;
 
-    const [showDeleteButton, setShowDeleteButton] = React.useState(false);
+    const mobile = window <= 712;// ???????
+
+    const [showDeleteButton, setShowDeleteButton] = React.useState(mobile ? true : false);
+    
 
     const location = useLocation();//проверим, на каком роуте выдаем карточки
     // все фильмы 
     const savedMovies = location.pathname === '/saved-movies';
     // сохраненные фильмы
     const movies = location.pathname === '/movies';
+
+
+    React.useEffect(() => {
+        console.log(window, mobile)
+        setShowDeleteButton(showDeleteButton)
+
+    }, [window])
 
     function handleMouseEnter() {
         setShowDeleteButton(true);
@@ -30,6 +40,12 @@ function MovieCard(props) {
         }
         return `${hours}ч ${mins}м`;
     };
+
+    //const isWindow = window <= 712;
+    console.log("размер экрана мобильный???----- ", window)
+
+   
+    const classDeleteButton = 'movie-card__button movie-card__button_delete hover-effect'
 
     return (
         <div className='movie-card'>

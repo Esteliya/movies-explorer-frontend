@@ -47,10 +47,10 @@ function App() {
 
   // МАССИВЫ ФИЛЬМОВ
   // база всех фильмов 
-  const [allMovies, setAllMovies] = React.useState([]);
+  //const [allMovies, setAllMovies] = React.useState([]);
 
   // сохраненные фильмы польоватея с бэка
-  const [savedAllMovies, setSavedAllMovies] = React.useState([]);
+  //const [savedAllMovies, setSavedAllMovies] = React.useState([]);
 
   // страница с фильмими пустая ? (выдаем сообщения) ↓ ↓ ↓
   //const [blankPage, setBlankPage] = React.useState(true);
@@ -61,7 +61,7 @@ function App() {
   //стейт попапа оповещения 
   const [showInfoToolTip, setShowInfoToolTip] = React.useState(false)
   //текст попапа  оповещения 
-  const [textInfoTooltip, setTextInfoTooltip] = React.useState('тестовый текст');
+  const [textInfoTooltip, setTextInfoTooltip] = React.useState('');
   //стейт результата отправки запроса к api (для попапа InfoTooltip)
   const [result, setResult] = React.useState(false);
 
@@ -116,9 +116,15 @@ function App() {
       .catch((err) => {
         //console.log('ОШИБКА РЕГИСТРАЦИИ')
         // попап только на ошибку сервера??? if err===500 ... остальное в span 
-        setShowInfoToolTip(true)
-        setResult(false)
-        setTextInfoTooltip(err.message);// текст ошибки?????
+        if (err.message === "Validation failed") {
+          setShowInfoToolTip(true)
+          setResult(false)
+          setTextInfoTooltip("Данные формы невалидны. Проверьте корректность заполнения полей.");// текст
+        } else {
+          setShowInfoToolTip(true)
+          setResult(false)
+          setTextInfoTooltip(err.message);// текст ошибки
+        }
         console.error(`Ошибка: ${err}`);
       })
   }
@@ -145,19 +151,19 @@ function App() {
         /* console.log(err.message);
         const {message} = err
         console.log(message); */
-        setTextInfoTooltip(err.message);// текст ошибки?????
+        setTextInfoTooltip(err.message);// текст ошибки
         setShowInfoToolTip(true);
         setResult(false);
-    
+
       });
   }
 
-/*   function removeSubstrings(str) {
-    str = str.replace('{"message":"', '');
-    str = str.replace('"}', '');
-    return str;
-  }
- */
+  /*   function removeSubstrings(str) {
+      str = str.replace('{"message":"', '');
+      str = str.replace('"}', '');
+      return str;
+    }
+   */
 
   //проверяем наличие токена 
   function tockenCheck() {
@@ -195,16 +201,22 @@ function App() {
     //mainApi.patchUserInfo 
     console.log(data)
     // const { name, email } = data;
-    debugger
+    //debugger
     mainApi.patchUserInfo(data)
       .then((data) => {
-        console.log("запрос patch успешен?")
-        console.log(data)// +
-        alert('Изменение данных прошло успешно')//работает СДЕЛАТЬ ПОПАП
-        setCurrentUser(data)// ????? как-то обновить 
+        //console.log("запрос patch успешен?")
+        //console.log(data)// +
+        //alert('Изменение данных прошло успешно');
+        setShowInfoToolTip(true)
+        setResult(true)
+        setTextInfoTooltip("Данные пользователя обновлены");// текст
+        setCurrentUser(data)// ?
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
+        setTextInfoTooltip(err.message);// текст ошибки
+        setShowInfoToolTip(true);
+        setResult(false);
       })
   }
 
@@ -228,23 +240,50 @@ function App() {
       });
   }
   // ФИЛЬМЫ
-  // запросим фильмы - передадим на страницу
+  // запросим все фильмы - передадим на страницу
   function getMovies() {
     return apiWithMovies.getMovieInfo()
       .then((arrMovies) => {
-        setAllMovies(arrMovies);
-        return arrMovies;// вернем массив карточек
+        //setAllMovies(arrMovies);
+        // return arrMovies;// вернем массив карточек
+        const newAllMovies = transformArrMovies(arrMovies)
+        localStorage.setItem("allMovies", JSON.stringify(newAllMovies));
+        return newAllMovies;
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
       });
   };
 
+ // трансформируем массив с апи в нужный формат
+ function transformArrMovies(arr) {
+  return arr.map((movie) => {
+      const { country, director, duration, year, description, trailerLink, nameRU, nameEN } = movie;
+      return {
+          country,
+          director,
+          duration,
+          year,
+          description,
+          image: `${BASE_MOVIES_URL}${movie.image.url}`,
+          trailerLink,
+          thumbnail: `${BASE_MOVIES_URL}${movie.image.formats.thumbnail.url}`,
+          id: movie.id,
+          nameRU,
+          nameEN,
+      };
+  });
+};
+
+
   // запрос сохраненных фильмов
   function getSavedMovies() {
+    //debugger
     return mainApi.getArrMovies()
       .then((arrMovies) => {
-        setSavedAllMovies(arrMovies);
+        //const newArr = transformArrMovies(arrMovies)
+        //setSavedAllMovies(arrMovies);
+        localStorage.setItem("savedAllMovies", JSON.stringify(arrMovies));// массив в ЛС
         return arrMovies;// вернем массив карточек
       })
       .catch((err) => {
@@ -255,20 +294,19 @@ function App() {
   // удаление фильма 
   function deleteMovies(card) {
     console.log(card._id)
-    return new Promise((resolve, reject) => {
-      mainApi.deleteCard(card._id)
+    return mainApi.deleteCard(card._id)
         .then(() => {
-          alert("фильм успешно удален")
-          setShowInfoToolTip(false)
-          setResult(false)
-          setTextInfoTooltip("Ошибка авторизации")// текст ошибки?????
+          //alert("фильм успешно удален")
+          setShowInfoToolTip(true)
+          setResult(true)
+          setTextInfoTooltip("Фильм успешно удален")// текст ошибки?????
           // нужен попап
         })
         .catch((err) => {
           console.error(`Ошибка: ${err}`);
           // нужен попап
         });
-    });// дождемся выполнения → дальнейшая обработка в компонентах MoviesBase и MoviesSeved
+    // дождемся выполнения → дальнейшая обработка в компонентах MoviesBase и MoviesSeved
   };
 
   // очищаем локальное хранилище
@@ -339,13 +377,12 @@ function App() {
           <Route path="/" element={<Main />} />
 
           <Route path="/movies" element={<MoviesBase
-            cards={allMovies}
             getMovies={getMovies}
             window={withWindow}
           />} />
 
           <Route path="/saved-movies" element={<MoviesSaved
-            cards={savedAllMovies}
+        
             getMovies={getSavedMovies}
             deleteMovies={deleteMovies}
             window={withWindow}

@@ -10,15 +10,24 @@ function Movies(props) {
     // * / пустая страница? / сообщение/ карточки / формат экрана/ обработчик кнопки карточки
     const { children, blankPage, messageText, cards, renderedCard, window, onClickCardButton,
         // от формы поиска: запрос поиска/ строка поиска/ поиск по запросу/ чекбокс/ обработчик чекбокса 
-        submitQuery, setSubmitQuery, handleSearch, beChecked, onClickFilter } = props;
+        submitQuery, onSubmitQuery, handleSearch, isChecked, onClickFilter } = props;
+        //.log(`MOVIES.JS >>>>blankPage = ${blankPage}`);
+        
+/*     let cardsList;
+    if ( (! cards || cards.length < 1 ) &&  JSON.parse(localStorage.getItem("searchMovies")).length ){
+        console.log('2342')
+        cardsList = JSON.parse(localStorage.getItem("searchMovies"));
+        return  cardsList;
+    } */
+
 
     return (
         <main className='movies'>
             <SearchForm
                 submitQuery={submitQuery}
-                setSubmitQuery={setSubmitQuery}
+                onSubmitQuery={onSubmitQuery}
                 handleSearch={handleSearch}
-                beChecked={beChecked}
+                isChecked={isChecked}
                 onClickFilter={onClickFilter} />
             {blankPage ?
                 <Message text={messageText} /> :

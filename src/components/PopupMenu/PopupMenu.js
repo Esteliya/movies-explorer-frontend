@@ -6,6 +6,8 @@ import AccountIcon from "../../images/button_icon_account.svg";
 function PopupMenu(props) {
     const {isOpen, onClose, onClickAccount, onClickHome, onClickMovies, onClickSavedMovies } = props;
 
+    //console.log("isOpen ------", isOpen)
+
     const popupClass = isOpen ? ('popup') : ('popup popup_close');
 
     return (

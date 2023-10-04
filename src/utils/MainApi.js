@@ -67,7 +67,7 @@ class MainApi {
 
     // удаляем фильм по id 
     deleteCard(movieId) {
-        return this._request(`/cards/${movieId}`, {
+        return this._request(`/movies/${movieId}`, {
             method: 'DELETE',
             credentials: 'include',
             headers: this._headers,

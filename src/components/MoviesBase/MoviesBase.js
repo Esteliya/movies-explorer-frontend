@@ -19,7 +19,7 @@ function MoviesBase(props) {
     // массив фильмов после поиска → изменяем при каждом поиске
     const [searchMovies, setSearchMovies] = React.useState(JSON.parse(localStorage.getItem('searchMovies')) || []);
     // стейт состояния страницы: пустая или нет? 
-    const [blankPage, setBlankPage] = React.useState(false); // НАСТРОИТЬ!!!!! 
+    const [blankPage, setBlankPage] = React.useState(true); // НАСТРОИТЬ!!!!! 
     // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
     const [messageText, setMessageText] = React.useState('Запустите поиск интересующих Вас фильмов');
     // количество карточек по умолчанию → передадим в стейт ↓ ↓ ↓
@@ -40,20 +40,30 @@ function MoviesBase(props) {
     // стейт чекбокса - изначально неактивен
     const [isChecked, setIsChecked] = React.useState(localStorage.getItem('checkedShort') === 'on' ? 'on' : 'off');
     // идет загрузка → отображаем преоладер
-    const [isLoading, setIsLoading] = React.useState(true);
+    //const [isLoading, setIsLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        if (isLocalStorageMovies === null) {
+            handleSearch(query)
+        } else {
+            handleDisplayContent(searchMovies)
+        }
+    }, [query, isChecked])
 
     // ЭФФЕКТЫ 
-    React.useEffect(() => {
+/*     React.useEffect(() => {
         if (localStorage.getItem('allMovies') && localStorage.getItem('searchMovies')) {
-            // console.log('---- КОД ЗДЕСЬ ----')
+            console.log('---- КОД ЗДЕСЬ ----')
             handleSearch(query)// обрабатываем сабмит
+            setRenderedCard(renderedCard);
+            handleDisplayContent(searchMovies)
             //localStorage.setItem('savedLineCard', JSON.stringify(renderedCard));
             //setRenderedCard(renderedCard);// сколько штук? ↑
             //compareLengthArr();//следим за длиной массива
         }
-    }, [allMovies]);
+    }, [allMovies, query]); */
 
-    React.useEffect(() => {
+    /* React.useEffect(() => {
         if (isLocalStorageMovies === null) {
             setBlankPage(true)
             setMessageText('Запустите поиск интересующих Вас фильмов');
@@ -62,13 +72,14 @@ function MoviesBase(props) {
             handleDisplayContent(searchMovies);
             if (query) {// есть строка поиска
                 console.log(query)
-                filteredMovies(query, isLocalStorageMovies, isChecked); // фильтруем
+                handleSearch(query)
+                //filteredMovies(query, isLocalStorageMovies, isChecked); // фильтруем
                 setRenderedCard(renderedCard);
             }
         }
         //debugger
         
-    }, [query, allMovies]);
+    }, [query, allMovies]); */
 
     // мониторим экран → отображаем кнопку
     /*     React.useEffect(() => {
@@ -90,6 +101,8 @@ function MoviesBase(props) {
         } else {
             setBlankPage(false);// страница не пустая
             console.log("ФИЛЬМЫ НАЙДЕНЫ")
+            handleSearch(query)// обрабатываем сабмит
+
         };
     };
 
@@ -115,7 +128,7 @@ function MoviesBase(props) {
 
     //const filtered = [];//отфильтрованные фильмы по запросу
 
-    React.useEffect(() => {
+    /* React.useEffect(() => {
         //console.log(allMovies)
         if (query && !allMovies.length === 0 ) {
             console.log("ФИЛЬТРУЕМ ФИЛЬМЫ???   ", allMovies.length)
@@ -124,7 +137,7 @@ function MoviesBase(props) {
         }
         //handleSearch(query)// обработка заплоса ?????
 
-    }, [query, isChecked, allMovies])//по стейту поскового запроса, чекбоксу, всех фильмов
+    }, [query, isChecked, allMovies])//по стейту поскового запроса, чекбоксу, всех фильмов */
 
     const handleSearch = async (query) => {
         //console.log(cards)

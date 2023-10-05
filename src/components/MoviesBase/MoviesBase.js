@@ -7,7 +7,7 @@ import { BASE_MOVIES_URL } from '../../utils/config'; // путь к карти�
 // import cards from "../../utils/cards";
 
 function MoviesBase(props) {
-    // пустая страница?/ массив фильмов/ формат экрана/ клик по кнопке карточки/ запрос к апи за фильмами
+    // формат экрана/ клик по кнопке карточки/ запрос к апи за фильмами
     const { window, onClickCardButton, getMovies } = props;
 
     // СТЕЙТЫ
@@ -36,11 +36,10 @@ function MoviesBase(props) {
     // стейт активности кнопки ЕЩЕ 
     const [activeButtonElse, setActiveButtonElse] = React.useState(true);
 
-    //const forCheckbox = localStorage.getItem('checkedShort') === 'on' ? 'on' : 'off';
     // стейт чекбокса - изначально неактивен
     const [isChecked, setIsChecked] = React.useState(localStorage.getItem('checkedShort') === 'on' ? 'on' : 'off');
-    // идет загрузка → отображаем преоладер
-    //const [isLoading, setIsLoading] = React.useState(true);
+
+    // ЭФФЕКТЫ
 
     React.useEffect(() => {
         if (isLocalStorageMovies === null) {
@@ -50,48 +49,11 @@ function MoviesBase(props) {
         }
     }, [query, isChecked])
 
-    // ЭФФЕКТЫ 
-/*     React.useEffect(() => {
-        if (localStorage.getItem('allMovies') && localStorage.getItem('searchMovies')) {
-            console.log('---- КОД ЗДЕСЬ ----')
-            handleSearch(query)// обрабатываем сабмит
-            setRenderedCard(renderedCard);
-            handleDisplayContent(searchMovies)
-            //localStorage.setItem('savedLineCard', JSON.stringify(renderedCard));
-            //setRenderedCard(renderedCard);// сколько штук? ↑
-            //compareLengthArr();//следим за длиной массива
-        }
-    }, [allMovies, query]); */
 
-    /* React.useEffect(() => {
-        if (isLocalStorageMovies === null) {
-            setBlankPage(true)
-            setMessageText('Запустите поиск интересующих Вас фильмов');
-        } else {
-            console.log("ПОКАЖЕМ ФИЛЬМЫ")
-            handleDisplayContent(searchMovies);
-            if (query) {// есть строка поиска
-                console.log(query)
-                handleSearch(query)
-                //filteredMovies(query, isLocalStorageMovies, isChecked); // фильтруем
-                setRenderedCard(renderedCard);
-            }
-        }
-        //debugger
-        
-    }, [query, allMovies]); */
+    React.useEffect(() => {
+        compareLengthArr();// проверим, весь ли массив → да → убираем ЕЩЕ
+    }, [renderedCard, searchMovies])
 
-    // мониторим экран → отображаем кнопку
-    /*     React.useEffect(() => {
-            console.log(!isLocalStorageMovies===null)
-            if (localStorage.getItem('allMovies') && localStorage.getItem('query')) {
-                compareLengthArr();//следим за длиной массива
-            }
-        }, [window, activeButtonElse, renderedCard]); */
-
-        React.useEffect(() => {
-            compareLengthArr();// проверим, весь ли массив → да → убираем ЕЩЕ
-        }, [renderedCard, searchMovies])
 
     // отобразим сообщение, если фильмы не найдены
     function handleDisplayContent(arr) {
@@ -102,7 +64,6 @@ function MoviesBase(props) {
             setBlankPage(false);// страница не пустая
             console.log("ФИЛЬМЫ НАЙДЕНЫ")
             handleSearch(query)// обрабатываем сабмит
-
         };
     };
 
@@ -126,114 +87,33 @@ function MoviesBase(props) {
         compareLengthArr();
     };
 
-    //const filtered = [];//отфильтрованные фильмы по запросу
-
-    /* React.useEffect(() => {
-        //console.log(allMovies)
-        if (query && !allMovies.length === 0 ) {
-            console.log("ФИЛЬТРУЕМ ФИЛЬМЫ???   ", allMovies.length)
-            // фильтруем массив: строка запроса/ все фильмы/ чекбокс
-            filteredMovies(query, isLocalStorageMovies, isChecked);
-        }
-        //handleSearch(query)// обработка заплоса ?????
-
-    }, [query, isChecked, allMovies])//по стейту поскового запроса, чекбоксу, всех фильмов */
 
     const handleSearch = async (query) => {
-        //console.log(cards)
         let searchMovies = allMovies;
         if (allMovies.length === 0) {
             searchMovies = await getMovies();
             setAllMovies(searchMovies);
-            //console.log(allMovies);
-            // const newArr = transformArrMovies(searchMovies);// преобразовали фильмы +
-            // console.log(newArr);// преобразованный массив +
-            // pushLocalStorage(newArr);
-            // console.warn(allArrMovies);
         };
         console.log("ФИЛЬТРУЕМ ФИЛЬМЫ")
         console.log(isLocalStorageMovies)
         // фильтруем фильмы из ЛС
         filteredMovies(query, isLocalStorageMovies, isChecked);
-
-        //console.log("---- ЧТО НАФИЛЬТРОВАЛИ? ----")
-        //console.log(filtered); // преобразованный массив +
-        // setSearchMovies(filtered);
-        // localStorage.setItem("searchMovies", JSON.stringify(filtered));
-
-        //compareLengthArr();// проверим, весь ли массив → да → убираем ЕЩЕ
     }
-
-
-    /* const handleSearch = async (query) => {
-        let searchMovies = cards;
-
-        const processMovies = new Promise(async (resolve, reject) => {
-            if (cards.length === 0) {
-                try {
-                    searchMovies = await getMovies();
-                    const newArr = transformArrMovies(searchMovies); // преобразовали фильмы
-                    pushLocalStorage(newArr);
-                    resolve();   // разрешим по завершении
-                } catch (error) {
-                    reject(`Ошибка: ${error}`); // выведем ошибку
-                }
-            } else {
-                resolve();   // разрешим, если массив есть
-            }
-        });
-        processMovies.then(() => {
-            // фильтруем после ↑ ↑ ↑
-            filteredMovies(query, allArrMovies);
-        }).catch((error) => {
-            console.log(error); // ошибка?? 
-        });
-    } */
-
-
-
-    // трансформируем массив с апи в нужный формат
-    /*     function transformArrMovies(arr) {
-            return arr.map((movie) => {
-                const { country, director, duration, year, description, trailerLink, nameRU, nameEN } = movie;
-                return {
-                    country,
-                    director,
-                    duration,
-                    year,
-                    description,
-                    image: `${BASE_MOVIES_URL}${movie.image.url}`,
-                    trailerLink,
-                    thumbnail: `${BASE_MOVIES_URL}${movie.image.formats.thumbnail.url}`,
-                    id: movie.id,
-                    nameRU,
-                    nameEN,
-                };
-            });
-        }; */
-
-    // сохраняем фильмы с апи в ЛС
-    /*     function pushLocalStorage(arr) {
-            localStorage.setItem("allMovies", JSON.stringify(arr));
-        } */
 
     // отфильтруем фильмы из базы по запросу в форме
     function filteredMovies(req, movies, checkbox) {
-        //console.log(req)
-        // console.log(movies)
         if (movies === null) {
             console.log("НЕТ МАССИВА")
         } else {
-            //console.log("ЧЕКБОКС --------", checkbox === "on")
             if (checkbox === "on") {
                 const shorts = movies.filter((item) => item.duration < 40);
-                    console.log("shorts ------", shorts)
+                //console.log("shorts ------", shorts)
                 const filtered = shorts.filter(item => {
                     let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
-                    console.log("НАФИЛЬТРОВАЛИ -------", result)
+                    //console.log("НАФИЛЬТРОВАЛИ -------", result)
                     return result;
                 });
-                console.log("КОРОТКОМЕТРАЖКИ ------- ", filtered);
+                //console.log("КОРОТКОМЕТРАЖКИ ------- ", filtered);
                 setSearchMovies(filtered);
                 localStorage.setItem("searchMovies", JSON.stringify(filtered));
 
@@ -242,34 +122,18 @@ function MoviesBase(props) {
                     let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
                     return result;
                 });
-                console.log(filtered);
+                //console.log(filtered);
                 setSearchMovies(filtered);
                 localStorage.setItem("searchMovies", JSON.stringify(filtered));
             }
 
         }
-
-
-        /* console.log(filtered);
-        setSearchMovies(filtered); */
-
-        // запишем с тейт 
-
-        /*  for (let i = 0; i < movies.length; i++) {
-             const item = movies[i];
-             // поиск в названии RU и EN без учета регистра
-             let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
-             if (result) {
-                 filtered.push(item);
-             }
-         }; */
     };
-
 
     // обработчик чекбокса 
     function handleChecked(e) {
         //console.log("чекнули?", isChecked==="off")
-        if (isChecked==="off") {
+        if (isChecked === "off") {
             setIsChecked('on')// включили 
             console.log("ON")
             localStorage.setItem("checkedShort", 'on');// сохраним в ЛС чек on +
@@ -280,16 +144,10 @@ function MoviesBase(props) {
             localStorage.setItem("checkedShort", 'off');// сохраним в ЛС чек off +
         }
     }
-    // стейт массива короткометражек 
-    //const [isShortMovies, setIsShortMovies] = React.useState(localStorage.getItem("isShortMovies"))
 
     // отобразим/ скроем кнопку ЕЩЕ
     function compareLengthArr() {
-        //const arr = JSON.parse(localStorage.getItem("searchMovies"));
         const arr = searchMovies;
-        //console.log(arr.length);
-        //console.log(renderedCard.desktop);
-        //if (arr.length === 0) {
         if (arr === null || undefined) {
             return
         } else {

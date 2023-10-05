@@ -7,8 +7,8 @@ function MovieCard(props) {
 
     const mobile = window <= 712;// ???????
 
-    const [showDeleteButton, setShowDeleteButton] = React.useState(mobile ? true : false);
-    
+    const [showDeleteButton, setShowDeleteButton] = React.useState(false);
+
 
     const location = useLocation();//проверим, на каком роуте выдаем карточки
     // все фильмы 
@@ -18,8 +18,12 @@ function MovieCard(props) {
 
 
     React.useEffect(() => {
-        console.log(window, mobile)
-        setShowDeleteButton(showDeleteButton)
+        //console.log(window, mobile)
+        if (mobile) {
+            setShowDeleteButton(true);
+        } else {
+            setShowDeleteButton(false);
+        }
 
     }, [window])
 
@@ -42,9 +46,9 @@ function MovieCard(props) {
     };
 
     //const isWindow = window <= 712;
-    console.log("размер экрана мобильный???----- ", window)
+    //console.log("размер экрана мобильный???----- ", window)
 
-   
+
     const classDeleteButton = 'movie-card__button movie-card__button_delete hover-effect'
 
     return (

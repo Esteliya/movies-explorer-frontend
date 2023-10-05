@@ -248,7 +248,7 @@ function App() {
         // return arrMovies;// вернем массив карточек
         const newAllMovies = transformArrMovies(arrMovies)
         localStorage.setItem("allMovies", JSON.stringify(newAllMovies));
-        return newAllMovies;
+        //return newAllMovies;
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
@@ -281,10 +281,10 @@ function App() {
     //debugger
     return mainApi.getArrMovies()
       .then((arrMovies) => {
-        //const newArr = transformArrMovies(arrMovies)
+        const newArr = transformArrMovies(arrMovies)
         //setSavedAllMovies(arrMovies);
-        localStorage.setItem("savedAllMovies", JSON.stringify(arrMovies));// массив в ЛС
-        return arrMovies;// вернем массив карточек
+        localStorage.setItem("savedAllMovies", JSON.stringify(newArr));// массив в ЛС
+        return newArr;// вернем массив карточек
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);

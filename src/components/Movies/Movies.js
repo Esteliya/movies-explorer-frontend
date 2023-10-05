@@ -8,7 +8,7 @@ import Message from './Message/Message';
 
 function Movies(props) {
     // * / пустая страница? / сообщение/ карточки / формат экрана/ обработчик кнопки карточки
-    const { children, blankPage, messageText, cards, renderedCard, window, onClickCardButton,
+    const { children, blankPage, messageText, cards, visibleCard, window, onClickCardButton,
         // от формы поиска: запрос поиска/ строка поиска/ поиск по запросу/ чекбокс/ обработчик чекбокса 
         submitQuery, onSubmitQuery, handleSearch, isChecked, onClickFilter } = props;
         //.log(`MOVIES.JS >>>>blankPage = ${blankPage}`);
@@ -35,7 +35,7 @@ function Movies(props) {
                     cards={cards}
                     window={window}
                     onClickCardButton={onClickCardButton}
-                    renderedCard={renderedCard} />}
+                    visibleCard={visibleCard} />}
             {children}
         </main>
     )

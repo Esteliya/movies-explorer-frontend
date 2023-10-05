@@ -6,7 +6,7 @@ import { BASE_MOVIES_URL, MOVIES_URL } from '../../../utils/config'; // лови
 import MovieCard from '../MovieCard/MovieCard';
 
 function MoviesCardList(props) {
-    const { cards, renderedCard, window, onClickCardButton } = props;
+    const { cards, visibleCard, window, onClickCardButton } = props;
 
     const location = useLocation();//проверим, на каком роуте выдаем карточки
     // все фильмы 
@@ -22,9 +22,9 @@ function MoviesCardList(props) {
     if (movies) {
         console.log(window)
         arrCard = window <= 1224 ?
-        (window <= 712 ? cards.slice(0, renderedCard.mobile) :
-            cards.slice(0, renderedCard.tablet)) :
-        cards.slice(0, renderedCard.desktop);
+        (window <= 712 ? cards.slice(0, visibleCard.mobile) :
+            cards.slice(0, visibleCard.tablet)) :
+        cards.slice(0, visibleCard.desktop);
     }
 
     // проверяем размер экрана и отображаем необходимое количество карточек на странице с фильмами

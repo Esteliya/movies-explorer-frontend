@@ -385,7 +385,6 @@ function App() {
 
           <Route path="/saved-movies" element={<MoviesSaved
             arrMovies={savedAllMovies}
-            getMovies={getSavedMovies}
             deleteMovies={deleteMovies}
             window={withWindow}
           />} />

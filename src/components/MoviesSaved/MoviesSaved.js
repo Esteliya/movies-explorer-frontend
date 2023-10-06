@@ -8,7 +8,7 @@ import Movies from "../Movies/Movies"
 import { filteredMovies } from '../../utils/hooks';
 
 function MoviesSaved(props) {
-    const { handleDataForm, getMovies, deleteMovies, window, arrMovies } = props;
+    const { handleDataForm, deleteMovies, window, arrMovies } = props;
     //  setQuery, query, handleSearch
     const location = useLocation();
 
@@ -47,49 +47,38 @@ function MoviesSaved(props) {
         const arr = filteredMovies(query, arrMovies, isChecked);
         console.log("ЧТО В МАССИВЕ? ------ ", arr)//+
         setIsRenderCard(arr)
-        //handleMassege()
-    }, [isChecked, query, arrMovies])
-
-    // отобразим сообщение, если фильмы не найдены
-    function handleMassege() {
-        if (isRenderCard.length === 0) {
-            setBlankPage(true);
+        if (arr.length === 0) {
+            console.log("НЕТ МАССИВА!!!!!")
+            setBlankPage(true)
             setMessageText('Фильмы по запросу не найдены');
+            // console.log("СООБЩЕНИЕ ----- ", messageText)
+            // console.log("ПУСТАЯ СТРАНИЦА??? ----- ", blankPage)
         } else {
-            setBlankPage(false);
-        };
-    };
+            setBlankPage(false)
+        }
+    }, [isChecked, query, arrMovies, blankPage])
+
+    
 
     // обработчик поиска
     const handleSearchSavedMovies = (query) => {
-        //const arr = await getMovies();// ждем массив с апи
-        //setIsSavedMovies(arr);// записали массив в стейт
-        //console.log(isSavedMovies);
-        
         const searchMovies = filteredMovies(query, arrMovies, isChecked);
         setIsRenderCard(searchMovies);
-        console.log("ФИЛЬТРУЕМ ФИЛЬМЫ ---- ", isRenderCard)// нужный массив есть
-
-        // фильтруем фильмы из ЛС
-
-
+        //console.log("ФИЛЬТРУЕМ ФИЛЬМЫ ---- ", isRenderCard)// нужный массив есть
     }
 
-    // запрос поиска → обновляем
+    // запрос поиска → обновляем - НАДО ЛИ???
     function updateQuery(newQuery) {
         setQuery(newQuery);
-        localStorage.setItem("querySavedMovies", newQuery);// сохраним в ЛС запрос 
-        localStorage.setItem('checkedShortSavedMovies', isChecked);// состояние чекбокса
-        handleMassege();// если фильмы не найдены → сообщение
     };
 
     // запросим карточки с апи
-    const getSavedMovies = async () => {
+    /* const getSavedMovies = async () => {
         //console.log(cards)
         let searchMovies = isRenderCard;
         searchMovies = await getMovies();
         setIsRenderCard(searchMovies)
-    }
+    } */
 
 
     // обработчик чекбокса 
@@ -97,12 +86,12 @@ function MoviesSaved(props) {
         if (isChecked === "off") {
             setIsChecked('on')// включили 
             console.log("ON")
-            localStorage.setItem("checkedShortSavedMovies", 'on');// сохраним в ЛС чек on +
+            //localStorage.setItem("checkedShortSavedMovies", 'on');// сохраним в ЛС чек on +
 
         } else {
             setIsChecked('off')// выключили 
             console.log("OFF")
-            localStorage.setItem("checkedShortSavedMovies", 'off');// сохраним в ЛС чек off +
+            //localStorage.setItem("checkedShortSavedMovies", 'off');// сохраним в ЛС чек off +
         }
     }
 

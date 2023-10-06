@@ -38,23 +38,11 @@ function MoviesSaved(props) {
 
     // запрашиваем фильмы
     React.useEffect(() => {
-        // console.log("принудительно обновили страницу")
-        // if (!localStorage.getItem('savedAllMovies')) {
-        //     getMovies();// приходит массив с апи
-        //     // console.log("GET запрос прошел")
-        // }
+        
         getSavedMovies();
-        // console.log("запросили сохраненные фильмы - ГиДЕ???")
+       
     }, [location]);// принудительно запустим первое монтирование при перелючении на роут
 
-    /*     React.useEffect(() => {
-            setIsRenderCard(isRenderCard)
-        }, []); */
-
-    /*     React.useEffect(() => {
-            filteredMovies(query, isSavedMovies);
-        }, [isRenderCard])
-     */
 
     // отобразим сообщение, если фильмы не найдены
     function handleMassege() {
@@ -77,13 +65,8 @@ function MoviesSaved(props) {
         //console.log(cards)
         let searchMovies = isRenderCard;
         searchMovies = await getMovies();
-        //console.log(searchMovies)
         setIsRenderCard(searchMovies)
-        /* if (isRenderCard.length === 0) {
-            searchMovies = await getMovies();
-            console.log(searchMovies)
-            setIsRenderCard(searchMovies)
-        }; */
+       
     }
 
     // обработчик поиска 
@@ -91,11 +74,6 @@ function MoviesSaved(props) {
         if (isRenderCard.length === 0) {
             getSavedMovies()
         };
-        console.log("ФИЛЬТРУЕМ ФИЛЬМЫ")
-        // фильтруем фильмы из ЛС
-        console.log(query)
-        console.log(isRenderCard)
-        console.log(isChecked)
         filteredMovies(query, isRenderCard, isChecked);
     }
 
@@ -141,41 +119,6 @@ function MoviesSaved(props) {
             //localStorage.setItem("checkedShort", 'off');// сохраним в ЛС чек off +
         }
     }
-
-    //const filteredSavedMovies = [];//отфильтрованные фильмы по запросу
-
-    // обработчик полученных сохраненных фильмов
-    /* function handleSavedMoviesSearch(query) {
-        // фильтруем фильмы из ЛС
-        filteredMovies(query, isLocalStorageSavedAllArrMovies);
-        console.log("---- ЧТО НАФИЛЬТРОВАЛИ? ----")
-        console.log(filteredSavedMovies);
-
-        setSearchSavedMovies(filteredSavedMovies);
-        localStorage.setItem('searchSavedMovies', JSON.stringify(filteredSavedMovies));
-        setIsRenderCard(JSON.parse(localStorage.getItem('searchSavedMovies')))
-    } */
-
-    // отфильтруем фильмы из базы по запросу в форме
-    /*     function filteredMovies(req, movies) {
-            if (movies) {
-                for (let i = 0; i < movies.length; i++) {
-                    const item = movies[i];
-                    // поиск в названии RU и EN без учета регистра
-                    let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
-                    if (result) {
-                        filteredSavedMovies.push(item);
-                    }
-                };
-            }
-        }; */
-
-    // сохраняем фильмы с апи в ЛС
-    /*     function pushLocalStorage(arr) {
-            localStorage.setItem("savedAllMovies", JSON.stringify(arr));
-            setIsRenderCard(arr);
-        }
-     */
     // удаляем фильм
      const handlenClickCardButton = async (card) => {
          console.log("передадим карточку дальше")
@@ -196,17 +139,6 @@ function MoviesSaved(props) {
  
          //удалить из ЛС в двух местах "savedAllMovies" и "searchSavedMovies"
      }
-
-    // удаление фильма из массива ЛС ---- НАДО 
-    /*     function deleteMoviesFromLocalStorage(arr, id) {
-            for (let i = 0; i < arr.length; i++) {
-                if (arr[i].id === id) {
-                    arr.splice(i, 1);
-                    break;
-                }
-            }
-        } */
-
 
     return (
         <Movies

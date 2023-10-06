@@ -6,6 +6,9 @@ import { BASE_MOVIES_URL } from '../../utils/config'; // путь к карти�
 // import { BASE_MOVIES_URL, MOVIES_URL } from '../../utils/config'; // ловим путь к превью
 // import cards from "../../utils/cards";
 
+
+import { filteredMovies } from '../../utils/hooks';
+
 function MoviesBase(props) {
     // формат экрана/ клик по кнопке карточки/ запрос к апи за фильмами
     const { window, onClickCardButton, getMovies } = props;
@@ -41,20 +44,9 @@ function MoviesBase(props) {
     const [activeButtonElse, setActiveButtonElse] = React.useState(true);
 
 
-
     // ЭФФЕКТЫ
     React.useEffect(() => {
-        /* console.log("карточки для рендера ------ ", isRenderCard)
-        if (isLocalStorageMovies === null || undefined) {
-            setBlankPage(true);// страница пустая
-            setMessageText(messageText);
-            return
-        } else {
-            //handleSearch(query)
-            filteredMovies(query, isLocalStorageMovies, isChecked);
-        } */
         handleSearch(query)
-        //handleDisplayContent(isRenderCard)
     }, [isChecked, query])
 
     React.useEffect(() => {
@@ -62,7 +54,7 @@ function MoviesBase(props) {
     }, [visibleCard, isRenderCard, window])
 
     React.useEffect(() => {
-        if (isLocalStorageMovies === null || undefined) {
+        if (!localStorage.getItem('checkedShort') || localStorage.getItem('query')) {
             setBlankPage(true);// страница пустая
             setMessageText(messageText);
             return
@@ -77,29 +69,10 @@ function MoviesBase(props) {
     }, [visibleCard])
 
 
-    /*     React.useEffect(() => {
-            if (isLocalStorageMovies === null) {
-                handleSearch(query)
-            } else {
-                console.log("фильмы для рендера -----", searchMovies)
-                handleDisplayContent(searchMovies)
-    
-            }
-        }, [query, isChecked])
-    
-    
-        */
-
-
-    /*     React.useEffect (() => {
-            if (localStorage.getItem("query") && localStorage.getItem('checkedShort')) {
-                filteredMovies(query, isLocalStorageMovies, isChecked);
-            }
-        }, [query, isChecked]) */
-
     // отобразим сообщение, если фильмы не найдены
     function handleDisplayContent(arr) {
-        if (isLocalStorageMovies === null) {
+
+        if (arr === null || arr === undefined) {
             setMessageText(messageText)
         } else {
             if (arr.length === 0) {
@@ -118,8 +91,6 @@ function MoviesBase(props) {
         localStorage.setItem("query", newQuery);// сохраним в ЛС запрос 
         localStorage.setItem('checkedShort', isChecked);// состояние чекбокса
         localStorage.removeItem("savedLineCard");// удаляем сохраненное количество карточек на выдаче
-        //setVisibleCard(defaultVisibleCard);// выдаем изначальное число карточек
-        //compareLengthArr();
     };
 
     // отрисовываем нужное число карточек
@@ -134,58 +105,66 @@ function MoviesBase(props) {
     };
 
     const handleSearch = async (query) => {
+        console.log('>>> step 2');
+
         if (isLocalStorageMovies === null) {
-            //let searchMovies = isLocalStorageMovies;
-            await getMovies();// ждем массив с апи
+            const arr = await getMovies();// ждем массив с апи
             //setAllMovies(searchMovies);// записали массив в стейт
+            localStorage.setItem("allMovies", JSON.stringify(arr));
+            /* Promise.all([ getMovies() ]).then( () => {
+                console.log(isLocalStorageMovies);
+
+                const searchMovies = filteredMovies(query, isLocalStorageMovies, isChecked);
+                setIsRenderCard(searchMovies);
+            }
+            ) */
+            
+
         }
-        console.log("ФИЛЬТРУЕМ ФИЛЬМЫ ИЗ ЛС ---- ", isLocalStorageMovies)
+        console.log(isLocalStorageMovies);
+
+            const searchMovies = filteredMovies(query, isLocalStorageMovies, isChecked);
+            setIsRenderCard(searchMovies);
+
+        // console.log("ФИЛЬТРУЕМ ФИЛЬМЫ ИЗ ЛС ---- ", isLocalStorageMovies)
 
         // фильтруем фильмы из ЛС
-        filteredMovies(query, isLocalStorageMovies, isChecked);
+
+
     }
 
     // отфильтруем фильмы из базы по запросу в форме
-    function filteredMovies(req, movies, checkbox) {
-        console.log("массив для фильтрации ------ ", movies)
-        console.log('LS -------- ', isLocalStorageMovies)
-        if (isLocalStorageMovies === null || undefined) {
+    /* function filteredMovies(req, movies, checkbox) {
+        if (movies === null || undefined) {
             //setBlankPage(true);// страница пустая
            //setMessageText(messageText);
             return
         }
-
-        console.log("ЕСТЬ МАССИВ")
-        setBlankPage(false);//страница НЕ пустая
+        //console.log("ЕСТЬ МАССИВ")
+        //setBlankPage(false);//страница НЕ пустая
         if (checkbox === "on") {
             const shorts = movies.filter((item) => item.duration < 40);
-            //console.log("shorts ------", shorts)
             const filtered = shorts.filter(item => {
                 let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
                 //console.log("НАФИЛЬТРОВАЛИ -------", result)
                 return result;
             });
-            console.log("КОРОТКОМЕТРАЖКИ ------- ", filtered);
+            //console.log("КОРОТКОМЕТРАЖКИ ------- ", filtered);
             setIsRenderCard(filtered);
-            //localStorage.setItem("searchMovies", JSON.stringify(filtered));
-
-
         } else {
             const filtered = movies.filter(item => {
                 let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
                 return result;
             });
-            console.log("ОТФИЛЬТРОВАЛИ ------- ", filtered);
+            //.log("ОТФИЛЬТРОВАЛИ ------- ", filtered);
             setIsRenderCard(filtered);
-            //localStorage.setItem("searchMovies", JSON.stringify(filtered));
         }
-
-
-    };
+    }; */
 
     // обработчик чекбокса 
     function handleChecked(e) {
-        //console.log("чекнули?", isChecked==="off")
+        console.log('step 3');
+
         if (isChecked === "off") {
             setIsChecked('on')// включили 
             console.log("ON")
@@ -200,8 +179,9 @@ function MoviesBase(props) {
 
     // отобразим/ скроем кнопку ЕЩЕ
     function compareLengthArr() {
+        console.log(isRenderCard)
         const arr = isRenderCard;
-        if (arr === null || undefined) {
+        if (arr === null || arr === undefined) {
             return
         } else {
             if (window >= 1225 && arr.length <= visibleCard.desktop) {

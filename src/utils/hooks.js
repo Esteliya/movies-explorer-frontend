@@ -2,8 +2,6 @@
 
 
 function filteredMovies(req, movies, checkbox) {
-    console.log(' >>> step 1');
-
     if (movies === null || movies === undefined) {
         console.log("МЫ ТУТ?????")
         return
@@ -13,7 +11,6 @@ function filteredMovies(req, movies, checkbox) {
         const shorts = movies.filter((item) => item.duration < 40);
         const filtered = shorts.filter(item => {
             let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
-            //console.log("НАФИЛЬТРОВАЛИ -------", result)
             return result;
         });
         console.log("НАФИЛЬТРОВАЛИ ------", filtered)
@@ -29,6 +26,8 @@ function filteredMovies(req, movies, checkbox) {
     }
     
 }
+
+
 
 export {
     filteredMovies,

@@ -50,7 +50,7 @@ function App() {
   //const [allMovies, setAllMovies] = React.useState([]);
 
   // сохраненные фильмы польоватея с бэка
-  //const [savedAllMovies, setSavedAllMovies] = React.useState([]);
+  const [savedAllMovies, setSavedAllMovies] = React.useState([]);
 
   // страница с фильмими пустая ? (выдаем сообщения) ↓ ↓ ↓
   //const [blankPage, setBlankPage] = React.useState(true);
@@ -172,6 +172,7 @@ function App() {
         //console.log('сравнили токен - есть');
         setLoggedIn(true)
         setCurrentUser(dataUser)
+        getSavedMovies();// запросим актуальный массив фильмов
         // запросим данные пользователя
         //запросим фильмы с сервера
         //console.log(location);
@@ -255,25 +256,25 @@ function App() {
       });
   };
 
- // трансформируем массив с апи в нужный формат
- function transformArrMovies(arr) {
-  return arr.map((movie) => {
+  // трансформируем массив с апи в нужный формат
+  function transformArrMovies(arr) {
+    return arr.map((movie) => {
       const { country, director, duration, year, description, trailerLink, nameRU, nameEN } = movie;
       return {
-          country,
-          director,
-          duration,
-          year,
-          description,
-          image: `${BASE_MOVIES_URL}${movie.image.url}`,
-          trailerLink,
-          thumbnail: `${BASE_MOVIES_URL}${movie.image.formats.thumbnail.url}`,
-          id: movie.id,
-          nameRU,
-          nameEN,
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image: `${BASE_MOVIES_URL}${movie.image.url}`,
+        trailerLink,
+        thumbnail: `${BASE_MOVIES_URL}${movie.image.formats.thumbnail.url}`,
+        id: movie.id,
+        nameRU,
+        nameEN,
       };
-  });
-};
+    });
+  };
 
 
   // запрос сохраненных фильмов
@@ -283,8 +284,9 @@ function App() {
       .then((arrMovies) => {
         //const newArr = transformArrMovies(arrMovies)
         //setSavedAllMovies(arrMovies);
-        localStorage.setItem("savedAllMovies", JSON.stringify(arrMovies));// массив в ЛС
-        return arrMovies;// вернем массив карточек
+        //localStorage.setItem("savedAllMovies", JSON.stringify(arrMovies));// массив в ЛС
+        setSavedAllMovies(arrMovies)
+        //return arrMovies;// вернем массив карточек
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
@@ -295,17 +297,17 @@ function App() {
   function deleteMovies(card) {
     console.log(card._id)
     return mainApi.deleteCard(card._id)
-        .then(() => {
-          //alert("фильм успешно удален")
-          setShowInfoToolTip(true)
-          setResult(true)
-          setTextInfoTooltip("Фильм успешно удален")// текст ошибки?????
-          // нужен попап
-        })
-        .catch((err) => {
-          console.error(`Ошибка: ${err}`);
-          // нужен попап
-        });
+      .then(() => {
+        //alert("фильм успешно удален")
+        setShowInfoToolTip(true)
+        setResult(true)
+        setTextInfoTooltip("Фильм успешно удален")// текст ошибки?????
+        // нужен попап
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+        // нужен попап
+      });
     // дождемся выполнения → дальнейшая обработка в компонентах MoviesBase и MoviesSeved
   };
 
@@ -382,7 +384,7 @@ function App() {
           />} />
 
           <Route path="/saved-movies" element={<MoviesSaved
-        
+            arrMovies={savedAllMovies}
             getMovies={getSavedMovies}
             deleteMovies={deleteMovies}
             window={withWindow}

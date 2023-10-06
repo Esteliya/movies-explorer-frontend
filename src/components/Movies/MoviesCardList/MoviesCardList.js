@@ -13,8 +13,6 @@ function MoviesCardList(props) {
     const savedMovies = location.pathname === '/saved-movies'
     // сохраненные фильмы
     const movies = location.pathname === '/movies'
-   // console.warn(`Ренрим карточки на страницу: searchMovies()>>>>`);
-
    
     //debugger
     // количество карточек на разных экранах → тольно на странице /movies 
@@ -26,9 +24,6 @@ function MoviesCardList(props) {
             cards.slice(0, visibleCard.tablet)) :
         cards.slice(0, visibleCard.desktop);
     }
-
-    // проверяем размер экрана и отображаем необходимое количество карточек на странице с фильмами
-    //const arrCard = window <= 1224 ? (window <= 712 ? cards.slice(0, 5) : cards.slice(0, 8)) : cards.slice(0, 12);
 
     return (
         <section className='movies-card-list'>

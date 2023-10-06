@@ -105,8 +105,6 @@ function MoviesBase(props) {
     };
 
     const handleSearch = async (query) => {
-        console.log('>>> step 2');
-
         if (isLocalStorageMovies === null) {
             const arr = await getMovies();// ждем массив с апи
             //setAllMovies(searchMovies);// записали массив в стейт
@@ -118,13 +116,13 @@ function MoviesBase(props) {
                 setIsRenderCard(searchMovies);
             }
             ) */
-            
+
 
         }
         console.log(isLocalStorageMovies);
 
-            const searchMovies = filteredMovies(query, isLocalStorageMovies, isChecked);
-            setIsRenderCard(searchMovies);
+        const searchMovies = filteredMovies(query, isLocalStorageMovies, isChecked);
+        setIsRenderCard(searchMovies);
 
         // console.log("ФИЛЬТРУЕМ ФИЛЬМЫ ИЗ ЛС ---- ", isLocalStorageMovies)
 
@@ -163,8 +161,6 @@ function MoviesBase(props) {
 
     // обработчик чекбокса 
     function handleChecked(e) {
-        console.log('step 3');
-
         if (isChecked === "off") {
             setIsChecked('on')// включили 
             console.log("ON")

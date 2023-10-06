@@ -11,15 +11,6 @@ function Movies(props) {
     const { children, blankPage, messageText, cards, visibleCard, window, onClickCardButton,
         // от формы поиска: запрос поиска/ строка поиска/ поиск по запросу/ чекбокс/ обработчик чекбокса 
         submitQuery, onSubmitQuery, handleSearch, isChecked, onClickFilter } = props;
-        //.log(`MOVIES.JS >>>>blankPage = ${blankPage}`);
-        
-/*     let cardsList;
-    if ( (! cards || cards.length < 1 ) &&  JSON.parse(localStorage.getItem("searchMovies")).length ){
-        console.log('2342')
-        cardsList = JSON.parse(localStorage.getItem("searchMovies"));
-        return  cardsList;
-    } */
-
 
     return (
         <main className='movies'>

@@ -4,8 +4,11 @@ import './MoviesSaved.css'
 
 import Movies from "../Movies/Movies"
 
+
+import { filteredMovies } from '../../utils/hooks';
+
 function MoviesSaved(props) {
-    const { handleDataForm, getMovies, deleteMovies, window } = props;
+    const { handleDataForm, getMovies, deleteMovies, window, arrMovies } = props;
     //  setQuery, query, handleSearch
     const location = useLocation();
 
@@ -19,17 +22,16 @@ function MoviesSaved(props) {
             tablet: 8,
             mobile: 5,
         }; */
-    const [isSavedMovies, setIsSavedMovies] = React.useState([]);
+    //const [isSavedMovies, setIsSavedMovies] = React.useState(arrMovies);
 
     // массив фильмов после поиска → изменяем при каждом поиске
-    const [searchSavedMovies, setSearchSavedMovies] = React.useState([]);
+    //const [searchSavedMovies, setSearchSavedMovies] = React.useState([]);
     // запрос (строка)
     const [query, setQuery] = React.useState(localStorage.getItem("querySavedMovies") || '');
-    // стейт карточек для рендера
-    const [isRenderCard, setIsRenderCard] = React.useState([])
+    // стейт карточек для рендера после поиска???? 
+    const [isRenderCard, setIsRenderCard] = React.useState(arrMovies)//массив с апи
     // стейт чекбокса - изначально неактивен
     const [isChecked, setIsChecked] = React.useState('off');
-    // JSON.parse(localStorage.getItem('searchSavedMovies')) ?? JSON.parse(localStorage.getItem('savedAllMovies')) // МАССИВЫ
     // стейт состояния страницы: пустая или нет? 
     const [blankPage, setBlankPage] = React.useState(false);
     // стейт сообщения на странице с фильмами: фильмы не найдены
@@ -38,15 +40,19 @@ function MoviesSaved(props) {
 
     // запрашиваем фильмы
     React.useEffect(() => {
-        
-        getSavedMovies();
-       
+        //getSavedMovies();
     }, [location]);// принудительно запустим первое монтирование при перелючении на роут
 
+    React.useEffect(() => {
+        const arr = filteredMovies(query, arrMovies, isChecked);
+        console.log("ЧТО В МАССИВЕ? ------ ", arr)//+
+        setIsRenderCard(arr)
+        //handleMassege()
+    }, [isChecked, query, arrMovies])
 
     // отобразим сообщение, если фильмы не найдены
     function handleMassege() {
-        if (searchSavedMovies.length === 0) {
+        if (isRenderCard.length === 0) {
             setBlankPage(true);
             setMessageText('Фильмы по запросу не найдены');
         } else {
@@ -54,9 +60,26 @@ function MoviesSaved(props) {
         };
     };
 
+    // обработчик поиска
+    const handleSearchSavedMovies = (query) => {
+        //const arr = await getMovies();// ждем массив с апи
+        //setIsSavedMovies(arr);// записали массив в стейт
+        //console.log(isSavedMovies);
+        
+        const searchMovies = filteredMovies(query, arrMovies, isChecked);
+        setIsRenderCard(searchMovies);
+        console.log("ФИЛЬТРУЕМ ФИЛЬМЫ ---- ", isRenderCard)// нужный массив есть
+
+        // фильтруем фильмы из ЛС
+
+
+    }
+
     // запрос поиска → обновляем
     function updateQuery(newQuery) {
         setQuery(newQuery);
+        localStorage.setItem("querySavedMovies", newQuery);// сохраним в ЛС запрос 
+        localStorage.setItem('checkedShortSavedMovies', isChecked);// состояние чекбокса
         handleMassege();// если фильмы не найдены → сообщение
     };
 
@@ -66,79 +89,43 @@ function MoviesSaved(props) {
         let searchMovies = isRenderCard;
         searchMovies = await getMovies();
         setIsRenderCard(searchMovies)
-       
     }
 
-    // обработчик поиска 
-    const handleSearchSavedMovies = async (query) => {
-        if (isRenderCard.length === 0) {
-            getSavedMovies()
-        };
-        filteredMovies(query, isRenderCard, isChecked);
-    }
-
-    // отфильтруем фильмы из базы по запросу в форме
-    function filteredMovies(req, movies, checkbox) {
-        if (movies === null) {
-            console.log("НЕТ МАССИВА")
-        } else {
-            if (checkbox === "on") {
-                const shorts = movies.filter((item) => item.duration < 40);
-                //console.log("shorts ------", shorts)
-                const filtered = shorts.filter(item => {
-                    let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
-                    //console.log("НАФИЛЬТРОВАЛИ -------", result)
-                    return result;
-                });
-                //console.log("КОРОТКОМЕТРАЖКИ ------- ", filtered);
-                setIsRenderCard(filtered);
-
-            } else {
-                const filtered = movies.filter(item => {
-                    let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
-                    return result;
-                });
-                //console.log(filtered);
-                setIsRenderCard(filtered);
-            }
-
-        }
-    };
 
     // обработчик чекбокса 
     function handleChecked(e) {
-        //console.log("чекнули?", isChecked==="off")
         if (isChecked === "off") {
             setIsChecked('on')// включили 
-            console.log(isChecked)
-            //localStorage.setItem("checkedShort", 'on');// сохраним в ЛС чек on +
+            console.log("ON")
+            localStorage.setItem("checkedShortSavedMovies", 'on');// сохраним в ЛС чек on +
 
         } else {
             setIsChecked('off')// выключили 
-            console.log(isChecked)
-            //localStorage.setItem("checkedShort", 'off');// сохраним в ЛС чек off +
+            console.log("OFF")
+            localStorage.setItem("checkedShortSavedMovies", 'off');// сохраним в ЛС чек off +
         }
     }
+
     // удаляем фильм
-     const handlenClickCardButton = async (card) => {
-         console.log("передадим карточку дальше")
-         console.log("card._id -------- ", card._id)
-         // удалить с бэка
-         /* await deleteMovies(card)
-         const updatedArr = deleteMoviesFromLocalStorage(isLocalStorageSavedAllArrMovies, card._id)
-         console.log("новый массив -------- ", updatedArr)
-         setIsRenderCard(filteredSavedMovies)// обновим стейт
-         localStorage.setItem('savedAllMovies', JSON.stringify(filteredSavedMovies));// обновим ЛС всех сохраненных фильмов
-         localStorage.setItem('searchSavedMovies', JSON.stringify(filteredSavedMovies));// обновим стейт поиска
-  */
-         //setIsRenderCard(updatedArr)
- 
-         // убрать фильм из локалсторидж   КАК????
- 
-         // ждем удаления 
- 
-         //удалить из ЛС в двух местах "savedAllMovies" и "searchSavedMovies"
-     }
+    const handlenClickCardButton = async (card) => {
+        console.log("передадим карточку дальше")
+        console.log("card._id -------- ", card._id)
+        // удалить с бэка
+        /* await deleteMovies(card)
+        const updatedArr = deleteMoviesFromLocalStorage(isLocalStorageSavedAllArrMovies, card._id)
+        console.log("новый массив -------- ", updatedArr)
+        setIsRenderCard(filteredSavedMovies)// обновим стейт
+        localStorage.setItem('savedAllMovies', JSON.stringify(filteredSavedMovies));// обновим ЛС всех сохраненных фильмов
+        localStorage.setItem('searchSavedMovies', JSON.stringify(filteredSavedMovies));// обновим стейт поиска
+ */
+        //setIsRenderCard(updatedArr)
+
+        // убрать фильм из локалсторидж   КАК????
+
+        // ждем удаления 
+
+        //удалить из ЛС в двух местах "savedAllMovies" и "searchSavedMovies"
+    }
 
     return (
         <Movies

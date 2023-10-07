@@ -8,7 +8,7 @@ import Movies from "../Movies/Movies"
 import { filteredMovies } from '../../utils/hooks';
 
 function MoviesSaved(props) {
-    const { handleDataForm, deleteMovies, openResultPopup, window, arrMovies } = props;
+    const { handleDataForm, deleteMovies, window, arrMovies } = props;
     //  setQuery, query, handleSearch
     const location = useLocation();
 
@@ -77,7 +77,7 @@ function MoviesSaved(props) {
         // console.log("передадим карточку дальше")
         console.log("card._id -------- ", card._id)
         await deleteMovies(card);
-        openResultPopup();// попап успешного удаления фильма - ????
+        //openResultPopup();// попап успешного удаления фильма - ????
     }
 
     return (

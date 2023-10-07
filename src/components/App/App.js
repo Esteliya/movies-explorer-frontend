@@ -276,12 +276,12 @@ function App() {
     });
   };
 
-
-  function handleOpenResultPopup() {
+  // попап результата удаления карточки из избранного
+/*   function handleOpenResultPopup() {
     setShowInfoToolTip(true)
     setResult(true)
     setTextInfoTooltip("Фильм удален из избранного")// текст 
-  }
+  } */
 
   // запрос сохраненных фильмов
   function getSavedMovies() {
@@ -319,6 +319,21 @@ function App() {
       });
     // дождемся выполнения → дальнейшая обработка в компонентах MoviesBase и MoviesSeved
   };
+
+  // обработчик лайка/дизлайка карточки
+  function handleClickCardButton(card) {
+    console.log("КЛИК")
+    console.log(card)
+    const {country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, id} = card
+    mainApi.postUserMovies({country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId: id})
+      .then(likeCard => {
+        setSavedAllMovies([likeCard, ...savedAllMovies]);
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      });
+
+  }
 
   // очищаем локальное хранилище
   function cleanLocalStorage() {
@@ -390,12 +405,12 @@ function App() {
           <Route path="/movies" element={<MoviesBase
             getMovies={getMovies}
             window={withWindow}
+            onClickCardButton={handleClickCardButton}
           />} />
 
           <Route path="/saved-movies" element={<MoviesSaved
             arrMovies={savedAllMovies}
             deleteMovies={deleteMovies}
-            openResultPopup={handleOpenResultPopup}
             window={withWindow}
           />} />
 

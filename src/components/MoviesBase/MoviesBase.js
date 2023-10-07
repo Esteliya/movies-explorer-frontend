@@ -204,13 +204,20 @@ function MoviesBase(props) {
         }
     };
 
+    // обработчик клика по кнопке лайка
+    const handlenClickCLike = (card) => {
+        // console.log("передадим карточку дальше")
+        console.log("card._id -------- ", card._id)
+        onClickCardButton(card)
+        //openResultPopup();// попап успешного удаления фильма - ????
+    }
 
     return (
         <Movies
             cards={isRenderCard}
             visibleCard={visibleCard}
             window={window}
-            onClickCardButton={onClickCardButton}
+            onClickCardButton={handlenClickCLike}
             blankPage={blankPage}
             submitQuery={query}
             onSubmitQuery={updateQuery}

@@ -277,6 +277,12 @@ function App() {
   };
 
 
+  function handleOpenResultPopup() {
+    setShowInfoToolTip(true)
+    setResult(true)
+    setTextInfoTooltip("Фильм удален из избранного")// текст 
+  }
+
   // запрос сохраненных фильмов
   function getSavedMovies() {
     //debugger
@@ -298,10 +304,13 @@ function App() {
     console.log(card._id)
     return mainApi.deleteCard(card._id)
       .then(() => {
-        //alert("фильм успешно удален")
-        setShowInfoToolTip(true)
-        setResult(true)
-        setTextInfoTooltip("Фильм успешно удален")// текст ошибки?????
+
+        const updateArr = savedAllMovies.filter((item) => item._id === card._id ? false : true);
+        setSavedAllMovies(updateArr);
+        // alert("фильм успешно удален")
+        // setShowInfoToolTip(true)
+        // setResult(true)
+        // setTextInfoTooltip("Фильм успешно удален")// текст ошибки?????
         // нужен попап
       })
       .catch((err) => {
@@ -386,6 +395,7 @@ function App() {
           <Route path="/saved-movies" element={<MoviesSaved
             arrMovies={savedAllMovies}
             deleteMovies={deleteMovies}
+            openResultPopup={handleOpenResultPopup}
             window={withWindow}
           />} />
 

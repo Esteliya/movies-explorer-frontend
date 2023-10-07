@@ -45,11 +45,8 @@ function MovieCard(props) {
         return `${hours}ч ${mins}м`;
     };
 
-    //const isWindow = window <= 712;
-    //console.log("размер экрана мобильный???----- ", window)
 
-
-    const classDeleteButton = 'movie-card__button movie-card__button_delete hover-effect'
+    // const classDeleteButton = 'movie-card__button movie-card__button_delete hover-effect'
 
     return (
         <div className='movie-card'>

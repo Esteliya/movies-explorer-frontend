@@ -58,6 +58,7 @@ function SearchForm(props) {
             <form name="Поиск фильмов"
                 method="post"
                 onSubmit={handleSearchForm}
+                noValidate
             >
                 <input
                     className="search-form__input focus-effect"

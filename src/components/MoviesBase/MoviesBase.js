@@ -54,7 +54,7 @@ function MoviesBase(props) {
     }, [visibleCard, isRenderCard, window])
 
     React.useEffect(() => {
-        if (!localStorage.getItem('checkedShort') || localStorage.getItem('query')) {
+        if (!localStorage.getItem('checkedShort') || !localStorage.getItem('query')) {
             setBlankPage(true);// страница пустая
             setMessageText(messageText);
             return

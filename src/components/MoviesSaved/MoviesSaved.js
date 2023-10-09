@@ -1,11 +1,11 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import './MoviesSaved.css'
+import './MoviesSaved.css';
 
-import Movies from "../Movies/Movies"
+import Movies from "../Movies/Movies";
 
 
-import { filteredMovies } from '../../utils/hooks';
+import { filteredMovies } from '../../utils/handlers';
 
 function MoviesSaved(props) {
     const { handleDataForm, deleteMovies, window, arrMovies } = props;
@@ -43,7 +43,7 @@ function MoviesSaved(props) {
         } else {
             setBlankPage(false)
         }
-    }, [isChecked, query, arrMovies, blankPage])
+    }, [isChecked, query, arrMovies, blankPage]);
 
     
 
@@ -52,7 +52,7 @@ function MoviesSaved(props) {
         const searchMovies = filteredMovies(query, arrMovies, isChecked);
         setIsRenderCard(searchMovies);
         //console.log("ФИЛЬТРУЕМ ФИЛЬМЫ ---- ", isRenderCard)// нужный массив есть
-    }
+    };
 
     // запрос поиска → обновляем - НАДО ЛИ???
     function updateQuery(newQuery) {
@@ -69,8 +69,8 @@ function MoviesSaved(props) {
         } else {
             setIsChecked('off')// выключили 
             console.log("OFF")
-        }
-    }
+        };
+    };
 
     // удаляем фильм
     const handlenClickCardButton = async (card) => {
@@ -78,7 +78,7 @@ function MoviesSaved(props) {
         console.log("card._id -------- ", card._id)
         await deleteMovies(card);
         //openResultPopup();// попап успешного удаления фильма - ????
-    }
+    };
 
     return (
         <Movies

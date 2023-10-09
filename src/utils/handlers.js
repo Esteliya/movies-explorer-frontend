@@ -1,6 +1,7 @@
 // Обработчкики типичных событий для станиц с фильмами
+// сложим все обработчики сюда ???? 
 
-
+// функция фильтрации фильмов по запросу и состоянию чекбокса (запрос/массив/чекбокс)
 function filteredMovies(req, movies, checkbox) {
     if (movies === null || movies === undefined) {
         // console.log("МЫ ТУТ?????")
@@ -24,7 +25,6 @@ function filteredMovies(req, movies, checkbox) {
         // console.log("НАФИЛЬТРОВАЛИ ------", filtered)
         return filtered;
     }
-    
 }
 
 

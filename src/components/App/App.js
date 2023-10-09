@@ -4,7 +4,7 @@ import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-
 // РОУТЫ
 import Main from '../Main/Main';// о проекте
 // import Movies from '../Movies/Movies';// шаблонная страница для фильмов
-import MoviesBase from '../MoviesBase/MoviesBase'// страница с фильмами из api
+import MoviesBase from '../MoviesBase/MoviesBase';// страница с фильмами из api
 import MoviesSaved from '../MoviesSaved/MoviesSaved';// сохраненные фильмы
 // контекст
 import CurrentUserContext from "../../context/CurrentUserContext";
@@ -59,7 +59,7 @@ function App() {
 
   // ИНФОРМАЦИОННЫЙ ПОПАП: регистрация/ удаление карточки  --- ???
   //стейт попапа оповещения 
-  const [showInfoToolTip, setShowInfoToolTip] = React.useState(false)
+  const [showInfoToolTip, setShowInfoToolTip] = React.useState(false);
   //текст попапа  оповещения 
   const [textInfoTooltip, setTextInfoTooltip] = React.useState('');
   //стейт результата отправки запроса к api (для попапа InfoTooltip)
@@ -104,30 +104,30 @@ function App() {
       .then((data) => {
         //console.log(data)
         //alert('Регистрация прошла успешно')//работает 
-        setShowInfoToolTip(true)
-        setResult(true)
-        setTextInfoTooltip("Регистрация прошла успешно")
+        setShowInfoToolTip(true);
+        setResult(true);
+        setTextInfoTooltip("Регистрация прошла успешно");
 
         // перебрасываем пользователя на авторизацию
         navigate('/signin', {
           replace: true
-        })
+        });
       })
       .catch((err) => {
         //console.log('ОШИБКА РЕГИСТРАЦИИ')
         // попап только на ошибку сервера??? if err===500 ... остальное в span 
         if (err.message === "Validation failed") {
-          setShowInfoToolTip(true)
-          setResult(false)
+          setShowInfoToolTip(true);
+          setResult(false);
           setTextInfoTooltip("Данные формы невалидны. Проверьте корректность заполнения полей.");// текст
         } else {
-          setShowInfoToolTip(true)
-          setResult(false)
+          setShowInfoToolTip(true);
+          setResult(false);
           setTextInfoTooltip(err.message);// текст ошибки
-        }
+        };
         console.error(`Ошибка: ${err}`);
       })
-  }
+  };
   // авторизируемся
   function hendleLogin(data) {
     //debugger
@@ -136,7 +136,7 @@ function App() {
       .then((dataUser) => {
         //console.log("авторизировались");
         setLoggedIn(true);
-        setCurrentUser(dataUser)
+        setCurrentUser(dataUser);
         // getMovies();
         navigate('/movies', {
           replace: true
@@ -156,7 +156,7 @@ function App() {
         setResult(false);
 
       });
-  }
+  };
 
   /*   function removeSubstrings(str) {
       str = str.replace('{"message":"', '');
@@ -170,8 +170,8 @@ function App() {
     auth.checkToken()
       .then((dataUser) => {
         //console.log('сравнили токен - есть');
-        setLoggedIn(true)
-        setCurrentUser(dataUser)
+        setLoggedIn(true);
+        setCurrentUser(dataUser);
         getSavedMovies();// запросим актуальный массив фильмов
         // запросим данные пользователя
         //запросим фильмы с сервера
@@ -189,18 +189,18 @@ function App() {
             navigate('/movies');
             break;
           default:
-        }
+        };
       })
       .catch((err) => {
         cleanLocalStorage()
         console.error(`Ошибка: ${err}`);
       });
-  }
+  };
 
   // обновляем данные пользователя
   function handleUpdataUser(data) {
     //mainApi.patchUserInfo 
-    console.log(data)
+    console.log(data);
     // const { name, email } = data;
     //debugger
     mainApi.patchUserInfo(data)
@@ -208,10 +208,10 @@ function App() {
         //console.log("запрос patch успешен?")
         //console.log(data)// +
         //alert('Изменение данных прошло успешно');
-        setShowInfoToolTip(true)
-        setResult(true)
+        setShowInfoToolTip(true);
+        setResult(true);
         setTextInfoTooltip("Данные пользователя обновлены");// текст
-        setCurrentUser(data)// ?
+        setCurrentUser(data);// ?
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
@@ -219,27 +219,27 @@ function App() {
         setShowInfoToolTip(true);
         setResult(false);
       })
-  }
+  };
 
   // удаляем токен
   function handleExitProfile() {
     // debugger
-    console.log("выходим из акка?")
+    console.log("выходим из акка?");
     auth.logout()
       .then(() => {
-        console.log("разлогинились")
-        cleanLocalStorage()
+        console.log("разлогинились");
+        cleanLocalStorage();
         // разлогинились - переход на страницу авторизации
         navigate('/', {
           replace: true
-        })
+        });
         // setCurrentUser({ loggedIn: "false" });
         setLoggedIn(false);
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
       });
-  }
+  };
   // ФИЛЬМЫ
   // запросим все фильмы - передадим на страницу
   function getMovies() {
@@ -247,7 +247,7 @@ function App() {
       .then((arrMovies) => {
         //setAllMovies(arrMovies);
         // return arrMovies;// вернем массив карточек
-        const newAllMovies = transformArrMovies(arrMovies)
+        const newAllMovies = transformArrMovies(arrMovies);
         // localStorage.setItem("allMovies", JSON.stringify(newAllMovies));
         return newAllMovies;
       })
@@ -277,11 +277,11 @@ function App() {
   };
 
   // попап результата удаления карточки из избранного
-/*   function handleOpenResultPopup() {
-    setShowInfoToolTip(true)
-    setResult(true)
-    setTextInfoTooltip("Фильм удален из избранного")// текст 
-  } */
+  /*   function handleOpenResultPopup() {
+      setShowInfoToolTip(true)
+      setResult(true)
+      setTextInfoTooltip("Фильм удален из избранного")// текст 
+    } */
 
   // запрос сохраненных фильмов
   function getSavedMovies() {
@@ -291,7 +291,7 @@ function App() {
         //const newArr = transformArrMovies(arrMovies)
         //setSavedAllMovies(arrMovies);
         //localStorage.setItem("savedAllMovies", JSON.stringify(arrMovies));// массив в ЛС
-        setSavedAllMovies(arrMovies)
+        setSavedAllMovies(arrMovies);
         //return arrMovies;// вернем массив карточек
       })
       .catch((err) => {
@@ -301,8 +301,12 @@ function App() {
 
   // удаление фильма 
   function deleteMovies(card) {
-    console.log(card._id)
-    return mainApi.deleteCard(card._id)
+    console.log(card);
+    // поймаем id сохраненного на нашем api фильма
+    const saveMovie = savedAllMovies.find((item) => item.movieId === card.id);
+
+    // console.log("НУЖНОЕ ЗНАЧЕНИЕ????? ", saveMovie._id)
+    return mainApi.deleteCard(card._id || saveMovie._id)
       .then(() => {
 
         const updateArr = savedAllMovies.filter((item) => item._id === card._id ? false : true);
@@ -311,7 +315,7 @@ function App() {
         // setShowInfoToolTip(true)
         // setResult(true)
         // setTextInfoTooltip("Фильм успешно удален")// текст ошибки?????
-        // нужен попап
+        // нужен попап ???
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
@@ -320,20 +324,34 @@ function App() {
     // дождемся выполнения → дальнейшая обработка в компонентах MoviesBase и MoviesSeved
   };
 
-  // обработчик лайка/дизлайка карточки
-  function handleClickCardButton(card) {
-    console.log("КЛИК")
-    console.log(card)
-    const {country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, id} = card
-    mainApi.postUserMovies({country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId: id})
+  // сохранение фильма 
+  function saveMovies(card) {
+    const { country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, id } = card;
+    mainApi.postUserMovies({ country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId: id })
       .then(likeCard => {
-        setSavedAllMovies([likeCard, ...savedAllMovies]);
+        setSavedAllMovies([likeCard, ...savedAllMovies]);// + новый фильм
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
       });
+  };
 
-  }
+  // обработчик лайка/дизлайка карточки
+/*   function handleClickCardButton(card) {
+    console.log("КЛИК");
+    console.log(card);
+    console.log(savedAllMovies)
+    saveMovies(card);
+    const savedMovies = savedAllMovies.forEach((movie) => {
+      if (movie.movieId === card.id) {
+        console.log(`Movie ID ${movie.movieId} matches Card ID ${card.id}`);
+      } else {
+        console.log(`Movie ID ${movie.movieId} does not match Card ID ${card.id}`);
+        return movie
+      }
+    });
+    console.log("сохраненнный фильм -----", savedMovies)
+  }; */
 
   // очищаем локальное хранилище
   function cleanLocalStorage() {
@@ -342,53 +360,53 @@ function App() {
     localStorage.removeItem("searchMovies");
     localStorage.removeItem("queryMovies");
     localStorage.removeItem("savedLineCard"); */
-  }
+  };
 
   // БУРГЕР-МЕНЮ
   // открываем попап меню
   function handleOpenMenu() {
-    setIsBurgerMenuPopup(true)
-  }
+    setIsBurgerMenuPopup(true);
+  };
   // закрываем попап 
   function closeAllPopups() {
-    setIsBurgerMenuPopup(false)
-    setShowInfoToolTip(false)
-  }
+    setIsBurgerMenuPopup(false);
+    setShowInfoToolTip(false);
+  };
 
   // РОУТИНГ
   // пререход на страницу данных пользователя
   function handleClickAccount() {
     navigate('/profile', {
       replace: true
-    })
+    });
     setIsBurgerMenuPopup(false);// закрываем меню
-  }
+  };
 
   // переход на страницу с фильмами
   function handleClickMovies() {
     navigate('/movies', {
       replace: true
-    })
+    });
     setIsBurgerMenuPopup(false);// закрываем меню
-  }
+  };
   // переход на страницу с сохраненными фильмами
   function handleClickSavedMovies() {
     navigate('/saved-movies', {
       replace: true
-    })
+    });
     setIsBurgerMenuPopup(false);// закрываем меню
-  }
+  };
   // переход на главную страницу
   function handleClickHome() {
     navigate('/', {
       replace: true
-    })
+    });
     setIsBurgerMenuPopup(false);// закрываем меню
-  }
+  };
 
   function test() {
-    console.log("тестируем")
-  }
+    console.log("тестируем");
+  };
 
   // отображения лайка
   // сравнима массивы > выведем лайки
@@ -404,8 +422,10 @@ function App() {
 
           <Route path="/movies" element={<MoviesBase
             getMovies={getMovies}
+            savedAllMovies={savedAllMovies}
             window={withWindow}
-            onClickCardButton={handleClickCardButton}
+            onSave={saveMovies}
+            onDelete={deleteMovies}
           />} />
 
           <Route path="/saved-movies" element={<MoviesSaved

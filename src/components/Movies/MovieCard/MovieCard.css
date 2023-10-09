@@ -70,8 +70,10 @@
     background-position: center;
 }
 
-.movie-card__button_like:focus {
+.movie-card__button_like-active {
     background-image: url("../../../images/bottom_like-active.svg");
+    background-size: contain;
+    background-position: center;
 }
 
 .movie-card__button_delete {

@@ -7,11 +7,11 @@ import { BASE_MOVIES_URL } from '../../utils/config'; // путь к карти�
 // import cards from "../../utils/cards";
 
 
-import { filteredMovies } from '../../utils/hooks';
+import { filteredMovies } from '../../utils/handlers';
 
 function MoviesBase(props) {
     // формат экрана/ клик по кнопке карточки/ запрос к апи за фильмами
-    const { window, onClickCardButton, getMovies } = props;
+    const { window, onSave, onDelete, getMovies, savedAllMovies } = props;
 
     // СТЕЙТЫ
     // массив поиска → из get-запроса
@@ -46,6 +46,8 @@ function MoviesBase(props) {
 
     // ЭФФЕКТЫ
     React.useEffect(() => {
+
+        //console.log("Избранные фильмы ------ ", savedAllMovies)//после поиска ???
         handleSearch(query)
     }, [isChecked, query])
 
@@ -116,20 +118,37 @@ function MoviesBase(props) {
                 setIsRenderCard(searchMovies);
             }
             ) */
-
-
         }
         console.log(isLocalStorageMovies);
-
         const searchMovies = filteredMovies(query, isLocalStorageMovies, isChecked);
         setIsRenderCard(searchMovies);
-
         // console.log("ФИЛЬТРУЕМ ФИЛЬМЫ ИЗ ЛС ---- ", isLocalStorageMovies)
-
         // фильтруем фильмы из ЛС
 
-
     }
+
+
+    React.useEffect(() => {
+        handleLikeCard()
+        console.log("обновленный массив фильмов с полем 'isLiked' ------ ", updatedArrCard)
+    }, [savedAllMovies])
+
+    let updatedArrCard = []
+    function handleLikeCard() {
+        // console.log("массив отрисованных фильмов ------- ", arrCard)
+        // console.log('массив сохраненных фильмов ------', savedAllMovies)
+
+        // Создаем новый массив из отрендеренных фильмов. К каждому элементу добавляем поле 'isLiked': true / false
+        updatedArrCard = isRenderCard.map(i => {
+            i.isLiked = savedAllMovies.some(savedMovie => savedMovie.movieId === i.id)
+            return i;
+        });
+
+        // console.log("обновленный массив фильмов с полем 'isLiked' ------ ", updatedArrCard)
+
+        // return updatedArrCard;
+    }
+
 
     // отфильтруем фильмы из базы по запросу в форме
     /* function filteredMovies(req, movies, checkbox) {
@@ -207,14 +226,22 @@ function MoviesBase(props) {
     // обработчик клика по кнопке лайка
     const handlenClickCLike = (card) => {
         // console.log("передадим карточку дальше")
-        console.log("card._id -------- ", card._id)
-        onClickCardButton(card)
+        console.log("card -------- ", card)
+        if(card.isLiked) {
+            // console.log("ЛАЙК УДАЛЯЕМ")
+            onDelete(card)
+        } else {
+            // console.log("ЛАЙК СТАВИМ")
+            onSave(card)
+        }
+        // onClickCardButton(card)
         //openResultPopup();// попап успешного удаления фильма - ????
     }
 
     return (
         <Movies
             cards={isRenderCard}
+            savedAllMovies={savedAllMovies}
             visibleCard={visibleCard}
             window={window}
             onClickCardButton={handlenClickCLike}

@@ -8,7 +8,7 @@ function ButtonSave(props) {
     const disableClass = disabled ? "button_disable button-save" : "button-save hover-effect"
 
     return (
-        <button type="submit" className={disableClass} name="Сохранить" onClick={onClick} form={form}>Cохранить</button>
+        <button type="submit" disabled={disabled} className={disableClass} name="Сохранить" onClick={onClick} form={form}>Cохранить</button>
     )
 };
 

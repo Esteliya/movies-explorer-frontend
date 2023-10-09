@@ -35,5 +35,6 @@ function Auth(props) {
         </section>
 
     )
-}
+};
+
 export default Auth;

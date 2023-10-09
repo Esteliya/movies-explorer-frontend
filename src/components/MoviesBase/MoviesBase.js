@@ -2,31 +2,23 @@ import React from 'react';
 import './MoviesBase.css';
 import Movies from "../Movies/Movies";
 import ButtonElse from "./ButtonElse/ButtonElse";
-import { BASE_MOVIES_URL } from '../../utils/config'; // путь к картинкам фильмов
-// import { BASE_MOVIES_URL, MOVIES_URL } from '../../utils/config'; // ловим путь к превью
-// import cards from "../../utils/cards";
-
-
 import { filteredMovies } from '../../utils/handlers';
 
 function MoviesBase(props) {
-    // формат экрана/ клик по кнопке карточки/ запрос к апи за фильмами
+    // формат экрана/ клик по кнопке карточки: сохранить-удалить/ запрос к апи за фильмами/...за сохраненными
     const { window, onSave, onDelete, getMovies, savedAllMovies } = props;
 
     // СТЕЙТЫ
     // массив поиска → из get-запроса
     const isLocalStorageMovies = JSON.parse(localStorage.getItem("allMovies"));
-    //const [allMovies, setAllMovies] = React.useState([]);
     // стейт карточек для рендера → меняется в зависимости от запроса и чекбокса
-    const [isRenderCard, setIsRenderCard] = React.useState([])
+    const [isRenderCard, setIsRenderCard] = React.useState([]);
     // запрос (строка)
     const [query, setQuery] = React.useState(localStorage.getItem("query") || '');
     // стейт чекбокса - изначально неактивен
     const [isChecked, setIsChecked] = React.useState(localStorage.getItem('checkedShort') === 'on' ? 'on' : 'off');
-    // массив фильмов после поиска → изменяем при каждом поиске
-    ///const [searchMovies, setSearchMovies] = React.useState(JSON.parse(localStorage.getItem('searchMovies')) || []);
     // стейт состояния страницы: пустая или нет? 
-    const [blankPage, setBlankPage] = React.useState(true); // НАСТРОИТЬ!!!!! 
+    const [blankPage, setBlankPage] = React.useState(true);
     // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
     const [messageText, setMessageText] = React.useState('Запустите поиск интересующих Вас фильмов');
     // количество карточек по умолчанию → передадим в стейт ↓ ↓ ↓
@@ -46,45 +38,42 @@ function MoviesBase(props) {
 
     // ЭФФЕКТЫ
     React.useEffect(() => {
-
         //console.log("Избранные фильмы ------ ", savedAllMovies)//после поиска ???
-        handleSearch(query)
-    }, [isChecked, query])
+        handleSearch(query);
+    }, [isChecked, query]);
 
     React.useEffect(() => {
         compareLengthArr();// проверим, весь ли массив → да → убираем ЕЩЕ
-    }, [visibleCard, isRenderCard, window])
+    }, [visibleCard, isRenderCard, window]);
 
     React.useEffect(() => {
         if (!localStorage.getItem('checkedShort') || !localStorage.getItem('query')) {
             setBlankPage(true);// страница пустая
             setMessageText(messageText);
-            return
+            return;
         } else {
-            handleDisplayContent(isRenderCard)
+            handleDisplayContent(isRenderCard);
         }
-    }, [visibleCard, isRenderCard, window])
+    }, [visibleCard, isRenderCard, window]);
 
     // выдача карточек по клику ЕЩЕ
     React.useEffect(() => {
         localStorage.setItem("savedLineCard", JSON.stringify(visibleCard));
-    }, [visibleCard])
-
+    }, [visibleCard]);
 
     // отобразим сообщение, если фильмы не найдены
     function handleDisplayContent(arr) {
-
         if (arr === null || arr === undefined) {
-            setMessageText(messageText)
+            setMessageText(messageText);
         } else {
             if (arr.length === 0) {
                 setBlankPage(true);
                 setMessageText('Фильмы по запросу не найдены');
             } else {
                 setBlankPage(false);// страница не пустая
-                console.log("ФИЛЬМЫ НАЙДЕНЫ")
+                // console.log("ФИЛЬМЫ НАЙДЕНЫ");
             };
-        }
+        };
     };
 
     // запрос поиска → обновляем
@@ -93,6 +82,7 @@ function MoviesBase(props) {
         localStorage.setItem("query", newQuery);// сохраним в ЛС запрос 
         localStorage.setItem('checkedShort', isChecked);// состояние чекбокса
         localStorage.removeItem("savedLineCard");// удаляем сохраненное количество карточек на выдаче
+        setVisibleCard(defaultVisibleCard);
     };
 
     // отрисовываем нужное число карточек
@@ -109,134 +99,68 @@ function MoviesBase(props) {
     const handleSearch = async (query) => {
         if (isLocalStorageMovies === null) {
             const arr = await getMovies();// ждем массив с апи
-            //setAllMovies(searchMovies);// записали массив в стейт
             localStorage.setItem("allMovies", JSON.stringify(arr));
-            /* Promise.all([ getMovies() ]).then( () => {
-                console.log(isLocalStorageMovies);
-
-                const searchMovies = filteredMovies(query, isLocalStorageMovies, isChecked);
-                setIsRenderCard(searchMovies);
-            }
-            ) */
         }
-        console.log(isLocalStorageMovies);
+        // console.log(isLocalStorageMovies);
         const searchMovies = filteredMovies(query, isLocalStorageMovies, isChecked);
         setIsRenderCard(searchMovies);
-        // console.log("ФИЛЬТРУЕМ ФИЛЬМЫ ИЗ ЛС ---- ", isLocalStorageMovies)
-        // фильтруем фильмы из ЛС
-
     }
-
-
-    React.useEffect(() => {
-        handleLikeCard()
-        console.log("обновленный массив фильмов с полем 'isLiked' ------ ", updatedArrCard)
-    }, [savedAllMovies])
-
-    let updatedArrCard = []
-    function handleLikeCard() {
-        // console.log("массив отрисованных фильмов ------- ", arrCard)
-        // console.log('массив сохраненных фильмов ------', savedAllMovies)
-
-        // Создаем новый массив из отрендеренных фильмов. К каждому элементу добавляем поле 'isLiked': true / false
-        updatedArrCard = isRenderCard.map(i => {
-            i.isLiked = savedAllMovies.some(savedMovie => savedMovie.movieId === i.id)
-            return i;
-        });
-
-        // console.log("обновленный массив фильмов с полем 'isLiked' ------ ", updatedArrCard)
-
-        // return updatedArrCard;
-    }
-
-
-    // отфильтруем фильмы из базы по запросу в форме
-    /* function filteredMovies(req, movies, checkbox) {
-        if (movies === null || undefined) {
-            //setBlankPage(true);// страница пустая
-           //setMessageText(messageText);
-            return
-        }
-        //console.log("ЕСТЬ МАССИВ")
-        //setBlankPage(false);//страница НЕ пустая
-        if (checkbox === "on") {
-            const shorts = movies.filter((item) => item.duration < 40);
-            const filtered = shorts.filter(item => {
-                let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
-                //console.log("НАФИЛЬТРОВАЛИ -------", result)
-                return result;
-            });
-            //console.log("КОРОТКОМЕТРАЖКИ ------- ", filtered);
-            setIsRenderCard(filtered);
-        } else {
-            const filtered = movies.filter(item => {
-                let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
-                return result;
-            });
-            //.log("ОТФИЛЬТРОВАЛИ ------- ", filtered);
-            setIsRenderCard(filtered);
-        }
-    }; */
 
     // обработчик чекбокса 
     function handleChecked(e) {
         if (isChecked === "off") {
-            setIsChecked('on')// включили 
-            console.log("ON")
+            setIsChecked('on');// включили 
+            // console.log("ON");
             localStorage.setItem("checkedShort", 'on');// сохраним в ЛС чек on +
-
         } else {
-            setIsChecked('off')// выключили 
-            console.log("OFF")
+            setIsChecked('off');// выключили 
+            // console.log("OFF");
             localStorage.setItem("checkedShort", 'off');// сохраним в ЛС чек off +
-        }
-    }
+        };
+    };
 
     // отобразим/ скроем кнопку ЕЩЕ
     function compareLengthArr() {
-        console.log(isRenderCard)
+        // console.log(isRenderCard);
         const arr = isRenderCard;
         if (arr === null || arr === undefined) {
-            return
+            return;
         } else {
             if (window >= 1225 && arr.length <= visibleCard.desktop) {
-                console.log("выбрали массив на desktop");
+                // console.log("выбрали массив на desktop");
                 // console.log(arr.length);
                 // console.log(renderedCard.desktop);
                 setActiveButtonElse(false);
             } else if (window >= 713 && arr.length <= visibleCard.tablet) {
-                console.log("выбрали массив на tablet");
+                // console.log("выбрали массив на tablet");
                 // console.log(arr.length);
                 // console.log(renderedCard.tablet);
                 setActiveButtonElse(false);
             } else if (window <= 712 && arr.length <= visibleCard.mobile) {
-                console.log("выбрали массив на mobile");
+                // console.log("выбрали массив на mobile");
                 // console.log(arr.length);
                 // console.log(renderedCard.mobile);
                 setActiveButtonElse(false);
             } else {
-                console.log("еще не весь массив");
+                // console.log("еще не весь массив");
                 // console.log(arr.length);
                 // console.log(renderedCard);
                 setActiveButtonElse(true);
             };
-        }
+        };
     };
 
     // обработчик клика по кнопке лайка
     const handlenClickCLike = (card) => {
-        // console.log("передадим карточку дальше")
-        console.log("card -------- ", card)
-        if(card.isLiked) {
+        // console.log("card -------- ", card)
+        if (card.isLiked) {
             // console.log("ЛАЙК УДАЛЯЕМ")
-            onDelete(card)
+            onDelete(card);
         } else {
             // console.log("ЛАЙК СТАВИМ")
-            onSave(card)
-        }
-        // onClickCardButton(card)
-        //openResultPopup();// попап успешного удаления фильма - ????
-    }
+            onSave(card);
+        };
+    };
 
     return (
         <Movies
@@ -256,5 +180,6 @@ function MoviesBase(props) {
             {!blankPage && <ButtonElse onClickElse={handleClickElse} activeButtonElse={activeButtonElse} />}
         </Movies>
     )
-}
+};
+
 export default MoviesBase;

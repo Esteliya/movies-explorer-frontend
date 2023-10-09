@@ -9,24 +9,20 @@ import ButtonWithText from "../ButtonWithText/ButtonWithText"
 import ButtonWithIcon from "../ButtonWithIcon/ButtonWithIcon"
 import ButtonMenu from "../ButtonMenu/ButtonMenu";
 /* иконка для кнопки */
-import AccountIcon from "../../../images/button_icon_account.svg"
-/* контекст - пока логирование - ждем функционал */
-// import CurrentUserContext from "../../../context/CurrentUserContext";
+import AccountIcon from "../../../images/button_icon_account.svg";
 
 function Navigate(props) {
-    const { window, homepage, openButton, onClickAccount, loggedIn } = props
+    const { window, homepage, openButton, onClickAccount, loggedIn } = props;
     // если экран меньше или равно - показать кнопку меню
     const isWindow = window <= 768;
-
-   //  const currentUser = React.useContext(CurrentUserContext);
 
     const navigate = useNavigate();
     // пререход на страницу авторизации - на функционале перенести 
     function passPageLogin() {
         navigate('/signin', {
             replace: true
-        })
-    }
+        });
+    };
 
     return (
         <>
@@ -49,5 +45,6 @@ function Navigate(props) {
             </nav>
         </>
     )
-}
+};
+
 export default Navigate;

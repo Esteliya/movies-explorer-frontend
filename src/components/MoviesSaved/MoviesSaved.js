@@ -1,16 +1,10 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import './MoviesSaved.css';
-
 import Movies from "../Movies/Movies";
-
-
 import { filteredMovies } from '../../utils/handlers';
 
 function MoviesSaved(props) {
     const { handleDataForm, deleteMovies, window, arrMovies } = props;
-    //  setQuery, query, handleSearch
-    const location = useLocation();
 
     // СТЕЙТЫ
     // запрос (строка)
@@ -24,15 +18,9 @@ function MoviesSaved(props) {
     // стейт сообщения на странице с фильмами: фильмы не найдены
     const [messageText, setMessageText] = React.useState('');
 
-
-    // запрашиваем фильмы
-    React.useEffect(() => {
-        //getSavedMovies();
-    }, [location]);// принудительно запустим первое монтирование при перелючении на роут
-
     React.useEffect(() => {
         const arr = filteredMovies(query, arrMovies, isChecked);
-        console.log("ЧТО В МАССИВЕ? ------ ", arr)//+
+        // console.log("ЧТО В МАССИВЕ? ------ ", arr)//+
         setIsRenderCard(arr)
         if (arr.length === 0) {
             // console.log("НЕТ МАССИВА!!!!!")
@@ -45,8 +33,6 @@ function MoviesSaved(props) {
         }
     }, [isChecked, query, arrMovies, blankPage]);
 
-    
-
     // обработчик поиска
     const handleSearchSavedMovies = (query) => {
         const searchMovies = filteredMovies(query, arrMovies, isChecked);
@@ -56,7 +42,7 @@ function MoviesSaved(props) {
 
     // запрос поиска → обновляем - НАДО ЛИ???
     function updateQuery(newQuery) {
-        console.log(newQuery)
+        // console.log(newQuery)
         setQuery(newQuery);
     };
 
@@ -64,18 +50,18 @@ function MoviesSaved(props) {
     function handleChecked(e) {
         if (isChecked === "off") {
             setIsChecked('on')// включили 
-            console.log("ON")
+            // console.log("ON")
 
         } else {
             setIsChecked('off')// выключили 
-            console.log("OFF")
+            // console.log("OFF")
         };
     };
 
     // удаляем фильм
     const handlenClickCardButton = async (card) => {
         // console.log("передадим карточку дальше")
-        console.log("card._id -------- ", card._id)
+        // console.log("card._id -------- ", card._id)
         await deleteMovies(card);
         //openResultPopup();// попап успешного удаления фильма - ????
     };
@@ -94,6 +80,6 @@ function MoviesSaved(props) {
             onClickCardButton={handlenClickCardButton}
             window={window} />
     )
-}
+};
 
 export default MoviesSaved;

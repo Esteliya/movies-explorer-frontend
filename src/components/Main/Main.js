@@ -3,10 +3,10 @@ import NavTab from "./NavTab/NavTab";
 import AboutProject from "./AboutProject/AboutProject";
 import Techs from "./Techs/Techs";
 import Student from "./Student/Student";
-import Portfolio from "./Portfolio/Portfolio"
+import Portfolio from "./Portfolio/Portfolio";
 import Cover from "./Cover/Cover";
 
-function Main() { 
+function Main() {
     return (
         <main>
             <Cover />
@@ -17,5 +17,6 @@ function Main() {
             <Portfolio />
         </main>
     )
-}
+};
+
 export default Main;

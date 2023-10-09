@@ -2,7 +2,7 @@ import React from "react";
 import "./Login.css"
 import "../../mixStile/formatForm.css";
 import Auth from "../Auth/Auth";
-import ItemForm from "../ItemForm/ItemForm"
+import ItemForm from "../ItemForm/ItemForm";
 
 function Login(props) {
     const { handleDataForm } = props;
@@ -14,25 +14,25 @@ function Login(props) {
     const [passwordErr, setPasswordErr] = React.useState('');//ошибка
 
     // валидация 
-    const [isValid, setIsValid] = React.useState(true)
+    const [isValid, setIsValid] = React.useState(true);
 
     // регулярки для валидации
     const pattern = {
         email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         password: /^[a-zA-Z0-9_-]{8,}$/,
-    }
+    };
 
     React.useEffect(() => {
-        setEmailErr(emailErr)
-        setPasswordErr(passwordErr)
+        setEmailErr(emailErr);
+        setPasswordErr(passwordErr);
 
         if (email === "" && password === "") {
             //console.log("ошибка валидации")
             setIsValid(true)
         } else {
             setIsValid(false)// кнопка активна
-        }
-    }, [isValid, email, password, emailErr, passwordErr])
+        };
+    }, [isValid, email, password, emailErr, passwordErr]);
 
     // Обработчики изменения инпута
     // имейл 
@@ -44,8 +44,9 @@ function Login(props) {
             setEmailErr("");
         } else {
             setEmailErr('Поле "email" должно быть заполнено и иметь форму ***@***.**');
-        }
-    }
+        };
+    };
+
     // пароль
     function handleChangePassword(e) {
         const password = e.target.value
@@ -55,29 +56,23 @@ function Login(props) {
             setPasswordErr("");
         } else {
             setPasswordErr("Пароль должен быть не менее 8 символов и содержать цифру, прописную и строчную буквы.");
-        }
-    }
+        };
+    };
 
     // обработчик формы
     function hendleSubmitForm(e) {
         e.preventDefault();
         if (email === "" && password === "") {
             //console.log("ошибка валидации")
-            setIsValid(true)
+            setIsValid(true);
         } else {
-            console.log("поля валидны")
+            // console.log("поля валидны")
             const data = {};
             data.email = email;
             data.password = password;
             handleDataForm(data);
-        }
-    }
-
-    function hendleClick () {
-        //console.log("Войти?")
-        
-    }
-
+        };
+    };
 
     return (
         <main className="margin-form-center">
@@ -87,7 +82,6 @@ function Login(props) {
                 titleLink='Ещё не зарегистрированы? '
                 textLink='Регистрация'
                 link='/signup'
-                onClick={hendleClick}
                 onSubmit={hendleSubmitForm}>
                 <ItemForm
                     label="E-mail"
@@ -109,7 +103,7 @@ function Login(props) {
                 />
             </Auth>
         </main>
-
     )
-}
+};
+
 export default Login;

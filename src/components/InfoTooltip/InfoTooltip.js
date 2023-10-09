@@ -1,12 +1,11 @@
-import './InfoTooltip.css'
-import iconFalse from '../../images/icon-false.svg'
-import iconTrue from '../../images/icon-true.svg'
+import './InfoTooltip.css';
+import iconFalse from '../../images/icon-false.svg';
+import iconTrue from '../../images/icon-true.svg';
 
 function InfoTooltip(props) {
   const { isOpen, onClose, res, text } = props;
 
   const popupClass = isOpen ? ('info-popup info-popup_open') : ('info-popup');
-
 
   return (
     <div className={popupClass}>
@@ -17,7 +16,6 @@ function InfoTooltip(props) {
       </div>
     </div>
   )
-
-}
+};
 
 export default InfoTooltip;

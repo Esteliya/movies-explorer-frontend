@@ -17,7 +17,7 @@ function Student() {
                 <img src={studentPhoto} alt="Фотография студента" className="student__photo" />
             </div>
         </section>
-
     )
-}
+};
+
 export default Student;

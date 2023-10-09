@@ -1,10 +1,8 @@
 import React from 'react';
-import './Movies.css'
-
+import './Movies.css';
 import SearchForm from './SearchForm/SearchForm';// поиск
 import MoviesCardList from './MoviesCardList/MoviesCardList';// фильмы
 import Message from './Message/Message';
-// import Preloader from '../Preloader/Preloader'
 
 function Movies(props) {
     // * / пустая страница? / сообщение/ карточки / формат экрана/ обработчик кнопки карточки
@@ -31,5 +29,6 @@ function Movies(props) {
             {children}
         </main>
     )
-}
+};
+
 export default Movies;

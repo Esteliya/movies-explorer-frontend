@@ -1,6 +1,5 @@
-import "./ItemForm.css"
+import "./ItemForm.css";
 import "../../mixStile/focusEffect.css";
-
 
 function ItemForm(props) {
     const { label, type, name, pattern, value, placeholder, minLength, maxLength, onChange, textError } = props;
@@ -20,7 +19,7 @@ function ItemForm(props) {
                 onChange={onChange}></input>
             <span className="item-form__mistake">{textError}</span>
         </fieldset>
-
     )
-}
+};
+
 export default ItemForm;

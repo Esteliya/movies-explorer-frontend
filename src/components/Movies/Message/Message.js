@@ -7,5 +7,6 @@ function Message(props) {
             <p className="message__text">{text}</p>
         </section>
     )
-}
+};
+
 export default Message;

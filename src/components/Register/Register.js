@@ -2,7 +2,7 @@ import React from "react";
 import "./Register.css"
 import "../../mixStile/formatForm.css";
 import Auth from "../Auth/Auth";
-import ItemForm from "../ItemForm/ItemForm"
+import ItemForm from "../ItemForm/ItemForm";
 
 function Register(props) {
     const { handleDataForm } = props;
@@ -16,90 +16,82 @@ function Register(props) {
     const [passwordErr, setPasswordErr] = React.useState('');//ошибка
 
     // валидация 
-    const [isValid, setIsValid] = React.useState(true)
+    const [isValid, setIsValid] = React.useState(true);
 
     // регулярки для валидации
     const pattern = {
         name: /^[\p{L}\s-]{2,30}/ui,
         email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         password: /^[a-zA-Z0-9_-]{8,}$/,
-    }
+    };
 
     React.useEffect(() => {
-        //setIsValid(isValid)
-        /* console.log(email)
-        console.log(name)
-        console.log(password) */
-        setNameErr(nameErr)
-        setEmailErr(emailErr)
-        setPasswordErr(passwordErr)
+        setNameErr(nameErr);
+        setEmailErr(emailErr);
+        setPasswordErr(passwordErr);
 
         if (name === "" && email === "" && password === "") {
             //console.log("ошибка валидации")
-            setIsValid(true)
+            setIsValid(true);
         } else {
-            setIsValid(false)// кнопка активна
-        }
-    }, [isValid, name, email, password, nameErr, emailErr, passwordErr])
+            setIsValid(false);// кнопка активна
+        };
+    }, [isValid, name, email, password, nameErr, emailErr, passwordErr]);
 
     // Обработчики изменения инпута
     // имя 
     function handleChangeName(e) {
-        const name = e.target.value
-        //console.log(pattern.name.test(name))
+        const name = e.target.value;
+        // console.log(pattern.name.test(name));
         if (pattern.name.test(name)) {
-            //console.log("valid name")
+            // console.log("valid name");
             setName(name);
-            setNameErr("")
+            setNameErr("");
         } else {
             setNameErr('Поле должно быть заполнено. "Имя" может содержать только кириллические и/или латинские буквы, дефис, пробел')
-        }
-    }
+        };
+    };
     // имейл 
     function handleChangeEmail(e) {
         const email = e.target.value
         if (pattern.email.test(email)) {
-            //console.log("valid email")
+            // console.log("valid email");
             setEmail(email);
             setEmailErr("");
         } else {
             setEmailErr('Поле "email" должно быть заполнено и иметь форму ***@***.**');
-        }
-        //console.log(email)
-    }
+        };
+        // console.log(email);
+    };
+
     // пароль
     function handleChangePassword(e) {
-        const password = e.target.value
+        const password = e.target.value;
         if (pattern.password.test(password)) {
-            //console.log("valid password")
+            // console.log("valid password");
             setPassword(password);
             setPasswordErr("");
         } else {
             setPasswordErr("Пароль должен быть не менее 8 символов и содержать цифру, прописную и строчную буквы.");
-        }
-        //console.log(password)
-    }
+        };
+        // console.log(password);
+    };
 
     // обработчик формы
     function hendleSubmitForm(e) {
         e.preventDefault();
         if (name === "" && email === "" && password === "") {
-            console.log("ошибка валидации")
-            setIsValid(true)
+            // console.log("ошибка валидации");
+            setIsValid(true);
         } else {
-            //console.log("поля валидны")
+            // console.log("поля валидны");
             const data = {};
             data.name = name;
             data.email = email;
             data.password = password;
             handleDataForm(data);
-        }
-    }
-
-    function hendleClick() {
-        //console.log("Зарегистрироваться?")
-
-    }
+        };
+    };
 
     return (
         <main className="margin-form-center">
@@ -109,7 +101,6 @@ function Register(props) {
                 titleLink='Уже зарегистрированы? '
                 textLink='Войти'
                 link='/signin'
-                onClick={hendleClick}
                 disabled={isValid}
                 onSubmit={hendleSubmitForm}>
                 <ItemForm
@@ -143,5 +134,6 @@ function Register(props) {
             </Auth>
         </main>
     )
-}
+};
+
 export default Register;

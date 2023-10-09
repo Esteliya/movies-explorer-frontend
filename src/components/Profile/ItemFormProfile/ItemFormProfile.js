@@ -1,4 +1,4 @@
-import "./ItemFormProfile.css"
+import "./ItemFormProfile.css";
 
 
 function ItemFormProfile(props) {
@@ -11,5 +11,6 @@ function ItemFormProfile(props) {
         </fieldset>
 
     )
-}
+};
+
 export default ItemFormProfile;

@@ -6,5 +6,6 @@ const ProtectedRoute = ({ element: Component, ...props }) => {
         //авторизированы? идем в компонент : нет -> надо залогиниться
         props.loggedIn ? <Component {...props} /> : <Navigate to="/" replace />
     )
-}
+};
+
 export default ProtectedRoute;

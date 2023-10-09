@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
-import './PopupMenu.css'
+import './PopupMenu.css';
 import ButtonWithIcon from "../Header/ButtonWithIcon/ButtonWithIcon";
 import AccountIcon from "../../images/button_icon_account.svg";
 
 function PopupMenu(props) {
-    const {isOpen, onClose, onClickAccount, onClickHome, onClickMovies, onClickSavedMovies } = props;
-
-    //console.log("isOpen ------", isOpen)
+    const { isOpen, onClose, onClickAccount, onClickHome, onClickMovies, onClickSavedMovies } = props;
 
     const popupClass = isOpen ? ('popup') : ('popup popup_close');
 
@@ -20,10 +18,11 @@ function PopupMenu(props) {
                         <li className='popup__item'><Link to="/saved-movies" name="Избранные" className="popup__link" onClick={onClickSavedMovies}>Сохраненные фильмы</Link></li>
                     </ul>
                 </nav>
-                <ButtonWithIcon text="Аккаунт" icon={AccountIcon} onClick={onClickAccount}/>
+                <ButtonWithIcon text="Аккаунт" icon={AccountIcon} onClick={onClickAccount} />
             </div>
-            <button type="button" className="popup__button-close hover-effect" onClick={onClose}/>
+            <button type="button" className="popup__button-close hover-effect" onClick={onClose} />
         </div>
     )
-}
+};
+
 export default PopupMenu;

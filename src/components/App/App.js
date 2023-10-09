@@ -91,6 +91,7 @@ function App() {
   // АУТЕНТИФИКАЦИЯ 
   // регистрируемся
   function handleRegister(data) {
+    setLoggedIn(true);
     const { name, email, password } = data;
     auth.register(name, email, password)
       .then((data) => {
@@ -114,10 +115,14 @@ function App() {
         };
         console.error(`Ошибка: ${err}`);
       })
+      .finally(() => {
+        setIsLoaging(false);
+      });
   };
 
   // авторизируемся
   function hendleLogin(data) {
+    setLoggedIn(true);
     // debugger
     const { email, password } = data;
     auth.authorize(email, password)
@@ -134,6 +139,9 @@ function App() {
         setTextInfoTooltip(err.message);// текст ошибки
         setShowInfoToolTip(true);
         setResult(false);
+      })
+      .finally(() => {
+        setIsLoaging(false);
       });
   };
 
@@ -163,11 +171,12 @@ function App() {
       })
       .finally(() => {
         setIsLoaging(false);
-      })
+      });
   };
 
   // обновляем данные пользователя
   function handleUpdataUser(data) {
+    setLoggedIn(true);
     // console.log(data);
     // debugger
     mainApi.patchUserInfo(data)
@@ -183,10 +192,14 @@ function App() {
         setShowInfoToolTip(true);
         setResult(false);
       })
+      .finally(() => {
+        setIsLoaging(false);
+      });
   };
 
   // удаляем токен
   function handleExitProfile() {
+    setLoggedIn(true);
     // debugger
     // console.log("выходим из акка?");
     auth.logout()
@@ -201,12 +214,19 @@ function App() {
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
+        setTextInfoTooltip(err.message);// текст ошибки
+        setShowInfoToolTip(true);
+        setResult(false);
+      })
+      .finally(() => {
+        setIsLoaging(false);
       });
   };
 
   // ФИЛЬМЫ
   // запросим все фильмы - передадим на страницу
   function getMovies() {
+    setLoggedIn(true);
     return apiWithMovies.getMovieInfo()
       .then((arrMovies) => {
         const newAllMovies = transformArrMovies(arrMovies);
@@ -214,6 +234,12 @@ function App() {
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
+        setTextInfoTooltip(err.message);// текст ошибки
+        setShowInfoToolTip(true);
+        setResult(false);
+      })
+      .finally(() => {
+        setIsLoaging(false);
       });
   };
 
@@ -239,6 +265,7 @@ function App() {
 
   // запрос сохраненных фильмов
   function getSavedMovies() {
+    setLoggedIn(true);
     // debugger
     return mainApi.getArrMovies()
       .then((arrMovies) => {
@@ -247,11 +274,18 @@ function App() {
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
+        setTextInfoTooltip(err.message);// текст ошибки
+        setShowInfoToolTip(true);
+        setResult(false);
+      })
+      .finally(() => {
+        setIsLoaging(false);
       });
   };
 
   // удаление фильма 
   function deleteMovies(card) {
+    setLoggedIn(true);
     // console.log(card);
     // поймаем id сохраненного на нашем api фильма
     const saveMovie = savedAllMovies.find((item) => item.movieId === card.id);
@@ -259,10 +293,6 @@ function App() {
       .then(() => {
         const updateArr = savedAllMovies.filter((item) => item._id === card._id ? false : true);
         setSavedAllMovies(updateArr);
-        // нужен попап ???
-        // setShowInfoToolTip(true);
-        // setResult(true);
-        // setTextInfoTooltip("Фильм успешно удален");
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
@@ -270,12 +300,15 @@ function App() {
         setShowInfoToolTip(true);
         setResult(false);
         setTextInfoTooltip(err.message);
+      })
+      .finally(() => {
+        setIsLoaging(false);
       });
-    // дождемся выполнения → ...
   };
 
   // сохранение фильма 
   function saveMovies(card) {
+    setLoggedIn(true);
     const { country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, id } = card;
     mainApi.postUserMovies({ country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId: id })
       .then(likeCard => {
@@ -287,6 +320,9 @@ function App() {
         setShowInfoToolTip(true);
         setResult(false);
         setTextInfoTooltip(err.message);
+      })
+      .finally(() => {
+        setIsLoaging(false);
       });
   };
 
@@ -347,8 +383,6 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className={appClasse}>
-
-
         {isLoaging ?
           <Preloader /> :
           <>
@@ -385,17 +419,13 @@ function App() {
               <Route path="/" element={<Main />} />
 
               <Route path="/signup" element={!loggedIn ? <Register handleDataForm={handleRegister} /> : <Navigate to='/movies' />} />
-              <Route path="/signin" element={!loggedIn ? <Login handleDataForm={hendleLogin}/> : <Navigate to='/movies' />} />
+              <Route path="/signin" element={!loggedIn ? <Login handleDataForm={hendleLogin} /> : <Navigate to='/movies' />} />
 
               <Route path='*' element={<NotFound />} replace />
             </Routes>
             <Footer />
           </>
         }
-
-
-
-
         <PopupMenu
           isOpen={isBurgerMenuPopup}
           onClose={closeAllPopups}
@@ -409,8 +439,6 @@ function App() {
           onClose={closeAllPopups}
           res={result}
           text={textInfoTooltip} />
-
-
       </div>
     </CurrentUserContext.Provider>
   );

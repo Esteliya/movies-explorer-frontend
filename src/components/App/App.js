@@ -8,6 +8,8 @@ import MoviesBase from '../MoviesBase/MoviesBase';// страница с фил�
 import MoviesSaved from '../MoviesSaved/MoviesSaved';// сохраненные фильмы
 // контекст
 import CurrentUserContext from "../../context/CurrentUserContext";
+// защита 
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 // создать базовый для всех компонент ↓ ↓ ↓
 // import Auth from '../Auth/Auth';// базовый компонент для следующих 2 ↓ ↓ ↓
@@ -23,7 +25,6 @@ import NotFound from '../NotFound/NotFound';// страницы не сущес�
 
 import PopupMenu from "../PopupMenu/PopupMenu";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import TestPage from '../TestPage/TestPage';// ВРЕМЕННАЯ! УБРАТЬ! 
 
 // API
 import { apiWithMovies } from '../../utils/MoviesApi';
@@ -40,6 +41,8 @@ function App() {
   const location = useLocation();//будем следить за роутами
   //контекст логина
   const [loggedIn, setLoggedIn] = React.useState(false);
+  //контекст роутов сайта 
+  const [currentRoute, setCurrentRoute] = React.useState('');
   //попап бургер-меню
   const [isBurgerMenuPopup, setIsBurgerMenuPopup] = React.useState(false);
   // контролируем размер экрана - меняем данные на страницах согласно размера 
@@ -337,21 +340,21 @@ function App() {
   };
 
   // обработчик лайка/дизлайка карточки
-/*   function handleClickCardButton(card) {
-    console.log("КЛИК");
-    console.log(card);
-    console.log(savedAllMovies)
-    saveMovies(card);
-    const savedMovies = savedAllMovies.forEach((movie) => {
-      if (movie.movieId === card.id) {
-        console.log(`Movie ID ${movie.movieId} matches Card ID ${card.id}`);
-      } else {
-        console.log(`Movie ID ${movie.movieId} does not match Card ID ${card.id}`);
-        return movie
-      }
-    });
-    console.log("сохраненнный фильм -----", savedMovies)
-  }; */
+  /*   function handleClickCardButton(card) {
+      console.log("КЛИК");
+      console.log(card);
+      console.log(savedAllMovies)
+      saveMovies(card);
+      const savedMovies = savedAllMovies.forEach((movie) => {
+        if (movie.movieId === card.id) {
+          console.log(`Movie ID ${movie.movieId} matches Card ID ${card.id}`);
+        } else {
+          console.log(`Movie ID ${movie.movieId} does not match Card ID ${card.id}`);
+          return movie
+        }
+      });
+      console.log("сохраненнный фильм -----", savedMovies)
+    }; */
 
   // очищаем локальное хранилище
   function cleanLocalStorage() {
@@ -404,39 +407,46 @@ function App() {
     setIsBurgerMenuPopup(false);// закрываем меню
   };
 
-  function test() {
-    console.log("тестируем");
-  };
-
-  // отображения лайка
-  // сравнима массивы > выведем лайки
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} window={withWindow} loggedIn={loggedIn} />
         <Routes>
-          <Route path='/testpage' element={<TestPage onClick={test} />} />
 
           <Route path="/" element={<Main />} />
 
-          <Route path="/movies" element={<MoviesBase
-            getMovies={getMovies}
-            savedAllMovies={savedAllMovies}
-            window={withWindow}
-            onSave={saveMovies}
-            onDelete={deleteMovies}
-          />} />
+          <Route path="/movies" element={!loggedIn ? <Navigate to='/signin' /> :
+            <ProtectedRoute
+              element={MoviesBase}
+              loggedIn={loggedIn}
+              setCurrentRoute={setCurrentRoute}
+              getMovies={getMovies}
+              savedAllMovies={savedAllMovies}
+              window={withWindow}
+              onSave={saveMovies}
+              onDelete={deleteMovies} />} replace />
 
-          <Route path="/saved-movies" element={<MoviesSaved
-            arrMovies={savedAllMovies}
-            deleteMovies={deleteMovies}
-            window={withWindow}
-          />} />
+          <Route path="/saved-movies" element={!loggedIn ? <Navigate to='/signin' /> :
+            <ProtectedRoute
+              element={MoviesSaved}
+              loggedIn={loggedIn}
+              setCurrentRoute={setCurrentRoute}
+              arrMovies={savedAllMovies}
+              deleteMovies={deleteMovies}
+              window={withWindow}
+            />} />
+          <Route path="/profile" element={!loggedIn ? <Navigate to='/signin' /> :
+            <ProtectedRoute
+              element={Profile}
+              loggedIn={loggedIn}
+              setCurrentRoute={setCurrentRoute}
+              onClickExit={handleExitProfile}
+              handleDataForm={handleUpdataUser} />} />
 
           <Route path="/signup" element={<Register handleDataForm={handleRegister} />} />
           <Route path="/signin" element={<Login handleDataForm={hendleLogin} />} />
-          <Route path="/profile" element={<Profile onClickExit={handleExitProfile} handleDataForm={handleUpdataUser} />} />
+
           <Route path='*' element={<NotFound />} replace />
         </Routes>
 

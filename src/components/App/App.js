@@ -26,6 +26,8 @@ import NotFound from '../NotFound/NotFound';// страницы не сущес�
 import PopupMenu from "../PopupMenu/PopupMenu";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
+import Preloader from "../Preloader/Preloader"
+
 // API
 import { apiWithMovies } from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
@@ -41,6 +43,8 @@ function App() {
   const location = useLocation();//будем следить за роутами
   //контекст логина
   const [loggedIn, setLoggedIn] = React.useState(false);
+  // стейт прелоадера - загрузки. Изначально true 
+  const [isLoaging, setIsLoaging] = React.useState(false);
   //контекст роутов сайта 
   const [currentRoute, setCurrentRoute] = React.useState('');
   //попап бургер-меню
@@ -67,6 +71,8 @@ function App() {
   const [textInfoTooltip, setTextInfoTooltip] = React.useState('');
   //стейт результата отправки запроса к api (для попапа InfoTooltip)
   const [result, setResult] = React.useState(false);
+  // стиль страницы в зависимости от состояния загрузки
+  const appClasse = isLoaging ? "app_loaging" : "app";
 
   React.useEffect(() => {
     tockenCheck();
@@ -407,48 +413,57 @@ function App() {
     setIsBurgerMenuPopup(false);// закрываем меню
   };
 
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="App">
-        <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} window={withWindow} loggedIn={loggedIn} />
-        <Routes>
+      <div className={appClasse}>
 
-          <Route path="/" element={<Main />} />
 
-          <Route path="/movies" element={!loggedIn ? <Navigate to='/signin' /> :
-            <ProtectedRoute
-              element={MoviesBase}
-              loggedIn={loggedIn}
-              setCurrentRoute={setCurrentRoute}
-              getMovies={getMovies}
-              savedAllMovies={savedAllMovies}
-              window={withWindow}
-              onSave={saveMovies}
-              onDelete={deleteMovies} />} replace />
+        {isLoaging ?
+          <Preloader /> :
+          <>
+            <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} window={withWindow} loggedIn={loggedIn} />
+            <Routes>
+              <Route path="/movies" element={!loggedIn ? <Navigate to='/signin' /> :
+                <ProtectedRoute
+                  element={MoviesBase}
+                  loggedIn={loggedIn}
+                  setCurrentRoute={setCurrentRoute}
+                  getMovies={getMovies}
+                  savedAllMovies={savedAllMovies}
+                  window={withWindow}
+                  onSave={saveMovies}
+                  onDelete={deleteMovies} />} replace />
 
-          <Route path="/saved-movies" element={!loggedIn ? <Navigate to='/signin' /> :
-            <ProtectedRoute
-              element={MoviesSaved}
-              loggedIn={loggedIn}
-              setCurrentRoute={setCurrentRoute}
-              arrMovies={savedAllMovies}
-              deleteMovies={deleteMovies}
-              window={withWindow}
-            />} />
-          <Route path="/profile" element={!loggedIn ? <Navigate to='/signin' /> :
-            <ProtectedRoute
-              element={Profile}
-              loggedIn={loggedIn}
-              setCurrentRoute={setCurrentRoute}
-              onClickExit={handleExitProfile}
-              handleDataForm={handleUpdataUser} />} />
+              <Route path="/saved-movies" element={!loggedIn ? <Navigate to='/signin' /> :
+                <ProtectedRoute
+                  element={MoviesSaved}
+                  loggedIn={loggedIn}
+                  setCurrentRoute={setCurrentRoute}
+                  arrMovies={savedAllMovies}
+                  deleteMovies={deleteMovies}
+                  window={withWindow}
+                />} />
+              <Route path="/profile" element={!loggedIn ? <Navigate to='/signin' /> :
+                <ProtectedRoute
+                  element={Profile}
+                  loggedIn={loggedIn}
+                  setCurrentRoute={setCurrentRoute}
+                  onClickExit={handleExitProfile}
+                  handleDataForm={handleUpdataUser} />} />
 
-          <Route path="/signup" element={<Register handleDataForm={handleRegister} />} />
-          <Route path="/signin" element={<Login handleDataForm={hendleLogin} />} />
+              <Route path="/" element={<Main />} />
 
-          <Route path='*' element={<NotFound />} replace />
-        </Routes>
+              <Route path="/signup" element={<Register handleDataForm={handleRegister} />} />
+              <Route path="/signin" element={<Login handleDataForm={hendleLogin} />} />
+
+              <Route path='*' element={<NotFound />} replace />
+            </Routes>
+            <Footer />
+          </>
+        }
+
+
+
 
         <PopupMenu
           isOpen={isBurgerMenuPopup}
@@ -462,10 +477,9 @@ function App() {
           isOpen={showInfoToolTip}
           onClose={closeAllPopups}
           res={result}
-          text={textInfoTooltip}
-        />
+          text={textInfoTooltip} />
 
-        <Footer />
+
       </div>
     </CurrentUserContext.Provider>
   );

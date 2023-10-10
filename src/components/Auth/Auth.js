@@ -1,12 +1,31 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Auth.css"
 import Logo from "../Logo/Logo";
 
 
 function Auth(props) {
-    const { title, children, btnText, titleLink, textLink, link, onClick, disabled, onSubmit } = props;
+    const { title, children, btnText, titleLink, textLink, link, onClick, isValid, onSubmit } = props;
 
-    const classButton = disabled ? "auth__button auth__button_disable" : "auth__button hover-effect"
+    // состояние кнопки
+    const [disabledButton, setDisabledButton] = React.useState(true);
+
+    React.useEffect (() => {
+        console.log("ПОЛЯ ВАЛИДНЫ????",isValid)
+        handleDisableButton()
+    },[isValid])
+
+    // ОБРАБОТЧИК КНОПКИ 
+    function handleDisableButton() {
+
+        if (isValid) {
+            setDisabledButton(false);
+        } else {
+            setDisabledButton(true)
+        }
+    }
+
+    const classButton = disabledButton ? "auth__button auth__button_disable" : "auth__button hover-effect"
 
     return (
         <section className="auth">
@@ -24,7 +43,7 @@ function Auth(props) {
                         className={classButton}
                         form={btnText}
                         onClick={onClick}
-                        disabled={disabled}>
+                        disabled={disabledButton}>
                         {btnText}
                     </button>
                     <p className="auth__route">{titleLink}

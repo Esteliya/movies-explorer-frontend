@@ -30,11 +30,11 @@ function Register(props) {
         setEmailErr(emailErr);
         setPasswordErr(passwordErr);
 
-        if (name === "" && email === "" && password === "") {
+        if (name === "" || email === "" || password === "") {
             //console.log("ошибка валидации")
-            setIsValid(true);
+            setIsValid(false);
         } else {
-            setIsValid(false);// кнопка активна
+            setIsValid(true);// кнопка активна
         };
     }, [isValid, name, email, password, nameErr, emailErr, passwordErr]);
 
@@ -80,17 +80,14 @@ function Register(props) {
     // обработчик формы
     function hendleSubmitForm(e) {
         e.preventDefault();
-        if (name === "" && email === "" && password === "") {
-            // console.log("ошибка валидации");
-            setIsValid(true);
-        } else {
+       
             // console.log("поля валидны");
             const data = {};
             data.name = name;
             data.email = email;
             data.password = password;
             handleDataForm(data);
-        };
+
     };
 
     return (
@@ -101,7 +98,7 @@ function Register(props) {
                 titleLink='Уже зарегистрированы? '
                 textLink='Войти'
                 link='/signin'
-                disabled={isValid}
+                isValid={isValid}
                 onSubmit={hendleSubmitForm}>
                 <ItemForm
                     label="Имя"

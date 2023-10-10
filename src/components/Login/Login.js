@@ -13,9 +13,8 @@ function Login(props) {
     const [password, setPassword] = React.useState('');
     const [passwordErr, setPasswordErr] = React.useState('');//ошибка
 
-    // валидация 
-    const [isValid, setIsValid] = React.useState(true);
-
+    // ВАЛИДАЦИЯ
+    const [isValid, setIsValid] = React.useState(false);
     // регулярки для валидации
     const pattern = {
         email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -26,11 +25,11 @@ function Login(props) {
         setEmailErr(emailErr);
         setPasswordErr(passwordErr);
 
-        if (email === "" && password === "") {
+        if (email === "" || password === "") {
             //console.log("ошибка валидации")
-            setIsValid(true)
+            setIsValid(false)
         } else {
-            setIsValid(false)// кнопка активна
+            setIsValid(true)// кнопка активна
         };
     }, [isValid, email, password, emailErr, passwordErr]);
 
@@ -62,16 +61,14 @@ function Login(props) {
     // обработчик формы
     function hendleSubmitForm(e) {
         e.preventDefault();
-        if (email === "" && password === "") {
-            //console.log("ошибка валидации")
-            setIsValid(true);
-        } else {
+        
             // console.log("поля валидны")
             const data = {};
             data.email = email;
             data.password = password;
             handleDataForm(data);
-        };
+
+        
     };
 
     return (
@@ -82,7 +79,8 @@ function Login(props) {
                 titleLink='Ещё не зарегистрированы? '
                 textLink='Регистрация'
                 link='/signup'
-                onSubmit={hendleSubmitForm}>
+                onSubmit={hendleSubmitForm}
+                isValid={isValid}>
                 <ItemForm
                     label="E-mail"
                     type="email"

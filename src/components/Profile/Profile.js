@@ -36,69 +36,66 @@ function Profile(props) {
     // есть? 
     const [errorMessage, setErrorMessage] = React.useState(false);//ошибка
     // текст
-    const [errorText, setErrorText] = React.useState('');//текст ошибки
+    const [errorText, setErrorText] = React.useState('текст ошибки');//текст ошибки
 
 
 
     React.useEffect(() => {
         // проверяем актуальность валидации при заполнении поля
-
+        // console.log("имя ----------", name)
+        // console.log("имейл -----------", email)
         if (editProfile) {
             setNameIsValid(namePattern.test(name));
             setEmailIsValid(emailPattern.test(email));
-            console.log("имя валидно?????", nameIsValid)
-            console.log("имейл валиден?????", emailIsValid)
-            /* if (name===currentUser.name && email===currentUser.email) {
-                console.log("МЫ ТУТ!!!")
-                setDisabledButton(false)
-            } else {
-                setDisabledButton(nameIsValid || emailIsValid)
-            } */
+            // console.log("имя валидно?????", nameIsValid)
+            // console.log("имейл валиден?????", emailIsValid)
         }
-        console.log("имя ----------", name === currentUser.name)
-        console.log("имейл -----------", email === currentUser.email)
+        // console.log(name, "имя валидно?  ----------", nameIsValid)
+        // console.log(email, "имейл валиден? -----------", emailIsValid)
+        // console.log("состояние ошибки", errorMessage)
+        // setErrorMessage(nameIsValid && emailIsValid)
 
-    }, [currentUser, editProfile, name, email]);
+    }, [editProfile, name, email]);
 
-    /*     React.useEffect(() => {
-            (nameIsValid || emailIsValid) && setDisabledButton(true)
-    
-        }, [nameIsValid, emailIsValid]); */
-
-    function handleInputName(e) {
-        const name = e.target.value;
-        setName(name);
-        console.log(name);
-        setNameIsValid(namePattern.test(name))
-        if (nameIsValid === false) {
-            setErrorMessage(true)
-            setErrorText("Поле 'имя' должно быть не менее 2 символов и может содержать только русские, латинские буквы, цифры, тире и нижнее подчеркивание.")
-        } else {
+    React.useEffect(() => {
+        if (nameIsValid && emailIsValid) {
+            // console.log("ПОЛЯ ВАЛИДНЫ")
             setErrorMessage(false)
-        }
-    };
-
-    function handleInputEmail(e) {
-        const email = e.target.value;
-        setEmail(email);
-        console.log(email);
-        setEmailIsValid(emailPattern.test(email));
-        if (emailIsValid === false) {
-            setErrorMessage(true)
-            setErrorText("Поле 'email' должно быть заполнено и иметь форму ***@***.**.")
         } else {
-            setErrorMessage(false)
+            // console.log("ПОЛЯ НЕВАЛИДНЫ")
+            setErrorMessage(true)
+            !nameIsValid && setErrorText("Поле 'имя' должно быть не менее 2 символов и может содержать только русские, латинские буквы, цифры, тире и нижнее подчеркивание.")
+            !emailIsValid && setErrorText("Поле 'email' должно быть заполнено и иметь форму ***@***.**.")
         }
-    };
+
+    }, [nameIsValid, emailIsValid, name, email])
+
+    React.useEffect(() => {
+        console.log("ошибка октивна? ----", errorMessage)
+    }, [errorMessage, name, email])
 
     React.useEffect(() => {
         handleDisableButton()
     }, [nameIsValid, emailIsValid])
 
-    // обработка кнопки 
+    // ОБРАБОТЧИКИ ИНПУТОВ
+    // имя
+    function handleInputName(e) {
+        const nameValue = e.target.value;
+        setName(nameValue);
+        // console.log(name);
+    };
+    // e-mail
+    function handleInputEmail(e) {
+        const emailValue = e.target.value;
+        setEmail(emailValue);
+        // console.log(email);
+    };
+
+    // ОБРАБОТЧИК КНОПКИ 
     function handleDisableButton() {
         if (name === currentUser.name && email === currentUser.email) {
-            console.log("ДАННЫЕ НЕ МЕНЯЛИСЬ")
+            // console.log("ДАННЫЕ НЕ МЕНЯЛИСЬ")
             setDisabledButton(true)
             return
         }
@@ -109,7 +106,7 @@ function Profile(props) {
         }
     }
 
-    //обработчик формы
+    // ОБРАБОТЧИК ФОРМЫ
     function handleSubmit(e) {
         e.preventDefault();
         // console.log("сабмит формы профиля")
@@ -120,12 +117,6 @@ function Profile(props) {
         handleDataForm(data);
         //деактивируем форму редактирования
         setEditProfile(false);
-
-    };
-
-    function handleClickSave() {
-        // console.log("Сохраняем");
-        // setEditProfile(false);
     };
 
     function handleClickEditButton() {
@@ -164,7 +155,7 @@ function Profile(props) {
                     {editProfile ?
                         <>
                             {errorMessage && <span className="profile__form-mistake">{errorText}</span>}
-                            <ButtonSave onClick={handleClickSave} disabled={disabledButton} form="profile" />
+                            <ButtonSave disabled={disabledButton} form="profile" />
                         </> :
                         <>
                             <button type="button" className="profile__buttom hover-effect" onClick={handleClickEditButton}>Редактировать</button>

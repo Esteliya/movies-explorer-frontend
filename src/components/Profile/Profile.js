@@ -73,6 +73,7 @@ function Profile(props) {
         }
     }, [nameIsValid, emailIsValid, name, email])
 
+    // узнаем состояние ошибки - УДАЛИТЬ!!!
     React.useEffect(() => {
         console.log("ошибка активна? ----", errorMessage)
     }, [errorMessage, name, email])

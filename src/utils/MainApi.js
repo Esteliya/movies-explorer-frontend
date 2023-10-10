@@ -6,11 +6,13 @@ class MainApi {
         this._headers = data.headers;//заголовок fetch из customize
     }
     //проверяем ответ сервера
-    _checkResponse(res) {
+    async _checkResponse (res) {
         if (res.ok) {//если все ок
             return res.json();//вернули данные (объект)
         } else {
-            Promise.reject(res.status);//завершаем действия с ошибкой
+            // Promise.reject(res.status);//завершаем действия с ошибкой
+            const body = await res.text()
+            return Promise.reject(JSON.parse(body));
         }
     }
 

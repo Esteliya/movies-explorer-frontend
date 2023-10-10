@@ -91,7 +91,7 @@ function App() {
   // АУТЕНТИФИКАЦИЯ 
   // регистрируемся
   function handleRegister(data) {
-    setLoggedIn(true);
+    setIsLoaging(true);
     const { name, email, password } = data;
     auth.register(name, email, password)
       .then((data) => {
@@ -122,7 +122,7 @@ function App() {
 
   // авторизируемся
   function hendleLogin(data) {
-    setLoggedIn(true);
+    setIsLoaging(true);
     // debugger
     const { email, password } = data;
     auth.authorize(email, password)
@@ -176,7 +176,7 @@ function App() {
 
   // обновляем данные пользователя
   function handleUpdataUser(data) {
-    setLoggedIn(true);
+    setIsLoaging(true);
     // console.log(data);
     // debugger
     mainApi.patchUserInfo(data)
@@ -199,7 +199,7 @@ function App() {
 
   // удаляем токен
   function handleExitProfile() {
-    setLoggedIn(true);
+    setIsLoaging(true);
     // debugger
     // console.log("выходим из акка?");
     auth.logout()
@@ -226,7 +226,7 @@ function App() {
   // ФИЛЬМЫ
   // запросим все фильмы - передадим на страницу
   function getMovies() {
-    setLoggedIn(true);
+    setIsLoaging(true);
     return apiWithMovies.getMovieInfo()
       .then((arrMovies) => {
         const newAllMovies = transformArrMovies(arrMovies);
@@ -265,7 +265,7 @@ function App() {
 
   // запрос сохраненных фильмов
   function getSavedMovies() {
-    setLoggedIn(true);
+    setIsLoaging(true);
     // debugger
     return mainApi.getArrMovies()
       .then((arrMovies) => {
@@ -285,7 +285,7 @@ function App() {
 
   // удаление фильма 
   function deleteMovies(card) {
-    setLoggedIn(true);
+    setIsLoaging(true);
     // console.log(card);
     // поймаем id сохраненного на нашем api фильма
     const saveMovie = savedAllMovies.find((item) => item.movieId === card.id);
@@ -308,7 +308,7 @@ function App() {
 
   // сохранение фильма 
   function saveMovies(card) {
-    setLoggedIn(true);
+    setIsLoaging(true);
     const { country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, id } = card;
     mainApi.postUserMovies({ country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId: id })
       .then(likeCard => {

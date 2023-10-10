@@ -38,7 +38,12 @@ function Profile(props) {
     // текст
     const [errorText, setErrorText] = React.useState('текст ошибки');//текст ошибки
 
-
+    /*     React.useEffect(() => {
+            if(currentUser){
+                setName(currentUser.name);
+                setEmail(currentUser.email);
+            }
+        }, [currentUser]); */
 
     React.useEffect(() => {
         // проверяем актуальность валидации при заполнении поля
@@ -54,7 +59,6 @@ function Profile(props) {
         // console.log(email, "имейл валиден? -----------", emailIsValid)
         // console.log("состояние ошибки", errorMessage)
         // setErrorMessage(nameIsValid && emailIsValid)
-
     }, [editProfile, name, email]);
 
     React.useEffect(() => {
@@ -67,16 +71,15 @@ function Profile(props) {
             !nameIsValid && setErrorText("Поле 'имя' должно быть не менее 2 символов и может содержать только русские, латинские буквы, цифры, тире и нижнее подчеркивание.")
             !emailIsValid && setErrorText("Поле 'email' должно быть заполнено и иметь форму ***@***.**.")
         }
-
     }, [nameIsValid, emailIsValid, name, email])
 
     React.useEffect(() => {
-        console.log("ошибка октивна? ----", errorMessage)
+        console.log("ошибка активна? ----", errorMessage)
     }, [errorMessage, name, email])
 
     React.useEffect(() => {
         handleDisableButton()
-    }, [nameIsValid, emailIsValid])
+    }, [nameIsValid, emailIsValid, name, email])
 
     // ОБРАБОТЧИКИ ИНПУТОВ
     // имя
@@ -89,13 +92,13 @@ function Profile(props) {
     function handleInputEmail(e) {
         const emailValue = e.target.value;
         setEmail(emailValue);
-        // console.log(email);
+        console.log(email);
     };
 
     // ОБРАБОТЧИК КНОПКИ 
     function handleDisableButton() {
         if (name === currentUser.name && email === currentUser.email) {
-            // console.log("ДАННЫЕ НЕ МЕНЯЛИСЬ")
+            console.log("ДАННЫЕ НЕ МЕНЯЛИСЬ")
             setDisabledButton(true)
             return
         }
@@ -105,18 +108,27 @@ function Profile(props) {
             setDisabledButton(true)
         }
     }
+    // проверим, что в стейтах
+    React.useEffect(() => {
+        console.log(email);
+        console.log(name);
+    }, [email, name, editProfile]);
 
     // ОБРАБОТЧИК ФОРМЫ
-    function handleSubmit(e) {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // console.log("сабмит формы профиля")
-        //запишем и передадим данные инпутов 
+        //запишем и передадим данные инпутов
+        // console.log(currentUser.email)
+        // console.log(currentUser.name)
         const data = {};
         data.email = email || currentUser.email;
         data.name = name || currentUser.name;
-        handleDataForm(data);
+        console.log(data)
+        await handleDataForm(data);
         //деактивируем форму редактирования
         setEditProfile(false);
+        setDisabledButton(true)
     };
 
     function handleClickEditButton() {

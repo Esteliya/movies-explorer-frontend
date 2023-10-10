@@ -33,6 +33,7 @@ class MainApi {
 
     //отправляем данные пользователя
     patchUserInfo(data) {
+        debugger
         return this._request('/users/me', {
             method: 'PATCH',
             credentials: 'include',

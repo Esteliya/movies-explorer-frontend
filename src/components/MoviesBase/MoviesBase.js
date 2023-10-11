@@ -34,13 +34,32 @@ function MoviesBase(props) {
     });
     // стейт активности кнопки ЕЩЕ 
     const [activeButtonElse, setActiveButtonElse] = React.useState(true);
+    // валидация 
+    const [isValid, setIsValid] = React.useState(true);
+    // показать ошибку если данные невалидны
+    const [showError, setShowError] = React.useState(false);
+    // текст ошибки
+    const [isTextError, setIsTextError] = React.useState('Результат запрса уже на странице. Задайте новые параметры поиска.');// текст ошибки
+    // текущая строка поиска
+    const [currentQuery, setCurrentQuery] = React.useState("")
 
 
     // ЭФФЕКТЫ
     React.useEffect(() => {
         //console.log("Избранные фильмы ------ ", savedAllMovies)//после поиска ???
+        // console.log(!isValid)
+
+        setShowError(!isValid)
         handleSearch(query);
-    }, [isChecked, query]);
+    }, [isChecked, query, isValid, showError]);
+
+    React.useEffect(() => {
+        if (currentQuery !== query) {
+            console.log("мы тут -------!!! Валидно!!!")
+            setIsValid(true);
+            // setShowError(false)
+        }
+    }, [currentQuery, query])
 
     React.useEffect(() => {
         compareLengthArr();// проверим, весь ли массив → да → убираем ЕЩЕ
@@ -78,6 +97,32 @@ function MoviesBase(props) {
 
     // запрос поиска → обновляем
     function updateQuery(newQuery) {
+        // ранее заблокировали отправку? Дать доступ
+        console.log("валидный запрос ранее?", isValid)
+        console.log("query", query)
+        console.log("newQuery", newQuery)
+        // если прежний запрос и новый не равны
+        /* if (currentQuery !== newQuery) {
+            console.log("тогда мы тут")
+            setIsValid(true);
+            setShowError(false)
+        } */
+        // строка пустая? 
+        if (newQuery === "") {
+            console.log("Пустая строка")
+            setIsValid(false)
+            // setShowError(true)
+            setIsTextError("Введите текст запроса")
+            return
+        }
+        // посвторный запрос 
+        if (newQuery === query) {
+            console.log("Повторный запрос")
+            setIsValid(false)
+            // setShowError(true)
+            setIsTextError("Результат запроса уже на странице")
+            return
+        }
         setQuery(newQuery);// стейт запроса → новая строка
         localStorage.setItem("query", newQuery);// сохраним в ЛС запрос 
         localStorage.setItem('checkedShort', isChecked);// состояние чекбокса
@@ -175,7 +220,11 @@ function MoviesBase(props) {
             handleSearch={handleSearch}
             isChecked={isChecked}
             onClickFilter={handleChecked}
+            isValid={isValid}
+            showError={showError}
+            isTextError={isTextError}
             messageText={messageText}
+            setCurrentQuery={setCurrentQuery}
         >
             {!blankPage && <ButtonElse onClickElse={handleClickElse} activeButtonElse={activeButtonElse} />}
         </Movies>

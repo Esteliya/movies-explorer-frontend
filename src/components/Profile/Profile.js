@@ -74,9 +74,9 @@ function Profile(props) {
     }, [nameIsValid, emailIsValid, name, email])
 
     // узнаем состояние ошибки - УДАЛИТЬ!!!
-    React.useEffect(() => {
+   /*  React.useEffect(() => {
         console.log("ошибка активна? ----", errorMessage)
-    }, [errorMessage, name, email])
+    }, [errorMessage, name, email]) */
 
     React.useEffect(() => {
         handleDisableButton()

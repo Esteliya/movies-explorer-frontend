@@ -7,8 +7,8 @@ import Message from './Message/Message';
 function Movies(props) {
     // * / пустая страница? / сообщение/ карточки / формат экрана/ обработчик кнопки карточки
     const { children, blankPage, messageText, cards, visibleCard, window, onClickCardButton, savedAllMovies,
-        // от формы поиска: запрос поиска/ строка поиска/ поиск по запросу/ чекбокс/ обработчик чекбокса 
-        submitQuery, onSubmitQuery, handleSearch, isChecked, onClickFilter } = props;
+        // от формы поиска: запрос поиска/ строка поиска/ поиск по запросу/ чекбокс/ обработчик чекбокса / валиность запроса
+        submitQuery, onSubmitQuery, handleSearch, isChecked, onClickFilter, isValid, showError, isTextError, setCurrentQuery } = props;
 
     return (
         <main className='movies'>
@@ -17,7 +17,11 @@ function Movies(props) {
                 onSubmitQuery={onSubmitQuery}
                 handleSearch={handleSearch}
                 isChecked={isChecked}
-                onClickFilter={onClickFilter} />
+                onClickFilter={onClickFilter} 
+                isValid={isValid}
+                showError={showError}
+                isTextError={isTextError}
+                setCurrentQuery={setCurrentQuery}/>
             {blankPage ?
                 <Message text={messageText} /> :
                 <MoviesCardList

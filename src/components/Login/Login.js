@@ -3,23 +3,12 @@ import "./Login.css"
 import "../../mixStile/formatForm.css";
 import Auth from "../Auth/Auth";
 import ItemForm from "../ItemForm/ItemForm";
+import { useValidationUserForm } from "../../utils/validation";
 
 function Login(props) {
     const { handleDataForm } = props;
 
-    // переменные состояния email и password
-    const [email, setEmail] = React.useState('');
-    const [emailErr, setEmailErr] = React.useState('');//ошибка
-    const [password, setPassword] = React.useState('');
-    const [passwordErr, setPasswordErr] = React.useState('');//ошибка
-
-    // ВАЛИДАЦИЯ
-    const [isValid, setIsValid] = React.useState(false);
-    // регулярки для валидации
-    const pattern = {
-        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-        password: /^[a-zA-Z0-9_-]{8,}$/,
-    };
+    const { email, setEmail, emailErr, setEmailErr, password, setPassword, passwordErr, setPasswordErr, isValid, setIsValid, handleChangeEmail, handleChangePassword } = useValidationUserForm();
 
     React.useEffect(() => {
         setEmailErr(emailErr);
@@ -33,42 +22,14 @@ function Login(props) {
         };
     }, [isValid, email, password, emailErr, passwordErr]);
 
-    // Обработчики изменения инпута
-    // имейл 
-    function handleChangeEmail(e) {
-        const email = e.target.value
-        if (pattern.email.test(email)) {
-            //console.log("valid email")
-            setEmail(email);
-            setEmailErr("");
-        } else {
-            setEmailErr('Поле "email" должно быть заполнено и иметь форму ***@***.**');
-        };
-    };
-
-    // пароль
-    function handleChangePassword(e) {
-        const password = e.target.value
-        if (pattern.password.test(password)) {
-            //console.log("valid password")
-            setPassword(password);
-            setPasswordErr("");
-        } else {
-            setPasswordErr("Пароль должен быть не менее 8 символов и содержать цифру, прописную и строчную буквы.");
-        };
-    };
-
     // обработчик формы
     function hendleSubmitForm(e) {
         e.preventDefault();
-        
-            // console.log("поля валидны")
-            const data = {};
-            data.email = email;
-            data.password = password;
-            handleDataForm(data);
-
-        
+        // console.log("поля валидны")
+        const data = {};
+        data.email = email;
+        data.password = password;
+        handleDataForm(data);
     };
 
     return (

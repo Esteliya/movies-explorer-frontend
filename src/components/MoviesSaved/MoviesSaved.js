@@ -2,6 +2,7 @@ import React from 'react';
 import './MoviesSaved.css';
 import Movies from "../Movies/Movies";
 import { filteredMovies } from '../../utils/handlers';
+import {useValidationSearchForm} from '../../utils/validation';
 
 function MoviesSaved(props) {
     const { handleDataForm, deleteMovies, window, arrMovies } = props;
@@ -18,14 +19,16 @@ function MoviesSaved(props) {
     // стейт сообщения на странице с фильмами: фильмы не найдены
     const [messageText, setMessageText] = React.useState('');
 
-     // валидация 
-     const [isValid, setIsValid] = React.useState(true);
-     // показать ошибку если данные невалидны
-     const [showError, setShowError] = React.useState(false);
-     // текст ошибки
-     const [isTextError, setIsTextError] = React.useState('Результат запрса уже на странице. Задайте новые параметры поиска.');// текст ошибки
-     // текущая строка поиска
-     const [currentQuery, setCurrentQuery] = React.useState("")
+    //  // валидация 
+    //  const [isValid, setIsValid] = React.useState(true);
+    //  // показать ошибку если данные невалидны
+    //  const [showError, setShowError] = React.useState(false);
+    //  // текст ошибки
+    //  const [isTextError, setIsTextError] = React.useState('Результат запрса уже на странице. Задайте новые параметры поиска.');// текст ошибки
+    //  // текущая строка поиска
+    //  const [currentQuery, setCurrentQuery] = React.useState("")
+    const {isValid, setIsValid, showError, setShowError, isTextError, setIsTextError, currentQuery, setCurrentQuery, handleQuery} = useValidationSearchForm();
+
 
     React.useEffect(() => {
         const arr = filteredMovies(query, arrMovies, isChecked);
@@ -65,7 +68,8 @@ function MoviesSaved(props) {
     // запрос поиска → обновляем 
     function updateQuery(newQuery) {
         // console.log(newQuery)
-        if (newQuery === "") {
+        handleQuery(newQuery, query);
+        /* if (newQuery === "") {
             console.log("Пустая строка")
             setIsValid(false)
             // setShowError(true)
@@ -79,7 +83,7 @@ function MoviesSaved(props) {
             // setShowError(true)
             setIsTextError("Результат запроса уже на странице")
             return
-        }
+        } */
         setQuery(newQuery);
     };
 

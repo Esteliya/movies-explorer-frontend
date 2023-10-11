@@ -3,6 +3,7 @@ import './MoviesBase.css';
 import Movies from "../Movies/Movies";
 import ButtonElse from "./ButtonElse/ButtonElse";
 import { filteredMovies } from '../../utils/handlers';
+import {useValidationSearchForm} from '../../utils/validation';
 
 function MoviesBase(props) {
     // формат экрана/ клик по кнопке карточки: сохранить-удалить/ запрос к апи за фильмами/...за сохраненными
@@ -34,14 +35,16 @@ function MoviesBase(props) {
     });
     // стейт активности кнопки ЕЩЕ 
     const [activeButtonElse, setActiveButtonElse] = React.useState(true);
-    // валидация 
-    const [isValid, setIsValid] = React.useState(true);
-    // показать ошибку если данные невалидны
-    const [showError, setShowError] = React.useState(false);
-    // текст ошибки
-    const [isTextError, setIsTextError] = React.useState('Результат запрса уже на странице. Задайте новые параметры поиска.');// текст ошибки
-    // текущая строка поиска
-    const [currentQuery, setCurrentQuery] = React.useState("")
+
+    const {isValid, setIsValid, showError, setShowError, isTextError, setIsTextError, currentQuery, setCurrentQuery, handleQuery} = useValidationSearchForm();
+    // // валидация 
+    // const [isValid, setIsValid] = React.useState(true);
+    // // показать ошибку если данные невалидны
+    // const [showError, setShowError] = React.useState(false);
+    // // текст ошибки
+    // const [isTextError, setIsTextError] = React.useState('Результат запрса уже на странице. Задайте новые параметры поиска.');// текст ошибки
+    // // текущая строка поиска
+    // const [currentQuery, setCurrentQuery] = React.useState("")
 
 
     // ЭФФЕКТЫ
@@ -98,7 +101,8 @@ function MoviesBase(props) {
         // console.log("query", query)
         // console.log("newQuery", newQuery)
         // строка пустая? 
-        if (newQuery === "") {
+        handleQuery(newQuery, query)
+        /* if (newQuery === "") {
             console.log("Пустая строка")
             setIsValid(false)
             // setShowError(true)
@@ -112,7 +116,7 @@ function MoviesBase(props) {
             // setShowError(true)
             setIsTextError("Результат запроса уже на странице")
             return
-        }
+        } */
         setQuery(newQuery);// стейт запроса → новая строка
         localStorage.setItem("query", newQuery);// сохраним в ЛС запрос 
         localStorage.setItem('checkedShort', isChecked);// состояние чекбокса

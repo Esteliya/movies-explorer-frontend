@@ -1,7 +1,7 @@
 import React from "react";
 import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
+// import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 function SearchForm(props) {
     const { onSubmitQuery, handleSearch, isChecked, onClickFilter, isValid, showError, isTextError, setCurrentQuery } = props;

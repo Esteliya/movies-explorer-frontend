@@ -285,7 +285,7 @@ function App() {
 
   // удаление фильма 
   function deleteMovies(card) {
-    setIsLoaging(true);
+    // setIsLoaging(true);
     // console.log(card);
     // поймаем id сохраненного на нашем api фильма
     const saveMovie = savedAllMovies.find((item) => item.movieId === card.id);
@@ -301,14 +301,14 @@ function App() {
         setResult(false);
         setTextInfoTooltip(err.message);
       })
-      .finally(() => {
+      /* .finally(() => {
         setIsLoaging(false);
-      });
+      }); */
   };
 
   // сохранение фильма 
   function saveMovies(card) {
-    setIsLoaging(true);
+    // setIsLoaging(true);
     const { country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, id } = card;
     mainApi.postUserMovies({ country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId: id })
       .then(likeCard => {
@@ -321,9 +321,9 @@ function App() {
         setResult(false);
         setTextInfoTooltip(err.message);
       })
-      .finally(() => {
+      /* .finally(() => {
         setIsLoaging(false);
-      });
+      }); */
   };
 
   // очищаем локальное хранилище

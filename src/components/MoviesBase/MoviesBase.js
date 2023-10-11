@@ -46,9 +46,6 @@ function MoviesBase(props) {
 
     // ЭФФЕКТЫ
     React.useEffect(() => {
-        //console.log("Избранные фильмы ------ ", savedAllMovies)//после поиска ???
-        // console.log(!isValid)
-
         setShowError(!isValid)
         handleSearch(query);
     }, [isChecked, query, isValid, showError]);
@@ -97,16 +94,9 @@ function MoviesBase(props) {
 
     // запрос поиска → обновляем
     function updateQuery(newQuery) {
-        // ранее заблокировали отправку? Дать доступ
-        console.log("валидный запрос ранее?", isValid)
-        console.log("query", query)
-        console.log("newQuery", newQuery)
-        // если прежний запрос и новый не равны
-        /* if (currentQuery !== newQuery) {
-            console.log("тогда мы тут")
-            setIsValid(true);
-            setShowError(false)
-        } */
+        // console.log("валидный запрос ранее?", isValid)
+        // console.log("query", query)
+        // console.log("newQuery", newQuery)
         // строка пустая? 
         if (newQuery === "") {
             console.log("Пустая строка")
@@ -141,6 +131,7 @@ function MoviesBase(props) {
         compareLengthArr();
     };
 
+    // обработка запроса
     const handleSearch = async (query) => {
         if (isLocalStorageMovies === null) {
             const arr = await getMovies();// ждем массив с апи

@@ -18,6 +18,15 @@ function MoviesSaved(props) {
     // стейт сообщения на странице с фильмами: фильмы не найдены
     const [messageText, setMessageText] = React.useState('');
 
+     // валидация 
+     const [isValid, setIsValid] = React.useState(true);
+     // показать ошибку если данные невалидны
+     const [showError, setShowError] = React.useState(false);
+     // текст ошибки
+     const [isTextError, setIsTextError] = React.useState('Результат запрса уже на странице. Задайте новые параметры поиска.');// текст ошибки
+     // текущая строка поиска
+     const [currentQuery, setCurrentQuery] = React.useState("")
+
     React.useEffect(() => {
         const arr = filteredMovies(query, arrMovies, isChecked);
         // console.log("ЧТО В МАССИВЕ? ------ ", arr)//+
@@ -40,9 +49,37 @@ function MoviesSaved(props) {
         //console.log("ФИЛЬТРУЕМ ФИЛЬМЫ ---- ", isRenderCard)// нужный массив есть
     };
 
-    // запрос поиска → обновляем - НАДО ЛИ???
+    React.useEffect(() => {
+        if (currentQuery !== query) {
+            console.log("мы тут -------!!! Валидно!!!")
+            setIsValid(true);
+            // setShowError(false)
+        }
+    }, [currentQuery, query])
+
+    React.useEffect(() => {
+        setShowError(!isValid)
+        handleSearchSavedMovies(query);
+    }, [isChecked, query, isValid, showError]);
+
+    // запрос поиска → обновляем 
     function updateQuery(newQuery) {
         // console.log(newQuery)
+        if (newQuery === "") {
+            console.log("Пустая строка")
+            setIsValid(false)
+            // setShowError(true)
+            setIsTextError("Введите текст запроса")
+            return
+        }
+        // посвторный запрос 
+        if (newQuery === query) {
+            console.log("Повторный запрос")
+            setIsValid(false)
+            // setShowError(true)
+            setIsTextError("Результат запроса уже на странице")
+            return
+        }
         setQuery(newQuery);
     };
 
@@ -78,7 +115,11 @@ function MoviesSaved(props) {
             messageText={messageText}
             handleDataForm={handleDataForm}
             onClickCardButton={handlenClickCardButton}
-            window={window} />
+            window={window}
+            isValid={isValid}
+            showError={showError}
+            isTextError={isTextError}
+            setCurrentQuery={setCurrentQuery} />
     )
 };
 

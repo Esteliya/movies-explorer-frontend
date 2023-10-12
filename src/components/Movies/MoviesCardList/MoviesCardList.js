@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './MoviesCardList.css';
 import MovieCard from '../MovieCard/MovieCard';
+import { getSavedMovie } from "../../../utils/handlers";
 
 function MoviesCardList(props) {
     const { cards, visibleCard, window, onClickCardButton, savedAllMovies } = props;
@@ -21,13 +22,6 @@ function MoviesCardList(props) {
             (window <= 712 ? cards.slice(0, visibleCard.mobile) :
                 cards.slice(0, visibleCard.tablet)) :
             cards.slice(0, visibleCard.desktop);
-    };
-
-    // получим сохраненный фильм - вынести??? 
-    function getSavedMovie(arr, id) {
-        return arr.find((movie) => {
-            return movie.movieId === id;
-        });
     };
 
     return (

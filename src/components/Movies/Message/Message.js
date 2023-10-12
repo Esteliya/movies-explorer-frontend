@@ -6,7 +6,7 @@ function Message(props) {
         <section className="message">
             <p className="message__text">{text}</p>
         </section>
-    )
+    );
 };
 
 export default Message;

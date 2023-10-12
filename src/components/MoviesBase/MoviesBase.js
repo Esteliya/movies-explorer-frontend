@@ -37,15 +37,6 @@ function MoviesBase(props) {
     const [activeButtonElse, setActiveButtonElse] = React.useState(true);
 
     const {isValid, setIsValid, showError, setShowError, isTextError, setIsTextError, currentQuery, setCurrentQuery, handleQuery} = useValidationSearchForm();
-    // // валидация 
-    // const [isValid, setIsValid] = React.useState(true);
-    // // показать ошибку если данные невалидны
-    // const [showError, setShowError] = React.useState(false);
-    // // текст ошибки
-    // const [isTextError, setIsTextError] = React.useState('Результат запрса уже на странице. Задайте новые параметры поиска.');// текст ошибки
-    // // текущая строка поиска
-    // const [currentQuery, setCurrentQuery] = React.useState("")
-
 
     // ЭФФЕКТЫ
     React.useEffect(() => {
@@ -55,9 +46,7 @@ function MoviesBase(props) {
 
     React.useEffect(() => {
         if (currentQuery !== query) {
-            console.log("мы тут -------!!! Валидно!!!")
             setIsValid(true);
-            // setShowError(false)
         }
     }, [currentQuery, query])
 

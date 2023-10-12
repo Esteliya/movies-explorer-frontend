@@ -1,39 +1,48 @@
 import './App.css';
 import React from 'react';
-import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom'; // импортируем Routes
-// РОУТЫ
-import Main from '../Main/Main';// о проекте
-// import Movies from '../Movies/Movies';// шаблонная страница для фильмов
-import MoviesBase from '../MoviesBase/MoviesBase';// страница с фильмами из api
-import MoviesSaved from '../MoviesSaved/MoviesSaved';// сохраненные фильмы
+// импортируем Routes
+import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom';
+// обработчики 
+import { transformArrMovies } from "../../utils/handlers"
+// константы (текст)
+import { REG_SUCCESFUL, UPPDATA_SUCCESFUL, NOT_VALID } from "../../utils/constants";
+// API
+import { apiWithMovies } from '../../utils/MoviesApi';
+import mainApi from '../../utils/MainApi';
+import * as auth from '../../utils/Auth';
 // контекст
 import CurrentUserContext from "../../context/CurrentUserContext";
 // защита 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-// создать базовый для всех компонент ↓ ↓ ↓
-// import Auth from '../Auth/Auth';// базовый компонент для следующих 2 ↓ ↓ ↓
-import Register from '../Register/Register';// страница регистрации
-import Login from '../Login/Login';// страница авторизации
 
-import Profile from '../Profile/Profile';// страница редактирования профиля
-// общие для всех компоненты
-import Header from '../Header/Header';// меню
-import Footer from '../Footer/Footer';// подвал
+// РОУТЫ
+// о проекте
+import Main from '../Main/Main';
+// страница с фильмами из api
+import MoviesBase from '../MoviesBase/MoviesBase';
+// сохраненные фильмы
+import MoviesSaved from '../MoviesSaved/MoviesSaved';
+// страница регистрации
+import Register from '../Register/Register';
+// страница авторизации
+import Login from '../Login/Login';
+// страница редактирования профиля
+import Profile from '../Profile/Profile';
+// страницы не существует
+import NotFound from '../NotFound/NotFound';
 
-import NotFound from '../NotFound/NotFound';// страницы не существует
-
+// ОБЩИЕ КОМПОНЕНТЫ
+// меню
+import Header from '../Header/Header';
+// подвал
+import Footer from '../Footer/Footer';
+// попап меню (бургер-меню)
 import PopupMenu from "../PopupMenu/PopupMenu";
+// информационный попап
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
-
+// прелоадер - загрузка 
 import Preloader from "../Preloader/Preloader";
-
-// API
-import { apiWithMovies } from '../../utils/MoviesApi';
-import mainApi from '../../utils/MainApi';
-import * as auth from '../../utils/Auth';
-import { BASE_MOVIES_URL } from '../../utils/config'// путь к картинкам фильмов
-
 
 function App() {
   const navigate = useNavigate();
@@ -97,7 +106,7 @@ function App() {
       .then((data) => {
         setShowInfoToolTip(true);
         setResult(true);
-        setTextInfoTooltip("Регистрация прошла успешно");
+        setTextInfoTooltip(REG_SUCCESFUL);
         // перебрасываем пользователя на авторизацию
         navigate('/signin', {
           replace: true
@@ -107,7 +116,7 @@ function App() {
         if (err.message === "Validation failed") {
           setShowInfoToolTip(true);
           setResult(false);
-          setTextInfoTooltip("Данные формы невалидны. Проверьте корректность заполнения полей.");// текст
+          setTextInfoTooltip(NOT_VALID);// текст
         } else {
           setShowInfoToolTip(true);
           setResult(false);
@@ -129,13 +138,13 @@ function App() {
       .then((dataUser) => {
         setLoggedIn(true);
         setCurrentUser(dataUser);
+        getSavedMovies();
         navigate('/movies', {
           replace: true
         });
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
-        // console.log(err.message);
         setTextInfoTooltip(err.message);// текст ошибки
         setShowInfoToolTip(true);
         setResult(false);
@@ -150,11 +159,10 @@ function App() {
     setIsLoaging(true);
     auth.checkToken()
       .then((dataUser) => {
-        setLoggedIn(true);
         setCurrentUser(dataUser);
+        setLoggedIn(true);
         getSavedMovies();// запросим актуальный массив фильмов
         const path = location.pathname;
-        // console.log(path);
         switch (path) {//навигируем авторизацию и регистрацию на фильмы, если пользователь туда заходит напрямую
           case "/signin":
             navigate('/movies');
@@ -177,13 +185,12 @@ function App() {
   // обновляем данные пользователя
   function handleUpdataUser(data) {
     setIsLoaging(true);
-    // console.log(data);
     // debugger
     mainApi.patchUserInfo(data)
       .then((data) => {
         setShowInfoToolTip(true);
         setResult(true);
-        setTextInfoTooltip("Данные пользователя обновлены");// текст
+        setTextInfoTooltip(UPPDATA_SUCCESFUL);// текст
         setCurrentUser(data);
       })
       .catch((err) => {
@@ -201,10 +208,8 @@ function App() {
   function handleExitProfile() {
     setIsLoaging(true);
     // debugger
-    // console.log("выходим из акка?");
     auth.logout()
       .then(() => {
-        // console.log("разлогинились");
         cleanLocalStorage();
         // разлогинились - переход на страницу авторизации
         navigate('/', {
@@ -243,26 +248,6 @@ function App() {
       });
   };
 
-  // трансформируем массив с апи в нужный формат
-  function transformArrMovies(arr) {
-    return arr.map((movie) => {
-      const { country, director, duration, year, description, trailerLink, nameRU, nameEN } = movie;
-      return {
-        country,
-        director,
-        duration,
-        year,
-        description,
-        image: `${BASE_MOVIES_URL}${movie.image.url}`,
-        trailerLink,
-        thumbnail: `${BASE_MOVIES_URL}${movie.image.formats.thumbnail.url}`,
-        id: movie.id,
-        nameRU,
-        nameEN,
-      };
-    });
-  };
-
   // запрос сохраненных фильмов
   function getSavedMovies() {
     setIsLoaging(true);
@@ -285,8 +270,6 @@ function App() {
 
   // удаление фильма 
   function deleteMovies(card) {
-    // setIsLoaging(true);
-    // console.log(card);
     // поймаем id сохраненного на нашем api фильма
     const saveMovie = savedAllMovies.find((item) => item.movieId === card.id);
     return mainApi.deleteCard(card._id || saveMovie._id)
@@ -301,9 +284,9 @@ function App() {
         setResult(false);
         setTextInfoTooltip(err.message);
       })
-      /* .finally(() => {
-        setIsLoaging(false);
-      }); */
+    /* .finally(() => {
+      setIsLoaging(false);
+    }); */
   };
 
   // сохранение фильма 
@@ -321,9 +304,9 @@ function App() {
         setResult(false);
         setTextInfoTooltip(err.message);
       })
-      /* .finally(() => {
-        setIsLoaging(false);
-      }); */
+    /* .finally(() => {
+      setIsLoaging(false);
+    }); */
   };
 
   // очищаем локальное хранилище
@@ -386,7 +369,11 @@ function App() {
         {isLoaging ?
           <Preloader /> :
           <>
-            <Header openButton={handleOpenMenu} onClickAccount={handleClickAccount} window={withWindow} loggedIn={loggedIn} />
+            <Header
+              openButton={handleOpenMenu}
+              onClickAccount={handleClickAccount}
+              window={withWindow}
+              loggedIn={loggedIn} />
             <Routes>
               <Route path="/movies" element={!loggedIn ? <Navigate to='/signin' /> :
                 <ProtectedRoute
@@ -418,8 +405,14 @@ function App() {
 
               <Route path="/" element={<Main />} />
 
-              <Route path="/signup" element={!loggedIn ? <Register handleDataForm={handleRegister} /> : <Navigate to='/movies' />} />
-              <Route path="/signin" element={!loggedIn ? <Login handleDataForm={hendleLogin} /> : <Navigate to='/movies' />} />
+              <Route path="/signup" element={
+                !loggedIn ?
+                  <Register handleDataForm={handleRegister} /> :
+                  <Navigate to='/movies' />} />
+              <Route path="/signin" element={
+                !loggedIn ?
+                  <Login handleDataForm={hendleLogin} /> :
+                  <Navigate to='/movies' />} />
 
               <Route path='*' element={<NotFound />} replace />
             </Routes>

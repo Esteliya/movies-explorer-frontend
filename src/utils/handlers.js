@@ -1,5 +1,4 @@
-// Обработчкики типичных событий для станиц с фильмами
-// сложим все обработчики сюда ???? 
+import { BASE_MOVIES_URL } from '../utils/config';
 
 // функция фильтрации фильмов по запросу и состоянию чекбокса (запрос/массив/чекбокс)
 function filteredMovies(req, movies, checkbox) {
@@ -27,8 +26,46 @@ function filteredMovies(req, movies, checkbox) {
     }
 }
 
+// функция трансформации массива фильмов
+function transformArrMovies(arr) {
+    return arr.map((movie) => {
+      const { country, director, duration, year, description, trailerLink, nameRU, nameEN } = movie;
+      return {
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image: `${BASE_MOVIES_URL}${movie.image.url}`,
+        trailerLink,
+        thumbnail: `${BASE_MOVIES_URL}${movie.image.formats.thumbnail.url}`,
+        id: movie.id,
+        nameRU,
+        nameEN,
+      };
+    });
+  };
 
+// функция конвертирования времени
+const convertsTime = (num) => {
+    let hours = Math.floor(num / 60);
+    let mins = num % 60;
+    if (mins < 10) {
+        mins = "0" + mins;
+    }
+    return `${hours}ч ${mins}м`;
+};
+
+// функция получения сохраненного фильма
+function getSavedMovie(arr, id) {
+    return arr.find((movie) => {
+        return movie.movieId === id;
+    });
+};
 
 export {
     filteredMovies,
+    transformArrMovies,
+    convertsTime,
+    getSavedMovie,
 };

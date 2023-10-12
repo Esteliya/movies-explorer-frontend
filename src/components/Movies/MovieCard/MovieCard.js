@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './MovieCard.css';
+import { convertsTime } from "../../../utils/handlers";
 
 function MovieCard(props) {
     const { cardTitle, cardTime, movie, onClickCardButton, window, isLike } = props;
@@ -15,13 +16,11 @@ function MovieCard(props) {
     const classLikeButton = isLike ? "movie-card__button movie-card__button_like-active hover-effect" : "movie-card__button movie-card__button_like hover-effect";
 
     React.useEffect(() => {
-        //console.log(window, mobile)
         if (mobile) {
             setShowDeleteButton(true);
         } else {
             setShowDeleteButton(false);
         };
-
     }, [window]);
 
     function handleMouseEnter() {
@@ -30,16 +29,6 @@ function MovieCard(props) {
 
     function handleMouseLeave() {
         setShowDeleteButton(false);
-    };
-
-    // высчитываем часы и минуты - вынести???
-    const hoursMins = (num) => {
-        let hours = Math.floor(num / 60);
-        let mins = num % 60;
-        if (mins < 10) {
-            mins = "0" + mins;
-        }
-        return `${hours}ч ${mins}м`;
     };
 
     return (
@@ -54,7 +43,7 @@ function MovieCard(props) {
 
                 <div className='movie-card__data'>
                     <h2 className='movie-card__title'>{cardTitle}.</h2>
-                    <p className='movie-card__time'>{hoursMins(cardTime)}</p>
+                    <p className='movie-card__time'>{convertsTime(cardTime)}</p>
                 </div>
                 {savedMovies &&
                     showDeleteButton &&
@@ -68,8 +57,7 @@ function MovieCard(props) {
                         onClick={() => { onClickCardButton(movie) }} />}
             </div>
         </div>
-
-    )
+    );
 };
 
 export default MovieCard;

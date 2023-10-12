@@ -434,7 +434,7 @@ function App() {
           text={textInfoTooltip} />
       </div>
     </CurrentUserContext.Provider>
-  );
+  )
 };
 
 export default App;

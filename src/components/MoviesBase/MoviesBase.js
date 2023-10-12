@@ -3,7 +3,8 @@ import './MoviesBase.css';
 import Movies from "../Movies/Movies";
 import ButtonElse from "./ButtonElse/ButtonElse";
 import { filteredMovies } from '../../utils/handlers';
-import {useValidationSearchForm} from '../../utils/validation';
+import { useValidationSearchForm } from '../../utils/validation';
+import { START_SEARCH, NOT_MOVIES } from "../../utils/constants";
 
 function MoviesBase(props) {
     // формат экрана/ клик по кнопке карточки: сохранить-удалить/ запрос к апи за фильмами/...за сохраненными
@@ -21,7 +22,7 @@ function MoviesBase(props) {
     // стейт состояния страницы: пустая или нет? 
     const [blankPage, setBlankPage] = React.useState(true);
     // стейт сообщения на странице с фильмами: сообщения об ошибках/не найденных фильмах/просьба о поиске...
-    const [messageText, setMessageText] = React.useState('Запустите поиск интересующих Вас фильмов');
+    const [messageText, setMessageText] = React.useState(START_SEARCH);
     // количество карточек по умолчанию → передадим в стейт ↓ ↓ ↓
     const defaultVisibleCard = {
         desktop: 12,
@@ -36,7 +37,7 @@ function MoviesBase(props) {
     // стейт активности кнопки ЕЩЕ 
     const [activeButtonElse, setActiveButtonElse] = React.useState(true);
 
-    const {isValid, setIsValid, showError, setShowError, isTextError, setIsTextError, currentQuery, setCurrentQuery, handleQuery} = useValidationSearchForm();
+    const { isValid, setIsValid, showError, setShowError, isTextError, setIsTextError, currentQuery, setCurrentQuery, handleQuery } = useValidationSearchForm();
 
     // ЭФФЕКТЫ
     React.useEffect(() => {
@@ -76,7 +77,7 @@ function MoviesBase(props) {
         } else {
             if (arr.length === 0) {
                 setBlankPage(true);
-                setMessageText('Фильмы по запросу не найдены');
+                setMessageText(NOT_MOVIES);
             } else {
                 setBlankPage(false);// страница не пустая
                 // console.log("ФИЛЬМЫ НАЙДЕНЫ");
@@ -86,26 +87,7 @@ function MoviesBase(props) {
 
     // запрос поиска → обновляем
     function updateQuery(newQuery) {
-        // console.log("валидный запрос ранее?", isValid)
-        // console.log("query", query)
-        // console.log("newQuery", newQuery)
-        // строка пустая? 
         handleQuery(newQuery, query)
-        /* if (newQuery === "") {
-            console.log("Пустая строка")
-            setIsValid(false)
-            // setShowError(true)
-            setIsTextError("Введите текст запроса")
-            return
-        }
-        // посвторный запрос 
-        if (newQuery === query) {
-            console.log("Повторный запрос")
-            setIsValid(false)
-            // setShowError(true)
-            setIsTextError("Результат запроса уже на странице")
-            return
-        } */
         setQuery(newQuery);// стейт запроса → новая строка
         localStorage.setItem("query", newQuery);// сохраним в ЛС запрос 
         localStorage.setItem('checkedShort', isChecked);// состояние чекбокса

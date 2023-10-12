@@ -5,8 +5,8 @@ import "../../../mixStile/hoverEffect.css";
 /* лого */
 import Logo from "../../Logo/Logo";
 /* кнопки */
-import ButtonWithText from "../ButtonWithText/ButtonWithText"
-import ButtonWithIcon from "../ButtonWithIcon/ButtonWithIcon"
+import ButtonWithText from "../ButtonWithText/ButtonWithText";
+import ButtonWithIcon from "../ButtonWithIcon/ButtonWithIcon";
 import ButtonMenu from "../ButtonMenu/ButtonMenu";
 /* иконка для кнопки */
 import AccountIcon from "../../../images/button_icon_account.svg";

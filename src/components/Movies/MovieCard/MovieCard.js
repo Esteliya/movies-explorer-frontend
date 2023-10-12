@@ -57,7 +57,7 @@ function MovieCard(props) {
                         onClick={() => { onClickCardButton(movie) }} />}
             </div>
         </div>
-    );
+    )
 };
 
 export default MovieCard;

@@ -1,8 +1,16 @@
 import React from 'react';
+import CurrentUserContext from "../context/CurrentUserContext";
+
+const pattern = {
+    // name: /^[\p{L}\s-]{2,30}/ui,
+    name: /^[a-zA-Zа-яА-Я0-9\s\-_]{2,30}$/,
+    email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    password: /^[a-zA-Z0-9_-]{8,}$/,
+};
 
 // роуты с фильмами 
 // фалидация строки поиска + выдача сообщения 
-function useValidationSearchForm () {
+function useValidationSearchForm() {
     const [isValid, setIsValid] = React.useState(true);
     // показать ошибку если данные невалидны
     const [showError, setShowError] = React.useState(false);
@@ -11,7 +19,7 @@ function useValidationSearchForm () {
     // текущая строка поиска
     const [currentQuery, setCurrentQuery] = React.useState("");
 
-    function handleQuery (query, stateQuery) {
+    function handleQuery(query, stateQuery) {
         if (query === "") {
             // console.log("Пустая строка");
             setIsValid(false);
@@ -27,11 +35,11 @@ function useValidationSearchForm () {
         };
     };
 
-    return {isValid, setIsValid, showError, setShowError, isTextError, setIsTextError, currentQuery, setCurrentQuery, handleQuery};
+    return { isValid, setIsValid, showError, setShowError, isTextError, setIsTextError, currentQuery, setCurrentQuery, handleQuery };
 };
 
 // валидация формы регистрации/ авторизации 
-function useValidationUserForm () {
+function useValidationUserForm() {
     // переменные состояния email и password
     const [name, setName] = React.useState('');
     const [nameErr, setNameErr] = React.useState('');// ошибка 
@@ -42,12 +50,6 @@ function useValidationUserForm () {
     // валидация 
     const [isValid, setIsValid] = React.useState(true);
     // регулярки для валидации
-    const pattern = {
-        // name: /^[\p{L}\s-]{2,30}/ui,
-        name: /^[a-zA-Zа-яА-Я0-9\s\-_]{2,30}$/,
-        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-        password: /^[a-zA-Z0-9_-]{8,}$/,
-    };
 
     function handleChangeName(e) {
         const name = e.target.value;
@@ -86,14 +88,64 @@ function useValidationUserForm () {
         // console.log(password);
     };
 
-    return {name, setName, nameErr, setNameErr, email, setEmail, emailErr, setEmailErr, password, setPassword, passwordErr, setPasswordErr, isValid, setIsValid, pattern, handleChangeName, handleChangeEmail, handleChangePassword};
+    return { name, setName, nameErr, setNameErr, email, setEmail, emailErr, setEmailErr, password, setPassword, passwordErr, setPasswordErr, isValid, setIsValid, handleChangeName, handleChangeEmail, handleChangePassword };
 }
 
 // валидация редактирования данных пользователя 
+function useValidationProfile() {
+    // контекст - ловим данные пользователя
+    const currentUser = React.useContext(CurrentUserContext);
+    // стейты для каждого инпута
+    const [name, setName] = React.useState(currentUser.name);
+    const [email, setEmail] = React.useState(currentUser.email);
+    // инпуты → изначально невалидны
+    const [nameIsValid, setNameIsValid] = React.useState(false);
+    const [emailIsValid, setEmailIsValid] = React.useState(false);
+    // ошибка есть? 
+    const [errorMessage, setErrorMessage] = React.useState(false);
+    // текст ошибки
+    const [errorText, setErrorText] = React.useState('текст ошибки');
+    // ОБРАБОЧИКИ ИНПУТОВ
+    // имя
+    function handleInputName(e) {
+        const nameValue = e.target.value;
+        setName(nameValue);
+        // console.log(name);
+    };
+    // e-mail
+    function handleInputEmail(e) {
+        const emailValue = e.target.value;
+        setEmail(emailValue);
+        console.log(email);
+    };
 
+    function displayMessage () {
+        if (nameIsValid && emailIsValid) {
+            // console.log("ПОЛЯ ВАЛИДНЫ")
+            setErrorMessage(false)
+        } else {
+            // console.log("ПОЛЯ НЕВАЛИДНЫ")
+            setErrorMessage(true)
+            !nameIsValid && setErrorText("Поле 'имя' должно быть не менее 2 символов и может содержать только русские, латинские буквы, цифры, тире и нижнее подчеркивание.")
+            !emailIsValid && setErrorText("Поле 'email' должно быть заполнено и иметь форму ***@***.**.")
+        }
+    }
+
+    function validInput (editProfile) {
+        if (editProfile) {
+            setNameIsValid(pattern.name.test(name));
+            setEmailIsValid(pattern.email.test(email));
+            // console.log("имя валидно?????", nameIsValid)
+            // console.log("имейл валиден?????", emailIsValid)
+        }
+    }
+
+    return {currentUser, name, setName, email, setEmail, nameIsValid, setNameIsValid, emailIsValid, setEmailIsValid, errorMessage, setErrorMessage, errorText, setErrorText, handleInputName, handleInputEmail, displayMessage, validInput};
+}
 
 // ЭКСПОРТ
 export {
     useValidationSearchForm,
     useValidationUserForm,
+    useValidationProfile,
 };

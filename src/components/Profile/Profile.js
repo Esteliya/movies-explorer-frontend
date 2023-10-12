@@ -2,17 +2,19 @@ import React from "react";
 import "./Profile.css";
 import ItemFormProfile from "./ItemFormProfile/ItemFormProfile";
 import ButtonSave from "./ButtonSave/ButtonSave";
-
 import CurrentUserContext from "../../context/CurrentUserContext";
+import { useValidationProfile } from "../../utils/validation";
+
 
 function Profile(props) {
     const { onClickExit, handleDataForm } = props;
 
+    const {currentUser, name, setName, email, setEmail, nameIsValid, setNameIsValid, emailIsValid, setEmailIsValid, errorMessage, setErrorMessage, errorText, setErrorText, handleInputName, handleInputEmail, displayMessage, validInput} = useValidationProfile();
     // контекст - ловим данные пользователя
-    const currentUser = React.useContext(CurrentUserContext);
-    // стейты для каждого инпута
-    const [name, setName] = React.useState(currentUser.name);
-    const [email, setEmail] = React.useState(currentUser.email);
+    // const currentUser = React.useContext(CurrentUserContext);
+    // // стейты для каждого инпута
+    // const [name, setName] = React.useState(currentUser.name);
+    // const [email, setEmail] = React.useState(currentUser.email);
 
     // редактировать прфил? 
     const [editProfile, setEditProfile] = React.useState(false);
@@ -20,23 +22,23 @@ function Profile(props) {
     const [disabledInput, setDisabledInput] = React.useState(true);
 
     // ВАЛИДАЦИЯ
-    // инпуты → изначально невалидны
-    const [nameIsValid, setNameIsValid] = React.useState(false);
-    const [emailIsValid, setEmailIsValid] = React.useState(false);
-    // состояние кнопки
+    // // инпуты → изначально невалидны
+    // const [nameIsValid, setNameIsValid] = React.useState(false);
+    // const [emailIsValid, setEmailIsValid] = React.useState(false);
+    // // состояние кнопки
     const [disabledButton, setDisabledButton] = React.useState(true);
 
     // РЕГУЛЯРКИ - ВЫНЕСТИ!!! 
     // имя
-    const namePattern = /^[a-zA-Zа-яА-Я0-9\s\-_]{2,30}$/;
-    // e-mail
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // const namePattern = /^[a-zA-Zа-яА-Я0-9\s\-_]{2,30}$/;
+    // // e-mail
+    // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // ОШИБКА
-    // есть? 
-    const [errorMessage, setErrorMessage] = React.useState(false);//ошибка
-    // текст
-    const [errorText, setErrorText] = React.useState('текст ошибки');//текст ошибки
+    // // ОШИБКА
+    // // есть? 
+    // const [errorMessage, setErrorMessage] = React.useState(false);//ошибка
+    // // текст
+    // const [errorText, setErrorText] = React.useState('текст ошибки');//текст ошибки
 
     /*     React.useEffect(() => {
             if(currentUser){
@@ -49,12 +51,13 @@ function Profile(props) {
         // проверяем актуальность валидации при заполнении поля
         // console.log("имя ----------", name)
         // console.log("имейл -----------", email)
-        if (editProfile) {
+        validInput(editProfile)
+       /*  if (editProfile) {
             setNameIsValid(namePattern.test(name));
             setEmailIsValid(emailPattern.test(email));
             // console.log("имя валидно?????", nameIsValid)
             // console.log("имейл валиден?????", emailIsValid)
-        }
+        } */
         // console.log(name, "имя валидно?  ----------", nameIsValid)
         // console.log(email, "имейл валиден? -----------", emailIsValid)
         // console.log("состояние ошибки", errorMessage)
@@ -62,6 +65,10 @@ function Profile(props) {
     }, [editProfile, name, email]);
 
     React.useEffect(() => {
+        displayMessage();
+    }, [nameIsValid, emailIsValid, name, email])
+
+    /* function displayMessage () {
         if (nameIsValid && emailIsValid) {
             // console.log("ПОЛЯ ВАЛИДНЫ")
             setErrorMessage(false)
@@ -71,7 +78,7 @@ function Profile(props) {
             !nameIsValid && setErrorText("Поле 'имя' должно быть не менее 2 символов и может содержать только русские, латинские буквы, цифры, тире и нижнее подчеркивание.")
             !emailIsValid && setErrorText("Поле 'email' должно быть заполнено и иметь форму ***@***.**.")
         }
-    }, [nameIsValid, emailIsValid, name, email])
+    } */
 
     // узнаем состояние ошибки - УДАЛИТЬ!!!
    /*  React.useEffect(() => {
@@ -84,7 +91,7 @@ function Profile(props) {
 
     // ОБРАБОТЧИКИ ИНПУТОВ
     // имя
-    function handleInputName(e) {
+    /* function handleInputName(e) {
         const nameValue = e.target.value;
         setName(nameValue);
         // console.log(name);
@@ -94,7 +101,7 @@ function Profile(props) {
         const emailValue = e.target.value;
         setEmail(emailValue);
         console.log(email);
-    };
+    }; */
 
     // ОБРАБОТЧИК КНОПКИ 
     function handleDisableButton() {

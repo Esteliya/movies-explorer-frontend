@@ -1,4 +1,5 @@
 // URL-адреса
+// БАЗА ФИЛЬМОВ
 // данные фильмов
 const MOVIES_URL = {
     url: 'https://api.nomoreparties.co/beatfilm-movies',
@@ -9,13 +10,13 @@ const MOVIES_URL = {
   // точечные данные с api: изображения
   const BASE_MOVIES_URL = 'https://api.nomoreparties.co';
 
-  // мой апи 
-  const BASE_API_URL = 'http://localhost:3001'
+  // МОЙ АПИ 
+  // const BASE_API_URL = 'http://localhost:3001';
+  const BASE_API_URL = 'https://api.mymovies.nomoreparties.co';
   const API_URL = {
-    // url: 'https://api.mymovies.nomoreparties.co',
-    url: 'http://localhost:3001',
+    url: 'https://api.mymovies.nomoreparties.co',
+    // url: 'http://localhost:3001',
     headers: {
-      //'Accept': 'application/json',//???
       'Content-Type': 'application/json'
     },
   };

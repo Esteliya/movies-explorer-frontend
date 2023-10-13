@@ -102,15 +102,15 @@ function App() {
   function handleRegister(data) {
     setIsLoaging(true);
     const { name, email, password } = data;
+    // данные для авторизации → передадим при успешной регистрации
+    const dataUser = {email, password};
     auth.register(name, email, password)
-      .then((data) => {
+      .then(() => {
         setShowInfoToolTip(true);
         setResult(true);
         setTextInfoTooltip(REG_SUCCESFUL);
-        // перебрасываем пользователя на авторизацию
-        navigate('/signin', {
-          replace: true
-        });
+        // console.log(dataUser);
+        hendleLogin(dataUser);
       })
       .catch((err) => {
         if (err.message === "Validation failed") {

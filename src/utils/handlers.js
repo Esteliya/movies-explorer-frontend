@@ -1,4 +1,5 @@
 import { BASE_MOVIES_URL } from '../utils/config';
+import { LENGTH_SHORT_MOVIE } from "../utils/constants";
 
 // функция фильтрации фильмов по запросу и состоянию чекбокса (запрос/массив/чекбокс)
 function filteredMovies(req, movies, checkbox) {
@@ -8,7 +9,7 @@ function filteredMovies(req, movies, checkbox) {
     }
     if (checkbox === "on") {
         // console.log("ON -----")
-        const shorts = movies.filter((item) => item.duration < 40);
+        const shorts = movies.filter((item) => item.duration < LENGTH_SHORT_MOVIE);
         const filtered = shorts.filter(item => {
             let result = item.nameRU.toLowerCase().includes(req.toLowerCase()) || item.nameEN.toLowerCase().includes(req.toLowerCase());
             return result;

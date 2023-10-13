@@ -13,6 +13,18 @@ const REG_SUCCESFUL = "Регистрация прошла успешно";
 const UPPDATA_SUCCESFUL = "Данные пользователя обновлены";
 const NOT_VALID = "Данные формы невалидны. Проверьте корректность заполнения полей";
 
+// числовые данные 
+// количество отображаемых карточек по дефолту
+const DESKTOP_DEFAULT_CARD = 12;
+const TABLET_DEFAULT_CARD = 8;
+const MOBILE_DEFAULT_CARD = 5;
+// количество добавляемых карточек по клику на кнопку ЕЩЕ
+const DESKTOP_ELSE_CARD = 3;
+const TABLET_ELSE_CARD = 2;
+const MOBILE_ELSE_CARD = 2;
+// длина короткометражки 
+const LENGTH_SHORT_MOVIE = 40;
+
 // ЭКСПОРТ
 export {
     SEND_TEXT,
@@ -25,4 +37,11 @@ export {
     REG_SUCCESFUL,
     UPPDATA_SUCCESFUL,
     NOT_VALID,
+    DESKTOP_DEFAULT_CARD,
+    TABLET_DEFAULT_CARD,
+    MOBILE_DEFAULT_CARD,
+    DESKTOP_ELSE_CARD,
+    TABLET_ELSE_CARD,
+    MOBILE_ELSE_CARD,
+    LENGTH_SHORT_MOVIE,
 };

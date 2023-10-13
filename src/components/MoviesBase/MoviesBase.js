@@ -4,7 +4,7 @@ import Movies from "../Movies/Movies";
 import ButtonElse from "./ButtonElse/ButtonElse";
 import { filteredMovies, getSavedMovie } from '../../utils/handlers';
 import { useValidationSearchForm } from '../../utils/validation';
-import { START_SEARCH, NOT_MOVIES } from "../../utils/constants";
+import { START_SEARCH, NOT_MOVIES, DESKTOP_DEFAULT_CARD, TABLET_DEFAULT_CARD, MOBILE_DEFAULT_CARD, DESKTOP_ELSE_CARD, TABLET_ELSE_CARD, MOBILE_ELSE_CARD, } from "../../utils/constants";
 
 function MoviesBase(props) {
     // формат экрана/ клик по кнопке карточки: сохранить-удалить/ запрос к апи за фильмами/...за сохраненными
@@ -25,9 +25,9 @@ function MoviesBase(props) {
     const [messageText, setMessageText] = React.useState(START_SEARCH);
     // количество карточек по умолчанию → передадим в стейт ↓ ↓ ↓
     const defaultVisibleCard = {
-        desktop: 12,
-        tablet: 8,
-        mobile: 5,
+        desktop: DESKTOP_DEFAULT_CARD,
+        tablet: TABLET_DEFAULT_CARD,
+        mobile: MOBILE_DEFAULT_CARD,
     };
     // стейт отображаемых карточек с фильмами  
     const [visibleCard, setVisibleCard] = React.useState(() => {
@@ -99,9 +99,9 @@ function MoviesBase(props) {
     function handleClickElse() {
         setVisibleCard((prevState) => ({
             ...prevState, // копирование предыдущего состояния
-            desktop: prevState.desktop + 3,
-            tablet: prevState.tablet + 2,
-            mobile: prevState.mobile + 2,
+            desktop: prevState.desktop + DESKTOP_ELSE_CARD,
+            tablet: prevState.tablet + TABLET_ELSE_CARD,
+            mobile: prevState.mobile + MOBILE_ELSE_CARD,
         }));
         compareLengthArr();
     };

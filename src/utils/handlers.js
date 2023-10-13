@@ -60,7 +60,7 @@ const convertsTime = (num) => {
 // функция получения сохраненного фильма
 function getSavedMovie(arr, id) {
     return arr.find((movie) => {
-        console.log(movie.movieId === id)
+        // console.log(movie.movieId === id)
         return movie.movieId === id;
     });
 };

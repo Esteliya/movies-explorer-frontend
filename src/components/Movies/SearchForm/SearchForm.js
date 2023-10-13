@@ -1,12 +1,20 @@
 import React from "react";
+import { useLocation } from 'react-router-dom';
 import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm(props) {
     const { onSubmitQuery, handleSearch, isChecked, onClickFilter, isValid, showError, isTextError, setCurrentQuery } = props;
 
+    const location = useLocation();//будем следить за роутами
+    const routeMovies = location.pathname === '/movies';
+    const routeSavedMovies = location.pathname === '/saved-movies';
+
+    // запросы пользователя на различных роутах
     const lastQuery = localStorage.getItem("query");
-    const [query, setQuery] = React.useState('');// запрос
+    const lastQuerySavedMovies = localStorage.getItem("querySavedMovies");
+    // запрос пользователя
+    const [query, setQuery] = React.useState((routeMovies && lastQuery) || (routeSavedMovies && lastQuerySavedMovies) || "");
     const [beChecked, setBeChecked] = React.useState(isChecked === "on" ? true : false);
     // дизейбл кнопки = валидный запрос
     const [beDisabled, setBeDisabled] = React.useState(isValid);
@@ -43,7 +51,6 @@ function SearchForm(props) {
         setCurrentQuery(value);
         // console.log(value);
         setQuery(value);
-
     };
 
     //обработчик формы
@@ -68,6 +75,7 @@ function SearchForm(props) {
                     placeholder="Фильм"
                     type='text'
                     required
+                    value={query}
                     onChange={handleInputMovies}></input>
 
                 <button

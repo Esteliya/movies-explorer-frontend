@@ -3,7 +3,7 @@ import './MoviesSaved.css';
 import Movies from "../Movies/Movies";
 import { filteredMovies } from '../../utils/handlers';
 import { useValidationSearchForm } from '../../utils/validation';
-import { NOT_MOVIES } from "../../utils/constants"; 
+import { NOT_MOVIES } from "../../utils/constants";
 
 function MoviesSaved(props) {
     const { handleDataForm, deleteMovies, window, arrMovies } = props;
@@ -12,7 +12,7 @@ function MoviesSaved(props) {
     // запрос (строка)
     const [query, setQuery] = React.useState(localStorage.getItem("querySavedMovies") || '');
     // стейт карточек для рендера после поиска???? 
-    const [isRenderCard, setIsRenderCard] = React.useState(arrMovies)//массив с апи
+    const [isRenderCard, setIsRenderCard] = React.useState(arrMovies);//массив с апи
     // стейт чекбокса - изначально неактивен
     const [isChecked, setIsChecked] = React.useState('off');
     // стейт состояния страницы: пустая или нет? 
@@ -21,7 +21,6 @@ function MoviesSaved(props) {
     const [messageText, setMessageText] = React.useState('');
     // валидация
     const { isValid, setIsValid, showError, setShowError, isTextError, setIsTextError, currentQuery, setCurrentQuery, handleQuery } = useValidationSearchForm();
-
 
     React.useEffect(() => {
         const arr = filteredMovies(query, arrMovies, isChecked);
@@ -73,8 +72,9 @@ function MoviesSaved(props) {
 
     // удаляем фильм
     const handlenClickCardButton = async (card) => {
-        await deleteMovies(card);
-        //openResultPopup();// попап успешного удаления фильма - ????
+        // console.log("ID >>>>> ", card._id);
+        await deleteMovies(card._id);
+
     };
 
     return (

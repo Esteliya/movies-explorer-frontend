@@ -248,6 +248,7 @@ function App() {
       });
   };
 
+
   // запрос сохраненных фильмов
   function getSavedMovies() {
     setIsLoaging(true);
@@ -269,12 +270,12 @@ function App() {
   };
 
   // удаление фильма 
-  function deleteMovies(card) {
-    // поймаем id сохраненного на нашем api фильма
-    const saveMovie = savedAllMovies.find((item) => item.movieId === card.id);
-    return mainApi.deleteCard(card._id || saveMovie._id)
+  function deleteMovies(id) {
+    // debugger
+    // console.log(id)
+    return mainApi.deleteCard(id)
       .then(() => {
-        const updateArr = savedAllMovies.filter((item) => item._id === card._id ? false : true);
+        const updateArr = savedAllMovies.filter((item) => item._id === id ? false : true);
         setSavedAllMovies(updateArr);
       })
       .catch((err) => {

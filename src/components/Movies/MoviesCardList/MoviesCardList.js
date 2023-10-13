@@ -5,7 +5,7 @@ import MovieCard from '../MovieCard/MovieCard';
 import { getSavedMovie } from "../../../utils/handlers";
 
 function MoviesCardList(props) {
-    const { cards, visibleCard, window, onClickCardButton, savedAllMovies } = props;
+    const { cards, visibleCard, window, savedAllMovies, onClickCardButton, deleteMovie, saveMovie } = props;
 
     const location = useLocation();//проверим, на каком роуте выдаем карточки
     // все фильмы 
@@ -30,6 +30,14 @@ function MoviesCardList(props) {
                 movies && arrCard.map((card) => {
                     const likedMovie = getSavedMovie(savedAllMovies, card.id);
                     const likedMovieId = likedMovie ? likedMovie._id : "";
+                    const onClickCardButton = () => {
+                        if(likedMovie) {
+                            console.log(likedMovie._id)
+                            deleteMovie(likedMovie._id);
+                        } else {
+                            saveMovie({ ...card, _id: likedMovieId });
+                        }
+                    };
                     return (
                         <MovieCard
                             key={card.id || card._id}

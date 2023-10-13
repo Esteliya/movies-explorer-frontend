@@ -2,7 +2,7 @@ import React from 'react';
 import './MoviesBase.css';
 import Movies from "../Movies/Movies";
 import ButtonElse from "./ButtonElse/ButtonElse";
-import { filteredMovies } from '../../utils/handlers';
+import { filteredMovies, getSavedMovie } from '../../utils/handlers';
 import { useValidationSearchForm } from '../../utils/validation';
 import { START_SEARCH, NOT_MOVIES } from "../../utils/constants";
 
@@ -161,17 +161,6 @@ function MoviesBase(props) {
         };
     };
 
-    // обработчик клика по кнопке лайка
-    const handlenClickCLike = (card) => {
-        // console.log("card -------- ", card)
-        if (card.isLiked) {
-            // console.log("ЛАЙК УДАЛЯЕМ")
-            onDelete(card);
-        } else {
-            // console.log("ЛАЙК СТАВИМ")
-            onSave(card);
-        };
-    };
 
     return (
         <Movies
@@ -179,7 +168,8 @@ function MoviesBase(props) {
             savedAllMovies={savedAllMovies}
             visibleCard={visibleCard}
             window={window}
-            onClickCardButton={handlenClickCLike}
+            deleteMovie={onDelete}
+            saveMovie={onSave}
             blankPage={blankPage}
             submitQuery={query}
             onSubmitQuery={updateQuery}

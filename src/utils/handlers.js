@@ -29,22 +29,22 @@ function filteredMovies(req, movies, checkbox) {
 // функция трансформации массива фильмов
 function transformArrMovies(arr) {
     return arr.map((movie) => {
-      const { country, director, duration, year, description, trailerLink, nameRU, nameEN } = movie;
-      return {
-        country,
-        director,
-        duration,
-        year,
-        description,
-        image: `${BASE_MOVIES_URL}${movie.image.url}`,
-        trailerLink,
-        thumbnail: `${BASE_MOVIES_URL}${movie.image.formats.thumbnail.url}`,
-        id: movie.id,
-        nameRU,
-        nameEN,
-      };
+        const { country, director, duration, year, description, trailerLink, nameRU, nameEN } = movie;
+        return {
+            country,
+            director,
+            duration,
+            year,
+            description,
+            image: `${BASE_MOVIES_URL}${movie.image.url}`,
+            trailerLink,
+            thumbnail: `${BASE_MOVIES_URL}${movie.image.formats.thumbnail.url}`,
+            id: movie.id,
+            nameRU,
+            nameEN,
+        };
     });
-  };
+};
 
 // функция конвертирования времени
 const convertsTime = (num) => {
@@ -59,6 +59,7 @@ const convertsTime = (num) => {
 // функция получения сохраненного фильма
 function getSavedMovie(arr, id) {
     return arr.find((movie) => {
+        console.log(movie.movieId === id)
         return movie.movieId === id;
     });
 };

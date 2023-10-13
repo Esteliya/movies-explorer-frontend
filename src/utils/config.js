@@ -11,11 +11,11 @@ const MOVIES_URL = {
   const BASE_MOVIES_URL = 'https://api.nomoreparties.co';
 
   // МОЙ АПИ 
-  // const BASE_API_URL = 'http://localhost:3001';
-  const BASE_API_URL = 'https://api.mymovies.nomoreparties.co';
+  const BASE_API_URL = 'http://localhost:3001';
+  // const BASE_API_URL = 'https://api.mymovies.nomoreparties.co';
   const API_URL = {
-    url: 'https://api.mymovies.nomoreparties.co',
-    // url: 'http://localhost:3001',
+    // url: 'https://api.mymovies.nomoreparties.co',
+    url: 'http://localhost:3001',
     headers: {
       'Content-Type': 'application/json'
     },

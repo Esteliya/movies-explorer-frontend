@@ -375,7 +375,7 @@ function App() {
               window={withWindow}
               loggedIn={loggedIn} />
             <Routes>
-              <Route path="/movies" element={!loggedIn ? <Navigate to='/signin' /> :
+              <Route path="/movies" element={!loggedIn ? <Navigate to='/' /> :
                 <ProtectedRoute
                   element={MoviesBase}
                   loggedIn={loggedIn}
@@ -386,7 +386,7 @@ function App() {
                   onSave={saveMovies}
                   onDelete={deleteMovies} />} replace />
 
-              <Route path="/saved-movies" element={!loggedIn ? <Navigate to='/signin' /> :
+              <Route path="/saved-movies" element={!loggedIn ? <Navigate to='/' /> :
                 <ProtectedRoute
                   element={MoviesSaved}
                   loggedIn={loggedIn}
@@ -395,7 +395,7 @@ function App() {
                   deleteMovies={deleteMovies}
                   window={withWindow}
                 />} />
-              <Route path="/profile" element={!loggedIn ? <Navigate to='/signin' /> :
+              <Route path="/profile" element={!loggedIn ? <Navigate to='/' /> :
                 <ProtectedRoute
                   element={Profile}
                   loggedIn={loggedIn}

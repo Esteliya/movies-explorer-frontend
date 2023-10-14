@@ -56,7 +56,7 @@ function MoviesSaved(props) {
         // console.log(newQuery)
         handleQuery(newQuery, query);
         setQuery(newQuery);
-        localStorage.setItem("querySavedMovies", newQuery);// сохраним в ЛС запрос 
+        // localStorage.setItem("querySavedMovies", newQuery);// сохраним в ЛС запрос 
     };
 
     // обработчик чекбокса 

@@ -14,7 +14,7 @@ function SearchForm(props) {
     const lastQuery = localStorage.getItem("query");
     const lastQuerySavedMovies = localStorage.getItem("querySavedMovies");
     // запрос пользователя
-    const [query, setQuery] = React.useState((routeMovies && lastQuery) || (routeSavedMovies && lastQuerySavedMovies) || "");
+    const [query, setQuery] = React.useState(routeMovies ? (lastQuery || "") : "");
     const [beChecked, setBeChecked] = React.useState(isChecked === "on" ? true : false);
     // дизейбл кнопки = валидный запрос
     const [beDisabled, setBeDisabled] = React.useState(isValid);
@@ -23,7 +23,7 @@ function SearchForm(props) {
 
     React.useEffect(() => {
         setQuery(query);
-    }, [query]);
+    }, [query, location]);
 
     React.useEffect(() => {
         handleDisableButton()

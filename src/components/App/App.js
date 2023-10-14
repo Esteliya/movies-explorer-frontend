@@ -316,7 +316,9 @@ function App() {
     /* localStorage.removeItem("allMovies");
     localStorage.removeItem("searchMovies");
     localStorage.removeItem("queryMovies");
-    localStorage.removeItem("savedLineCard"); */
+    localStorage.removeItem("savedLineCard");
+    localStorage.removeItem("checkedShortSavedMovies");
+    */
   };
 
   // БУРГЕР-МЕНЮ

@@ -4,15 +4,13 @@ import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm(props) {
-    const { onSubmitQuery, handleSearch, isChecked, onClickFilter, isValid, showError, isTextError, setCurrentQuery } = props;
+    const { onSubmitQuery, handleSearch, isChecked, onClickFilter, onChangeFilter, isValid, showError, isTextError, setCurrentQuery } = props;
 
     const location = useLocation();//будем следить за роутами
     const routeMovies = location.pathname === '/movies';
-    const routeSavedMovies = location.pathname === '/saved-movies';
 
     // запросы пользователя на различных роутах
     const lastQuery = localStorage.getItem("query");
-    const lastQuerySavedMovies = localStorage.getItem("querySavedMovies");
     // запрос пользователя
     const [query, setQuery] = React.useState(routeMovies ? (lastQuery || "") : "");
     const [beChecked, setBeChecked] = React.useState(isChecked === "on" ? true : false);
@@ -61,6 +59,11 @@ function SearchForm(props) {
         handleSearch(query);
     };
 
+/*     function handleOnChangeFilter (e) {
+        console.log("МЫ ТУТ!!!")
+        // console.log(e.target.value)
+    } */
+
     return (
         <section className="search-form">
             {showError && <span className="search-form__mistake">{isTextError}</span>}
@@ -85,7 +88,10 @@ function SearchForm(props) {
                 ></button>
 
                 <div className="search-form__checkbox">
-                    <FilterCheckbox beChecked={beChecked} onClickFilter={onClickFilter} />
+                    <FilterCheckbox 
+                    beChecked={beChecked} 
+                    onClickFilter={onClickFilter} 
+                    onChangeFilter={onChangeFilter}/>
                     <p className="search-form__checkbox-title">Короткометражки</p>
                 </div>
             </form>

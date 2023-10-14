@@ -80,14 +80,15 @@ function MoviesBase(props) {
                 setMessageText(NOT_MOVIES);
             } else {
                 setBlankPage(false);// страница не пустая
-                // console.log("ФИЛЬМЫ НАЙДЕНЫ");
             };
         };
     };
 
     // запрос поиска → обновляем
     function updateQuery(newQuery) {
-        handleQuery(newQuery, query)
+        console.log(isChecked)
+        console.log(localStorage.getItem('checkedShort'))
+        handleQuery(newQuery, query, localStorage.getItem('checkedShort'), isChecked)
         setQuery(newQuery);// стейт запроса → новая строка
         localStorage.setItem("query", newQuery);// сохраним в ЛС запрос 
         localStorage.setItem('checkedShort', isChecked);// состояние чекбокса
@@ -128,6 +129,10 @@ function MoviesBase(props) {
             // console.log("OFF");
             localStorage.setItem("checkedShort", 'off');// сохраним в ЛС чек off +
         };
+    };
+    // фильтруем по текущему состоянию строки
+    function handleOnChangeFilter() {
+        updateQuery(currentQuery);
     };
 
     // отобразим/ скроем кнопку ЕЩЕ
@@ -176,6 +181,7 @@ function MoviesBase(props) {
             handleSearch={handleSearch}
             isChecked={isChecked}
             onClickFilter={handleChecked}
+            onChangeFilter={handleOnChangeFilter}
             isValid={isValid}
             showError={showError}
             isTextError={isTextError}

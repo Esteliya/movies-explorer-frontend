@@ -8,7 +8,7 @@ function Movies(props) {
     // * / пустая страница? / сообщение/ карточки / формат экрана/ обработчик кнопки карточки
     const { children, blankPage, messageText, cards, visibleCard, window, onClickCardButton, savedAllMovies,
         // от формы поиска: запрос поиска/ строка поиска/ поиск по запросу/ чекбокс/ обработчик чекбокса / валиность запроса
-        submitQuery, onSubmitQuery, handleSearch, isChecked, onClickFilter, isValid, showError, isTextError, setCurrentQuery, deleteMovie, saveMovie } = props;
+        submitQuery, onSubmitQuery, handleSearch, isChecked, onClickFilter, onChangeFilter, isValid, showError, isTextError, setCurrentQuery, deleteMovie, saveMovie } = props;
 
     return (
         <main className='movies'>
@@ -18,6 +18,7 @@ function Movies(props) {
                 handleSearch={handleSearch}
                 isChecked={isChecked}
                 onClickFilter={onClickFilter} 
+                onChangeFilter={onChangeFilter}
                 isValid={isValid}
                 showError={showError}
                 isTextError={isTextError}

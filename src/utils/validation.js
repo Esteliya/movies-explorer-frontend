@@ -22,14 +22,14 @@ function useValidationSearchForm() {
     // текущая строка поиска
     const [currentQuery, setCurrentQuery] = React.useState("");
 
-    function handleQuery(query, stateQuery) {
+    function handleQuery(query, startQuery, isChecked, newIsChecked) {
         if (query === "") {
             setIsValid(false);
             setIsTextError(SEND_TEXT);
             return;
         };
         // посвторный запрос 
-        if (query === stateQuery) {
+        if (query === startQuery && isChecked === newIsChecked) {
             setIsValid(false);
             setIsTextError(END_RESULT);
             return;

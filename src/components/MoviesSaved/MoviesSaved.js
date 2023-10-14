@@ -54,9 +54,8 @@ function MoviesSaved(props) {
     // запрос поиска → обновляем 
     function updateQuery(newQuery) {
         // console.log(newQuery)
-        handleQuery(newQuery, query);
+        handleQuery(newQuery, query, localStorage.getItem('checkedShortSavedMovies'), isChecked);
         setQuery(newQuery);
-        // localStorage.setItem("querySavedMovies", newQuery);// сохраним в ЛС запрос 
     };
 
     // обработчик чекбокса 
@@ -64,11 +63,17 @@ function MoviesSaved(props) {
         if (isChecked === "off") {
             setIsChecked('on');// включили 
             // console.log("ON")
-
+            localStorage.setItem("checkedShortSavedMovies", 'on');// сохраним в ЛС чек on +
         } else {
             setIsChecked('off');// выключили 
             // console.log("OFF")
+            localStorage.setItem("checkedShortSavedMovies", 'off');// сохраним в ЛС чек on +
         };
+    };
+
+    // фильтруем по текущему состоянию строки
+    function handleOnChangeFilter () {
+        updateQuery(currentQuery);
     };
 
     // удаляем фильм
@@ -87,6 +92,7 @@ function MoviesSaved(props) {
             handleSearch={handleSearchSavedMovies}
             isChecked={isChecked}
             onClickFilter={handleChecked}
+            onChangeFilter={handleOnChangeFilter}
             messageText={messageText}
             handleDataForm={handleDataForm}
             onClickCardButton={handlenClickCardButton}

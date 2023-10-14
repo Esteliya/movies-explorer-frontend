@@ -3,11 +3,16 @@ import "./FilterCheckbox.css";
 
 function FilterCheckbox(props) {
 
-    const { beChecked, onClickFilter } = props;
+    const { beChecked, onClickFilter, onChangeFilter } = props;
 
     return (
         <div className="switch">
-            <input type="checkbox" className="checkbox hover-effect" defaultChecked={beChecked} onClick={onClickFilter} />
+            <input 
+            type="checkbox" 
+            className="checkbox hover-effect" 
+            defaultChecked={beChecked} 
+            onClick={onClickFilter} 
+            onChange={onChangeFilter}/>
         </div >
     )
 };

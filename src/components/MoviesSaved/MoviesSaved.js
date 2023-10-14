@@ -51,9 +51,13 @@ function MoviesSaved(props) {
         handleSearchSavedMovies(query);
     }, [isChecked, query, isValid, showError]);
 
+    // установим состояние чекбокса из стейта + следим за состоянием чекбокса
+    React.useEffect(() => {
+        localStorage.setItem('checkedShortSavedMovies', isChecked);
+    }, [isChecked]);
+
     // запрос поиска → обновляем 
     function updateQuery(newQuery) {
-        // console.log(newQuery)
         handleQuery(newQuery, query, localStorage.getItem('checkedShortSavedMovies'), isChecked);
         setQuery(newQuery);
     };
@@ -72,7 +76,7 @@ function MoviesSaved(props) {
     };
 
     // фильтруем по текущему состоянию строки
-    function handleOnChangeFilter () {
+    function handleOnChangeFilter() {
         updateQuery(currentQuery);
     };
 

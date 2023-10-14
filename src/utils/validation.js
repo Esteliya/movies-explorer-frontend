@@ -23,6 +23,7 @@ function useValidationSearchForm() {
     const [currentQuery, setCurrentQuery] = React.useState("");
 
     function handleQuery(query, startQuery, isChecked, newIsChecked) {
+        console.log(query === startQuery && isChecked === newIsChecked)
         if (query === "") {
             setIsValid(false);
             setIsTextError(SEND_TEXT);
@@ -34,6 +35,7 @@ function useValidationSearchForm() {
             setIsTextError(END_RESULT);
             return;
         };
+        setIsValid(true);
     };
 
     return { isValid, setIsValid, showError, setShowError, isTextError, setIsTextError, currentQuery, setCurrentQuery, handleQuery };

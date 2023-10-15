@@ -1,6 +1,5 @@
 import "./NavTab.css";
 
-
 function Navigation() {
     return (
         <nav className="navigation">
@@ -11,5 +10,6 @@ function Navigation() {
             </ul>
         </nav>
     )
-}
+};
+
 export default Navigation;

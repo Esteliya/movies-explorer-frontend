@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./NotFound.css"
+import "./NotFound.css";
 
 function NotFound() {
     return (
@@ -14,7 +14,7 @@ function NotFound() {
                 </div>
             </section>
         </main>
-
     )
-}
+};
+
 export default NotFound;

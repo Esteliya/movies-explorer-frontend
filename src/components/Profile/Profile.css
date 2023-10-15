@@ -26,9 +26,7 @@
     flex-direction: column;
 }
 
-.profile__format-element:first-child {
-    /* margin-top: 162px; */
-}
+.profile__format-element:first-child {}
 
 .profile__title {
     color: #fff;
@@ -52,7 +50,7 @@
     display: none;
 }
 
-*/ .profile__form {
+.profile__form {
     display: flex;
     flex-direction: column;
     margin: 20px 0 0;
@@ -109,6 +107,7 @@
     .profile__title {
         margin: 0 0 96px;
     }
+
     .profile__format-element:first-child {
         margin-top: 162px;
     }

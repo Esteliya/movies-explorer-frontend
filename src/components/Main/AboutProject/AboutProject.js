@@ -32,5 +32,6 @@ function AboutProject() {
             </div>
         </section>
     )
-}
+};
+
 export default AboutProject;

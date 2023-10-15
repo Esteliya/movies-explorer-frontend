@@ -1,4 +1,4 @@
-import './Preloader.css'
+import './Preloader.css';
 
 function Preloader() {
     return (
@@ -8,6 +8,6 @@ function Preloader() {
             </div>
         </div>
     )
-}
+};
 
 export default Preloader;

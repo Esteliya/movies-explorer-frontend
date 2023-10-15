@@ -1,7 +1,7 @@
 import "./Student.css";
 import "../../../mixStile/titleSection.css";
 import "../../../mixStile/paddingSection.css";
-import studentPhoto from "../../../images/student__photo.jpg";//фото
+import studentPhoto from "../../../images/student__photo.jpg";
 
 function Student() {
     return (
@@ -17,7 +17,7 @@ function Student() {
                 <img src={studentPhoto} alt="Фотография студента" className="student__photo" />
             </div>
         </section>
-
     )
-}
+};
+
 export default Student;

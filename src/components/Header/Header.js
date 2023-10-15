@@ -1,33 +1,26 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import "./Header.css";
 import Navigate from "./Navigate/Navigate";
 
+
 function Header(props) {
-    const { openButton, onClickAccount, mobile, homepage = false } = props;
-
-/*     // проверим размер экрана - если мобилное устройство, то в header меняем кнопку
-    const [withWindow, setwithWindow] = React.useState(window.innerWidth);
-    React.useEffect(() => {
-        const handleResize = () => {
-            setwithWindow(window.innerWidth);
-        };
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []); */
-
-
+    const { openButton, onClickAccount, window, loggedIn } = props;
+    const location = useLocation();//будем следить за роутами
+    // домашняя страница (меняем фон шапки)
+    const homepage = location.pathname === '/';
     const styleHeader = homepage ? "header header_home" : "header";
-
+    // страницы с контентом
+    const routeContent = location.pathname === '/movies' || location.pathname === '/saved-movies' || location.pathname === '/profile' || location.pathname === '/';
 
     return (
         <>
-            <header className={styleHeader}>
-                <Navigate mobile={mobile} homepage={homepage} openButton={openButton} onClickAccount={onClickAccount} />
-            </header>
+            {routeContent && <header className={styleHeader}>
+                <Navigate window={window} homepage={homepage} openButton={openButton} onClickAccount={onClickAccount} loggedIn={loggedIn} />
+            </header>}
         </>
 
     )
-}
+};
+
 export default Header;

@@ -5,7 +5,7 @@ import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-
 // обработчики 
 import { transformArrMovies } from "../../utils/handlers"
 // константы (текст)
-import { REG_SUCCESFUL, UPPDATA_SUCCESFUL, NOT_VALID } from "../../utils/constants";
+import { REG_SUCCESFUL, UPPDATA_SUCCESFUL, NOT_VALID, TIME_DELAY } from "../../utils/constants";
 // API
 import { apiWithMovies } from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
@@ -60,6 +60,8 @@ function App() {
   const [isBurgerMenuPopup, setIsBurgerMenuPopup] = React.useState(false);
   // контролируем размер экрана - меняем данные на страницах согласно размера 
   const [withWindow, setwithWindow] = React.useState(window.innerWidth);
+  // состояние процесса авторизации/регистрации → по стостоянию меняем текст кнопки + дизейбл
+  const [isProcess, setIsProcess] = React.useState(false);
 
   // МАССИВЫ ФИЛЬМОВ
   // сохраненные фильмы польоватея с бэка
@@ -88,7 +90,7 @@ function App() {
     // но не сразу → задержим на ?? ms
     const delayedHandleResize = () => {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(handleResize, 100);
+      resizeTimeout = setTimeout(handleResize, TIME_DELAY);
     };
     window.addEventListener('resize', delayedHandleResize);
     return () => {
@@ -96,12 +98,11 @@ function App() {
     };
   }, []);
 
-
   // АУТЕНТИФИКАЦИЯ 
   // регистрируемся
   function handleRegister(data) {
-    setIsLoaging(true);
     const { name, email, password } = data;
+    setIsProcess(true);
     // данные для авторизации → передадим при успешной регистрации
     const dataUser = {email, password};
     auth.register(name, email, password)
@@ -125,15 +126,16 @@ function App() {
         console.error(`Ошибка: ${err}`);
       })
       .finally(() => {
-        setIsLoaging(false);
+        setIsProcess(false);
       });
   };
 
   // авторизируемся
   function hendleLogin(data) {
-    setIsLoaging(true);
+    // setIsLoaging(true);
     // debugger
     const { email, password } = data;
+    setIsProcess(true)
     auth.authorize(email, password)
       .then((dataUser) => {
         setLoggedIn(true);
@@ -150,7 +152,8 @@ function App() {
         setResult(false);
       })
       .finally(() => {
-        setIsLoaging(false);
+        setIsProcess(false)
+        // setIsLoaging(false);
       });
   };
 
@@ -410,11 +413,11 @@ function App() {
 
               <Route path="/signup" element={
                 !loggedIn ?
-                  <Register handleDataForm={handleRegister} /> :
+                  <Register handleDataForm={handleRegister} process={isProcess}/> :
                   <Navigate to='/movies' />} />
               <Route path="/signin" element={
                 !loggedIn ?
-                  <Login handleDataForm={hendleLogin} /> :
+                  <Login handleDataForm={hendleLogin} process={isProcess}/> :
                   <Navigate to='/movies' />} />
 
               <Route path='*' element={<NotFound />} replace />

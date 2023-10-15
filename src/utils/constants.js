@@ -24,6 +24,8 @@ const TABLET_ELSE_CARD = 2;
 const MOBILE_ELSE_CARD = 2;
 // длина короткометражки 
 const LENGTH_SHORT_MOVIE = 40;
+// задержка для отслеживания ширины экрана
+const TIME_DELAY = 100;
 
 // ЭКСПОРТ
 export {
@@ -44,4 +46,5 @@ export {
     TABLET_ELSE_CARD,
     MOBILE_ELSE_CARD,
     LENGTH_SHORT_MOVIE,
+    TIME_DELAY,
 };

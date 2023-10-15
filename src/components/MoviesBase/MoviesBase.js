@@ -4,15 +4,18 @@ import Movies from "../Movies/Movies";
 import ButtonElse from "./ButtonElse/ButtonElse";
 import { filteredMovies, getSavedMovie } from '../../utils/handlers';
 import { useValidationSearchForm } from '../../utils/validation';
+import { useLocation } from 'react-router-dom';
 import { START_SEARCH, NOT_MOVIES, DESKTOP_DEFAULT_CARD, TABLET_DEFAULT_CARD, MOBILE_DEFAULT_CARD, DESKTOP_ELSE_CARD, TABLET_ELSE_CARD, MOBILE_ELSE_CARD, } from "../../utils/constants";
 
 function MoviesBase(props) {
     // формат экрана/ клик по кнопке карточки: сохранить-удалить/ запрос к апи за фильмами/...за сохраненными
     const { window, onSave, onDelete, getMovies, savedAllMovies } = props;
-
-    // СТЕЙТЫ
+    const location = useLocation();//будем следить за роутами
+    // ПЕРЕМЕННЫЕ запрооса к ЛС
     // массив поиска → из get-запроса
     const isLocalStorageMovies = JSON.parse(localStorage.getItem("allMovies"));
+    const isLocalStorageSavedLineCard = localStorage.getItem('savedLineCard');
+    // СТЕЙТЫ
     // стейт карточек для рендера → меняется в зависимости от запроса и чекбокса
     const [isRenderCard, setIsRenderCard] = React.useState([]);
     // запрос (строка)
@@ -31,8 +34,7 @@ function MoviesBase(props) {
     };
     // стейт отображаемых карточек с фильмами  
     const [visibleCard, setVisibleCard] = React.useState(() => {
-        const savedVisibleCard = localStorage.getItem('savedLineCard');
-        return savedVisibleCard ? JSON.parse(savedVisibleCard) : defaultVisibleCard;
+        return isLocalStorageSavedLineCard ? JSON.parse(isLocalStorageSavedLineCard) : defaultVisibleCard;
     });
     // стейт активности кнопки ЕЩЕ 
     const [activeButtonElse, setActiveButtonElse] = React.useState(true);
@@ -43,7 +45,7 @@ function MoviesBase(props) {
     React.useEffect(() => {
         setShowError(!isValid)
         handleSearch(query);
-    }, [isChecked, query, isValid, showError]);
+    }, [isChecked, query, isValid, showError, location]);
 
     React.useEffect(() => {
         if (currentQuery !== query) {
@@ -91,8 +93,6 @@ function MoviesBase(props) {
 
     // запрос поиска → обновляем
     function updateQuery(newQuery) {
-        // console.log("СТЕТ ЧЕКБОКСА ----- ", isChecked)
-        // console.log(localStorage.getItem('checkedShort'))
         handleQuery(newQuery, query, localStorage.getItem('checkedShort'), isChecked);
         setQuery(newQuery);// стейт запроса → новая строка
         localStorage.setItem("query", newQuery);// сохраним в ЛС запрос 
@@ -137,7 +137,7 @@ function MoviesBase(props) {
     };
     // фильтруем по текущему состоянию строки
     function handleOnChangeFilter() {
-        updateQuery(currentQuery || query);// если нет текущей строки, то прежнее стостояние
+        updateQuery(currentQuery);// если нет текущей строки, то прежнее стостояние
     };
 
     // отобразим/ скроем кнопку ЕЩЕ

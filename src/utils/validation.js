@@ -1,5 +1,6 @@
 import React from 'react';
 import CurrentUserContext from "../context/CurrentUserContext";
+import { useLocation } from 'react-router-dom';
 // константы текста ошибок
 import { SEND_TEXT, END_RESULT, ENTER_NAME, ENTER_EMAIL, ENTER_PASSWORD } from "../utils/constants";
 
@@ -14,6 +15,8 @@ const pattern = {
 // РОУТЫ С ФИЛЬМАМИ 
 // фалидация строки поиска + выдача сообщения 
 function useValidationSearchForm() {
+    const location = useLocation();//будем следить за роутами
+    const routeMovies = location.pathname === '/movies';
     const [isValid, setIsValid] = React.useState(true);
     // показать ошибку если данные невалидны
     const [showError, setShowError] = React.useState(false);
@@ -23,8 +26,8 @@ function useValidationSearchForm() {
     const [currentQuery, setCurrentQuery] = React.useState("");
 
     function handleQuery(query, startQuery, isChecked, newIsChecked) {
-        console.log(query === startQuery && isChecked === newIsChecked)
-        if (query === "") {
+        // ошибка только для роута всех фильмов
+        if (routeMovies && query === "") {
             setIsValid(false);
             setIsTextError(SEND_TEXT);
             return;

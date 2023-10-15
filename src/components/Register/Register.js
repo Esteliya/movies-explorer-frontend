@@ -6,7 +6,7 @@ import ItemForm from "../ItemForm/ItemForm";
 import { useValidationUserForm } from "../../utils/validation";
 
 function Register(props) {
-    const { handleDataForm } = props;
+    const { handleDataForm, process } = props;
 
     const { name, setName, nameErr, setNameErr, email, setEmail, emailErr, setEmailErr, password, setPassword, passwordErr, setPasswordErr, isValid, setIsValid, handleChangeName, handleChangeEmail, handleChangePassword } = useValidationUserForm();
 
@@ -16,13 +16,11 @@ function Register(props) {
         setPasswordErr(passwordErr);
 
         if (name === "" || email === "" || password === "") {
-            //console.log("ошибка валидации")
             setIsValid(false);
         } else {
             setIsValid(true);// кнопка активна
         };
-    }, [isValid, name, email, password, nameErr, emailErr, passwordErr]);
-
+    }, [name, email, password]);
 
     // обработчик формы
     function hendleSubmitForm(e) {
@@ -39,11 +37,12 @@ function Register(props) {
         <main className="margin-form-center">
             <Auth
                 title='Добро пожаловать!'
-                btnText='Зарегистрироваться'
+                nameForm='Зарегистрироваться'
+                btnText={process ? 'Регистрация...' : 'Зарегистрироваться'}
                 titleLink='Уже зарегистрированы? '
                 textLink='Войти'
                 link='/signin'
-                isValid={isValid}
+                isValid={process ? false : isValid}
                 onSubmit={hendleSubmitForm}>
                 <ItemForm
                     label="Имя"

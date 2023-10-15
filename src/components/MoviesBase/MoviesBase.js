@@ -127,17 +127,18 @@ function MoviesBase(props) {
     function handleChecked(e) {
         if (isChecked === "off") {
             setIsChecked('on');// включили 
-            console.log("ON");
+            // console.log("ON");
             localStorage.setItem("checkedShort", 'on');// сохраним в ЛС чек on +
         } else {
             setIsChecked('off');// выключили 
-            console.log("OFF");
+            // console.log("OFF");
             localStorage.setItem("checkedShort", 'off');// сохраним в ЛС чек off +
         };
     };
     // фильтруем по текущему состоянию строки
     function handleOnChangeFilter() {
-        updateQuery(currentQuery);// если нет текущей строки, то прежнее стостояние
+        updateQuery(currentQuery || localStorage.getItem("query"));// если нет текущей строки, то прежнее стостояние
+        setQuery(currentQuery || localStorage.getItem("query"))
     };
 
     // отобразим/ скроем кнопку ЕЩЕ

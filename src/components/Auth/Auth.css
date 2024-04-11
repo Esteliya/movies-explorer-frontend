@@ -5,7 +5,6 @@
     min-height: 100vh;
     padding: 0;
     margin: 0 auto;
-    /* padding: 52px 0 70px; */
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     color: #fff;
@@ -55,6 +54,10 @@
     font-size: 14px;
     font-weight: 500;
     line-height: normal;
+}
+
+.auth__button_disable {
+    opacity: 0.5;
 }
 
 .auth__route {

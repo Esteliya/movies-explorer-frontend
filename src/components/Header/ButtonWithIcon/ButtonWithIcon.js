@@ -9,9 +9,10 @@ function ButtonWithIcon(props) {
 
 
     return (
-            <button type="button" className={styleButton} name={text} onClick={onClick}>{text}
-            <img src={`${icon}`} alt={text} className={styleIcon}/>
-            </button>
+        <button type="button" className={styleButton} name={text} onClick={onClick}>{text}
+            <img src={`${icon}`} alt={text} className={styleIcon} />
+        </button>
     )
-}
+};
+
 export default ButtonWithIcon;

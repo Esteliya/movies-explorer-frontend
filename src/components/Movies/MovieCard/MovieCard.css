@@ -17,7 +17,8 @@
     display: block;
     min-height: 203px;
     width: 100%;
-    background-size: contain;
+    /* background-size: contain; */
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -26,6 +27,7 @@
     display: flex;
     justify-content: space-between;
     padding: 16px;
+    background-color: #222222;
 }
 
 .movie-card__data {
@@ -34,6 +36,8 @@
 }
 
 .movie-card__title {
+    display: block;
+    overflow: hidden;
     margin: 0 0 17px;
     /* overflow: hidden; */
     white-space: nowrap;
@@ -66,8 +70,10 @@
     background-position: center;
 }
 
-.movie-card__button_like:focus {
+.movie-card__button_like-active {
     background-image: url("../../../images/bottom_like-active.svg");
+    background-size: contain;
+    background-position: center;
 }
 
 .movie-card__button_delete {
@@ -89,6 +95,10 @@
         border-radius: 6px;
     }
 
+    .movie-card__data {
+        max-width: 260px;
+        gap: 12px;
+    }
 /*     .movie-card__preview {
         min-height: 28vw;
     } */
@@ -109,8 +119,9 @@
 
 @media screen and (max-width: 712px) {
     .movie-card__preview {
-        min-height: 24.74vw;
+        min-height: 63vw;
         height: 100%;
+        
         /* background-size: cover; */
     }
 }

@@ -1,11 +1,15 @@
 import "./ButtonSave.css";
+import "../../../mixStile/buttonDisable.css";
 
 
 function ButtonSave(props) {
-    const { onClick } = props;
+    const { onClick, disabled, form } = props;
+
+    const disableClass = disabled ? "button_disable button-save" : "button-save hover-effect"
 
     return (
-        <button type="submit" className="button-save hover-effect" name="Сохранить" onClick={onClick}>Cохранить</button>
+        <button type="submit" disabled={disabled} className={disableClass} name="Сохранить" onClick={onClick} form={form}>Cохранить</button>
     )
-}
+};
+
 export default ButtonSave;

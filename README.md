@@ -1,12 +1,11 @@
 # `Яндекс.Практикум`
 **Курс "Веб-разработчик".** Дипломный проект 
 
-## Макет
+<!--## Макет
 name: `dark-3`
-
 ## Домены
 frontend: mymovies.nomoreparties.co
-backend: api.mymovies.nomoreparties.co
+backend: api.mymovies.nomoreparties.co -->
 
 ## Описание проекта
 Интерактивное приложение для поиска и сохранения в профиле пользователя понравившихся фильмов.
@@ -40,11 +39,11 @@ backend: api.mymovies.nomoreparties.co
 `npm run start` - запуск проекта  
 `npm run build` - запуск сборки проекта  
 
-## Ознакомиться с приложением 
-https://mymovies.nomoreparties.co
+<!-- ## Ознакомиться с приложением 
+https://mymovies.nomoreparties.co -->
 
 ## Ссылки
 * Макет: https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/Дипломный-проект?type=design&node-id=1-8436&mode=design
 * Pull requests: https://github.com/Esteliya/movies-explorer-frontend/pull/2
-* frontend: https://mymovies.nomoreparties.co
-* backend: https://api.mymovies.nomoreparties.co
+<!-- * frontend: https://mymovies.nomoreparties.co
+* backend: https://api.mymovies.nomoreparties.co-->
